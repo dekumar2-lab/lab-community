@@ -4,53 +4,49 @@ title: Community Directory
 ---
 
 <div class="directory-wrap">
-    <div class="hero">
-        <h1>Welcome to CondoWiki</h1>
-        <p>Select your building to see specific guides and community rules.</p>
-    </div>
+    <section class="hero-section">
+        <h1>Find Your Building Wiki</h1>
+        <p>Select your community to access visitor parking, move-in guides, and local rules.</p>
+        
+        <div class="search-bar">
+            <i class="fa fa-search"></i>
+            <input type="text" id="directorySearch" placeholder="Search by building name..." onkeyup="filterCommunities()">
+        </div>
+    </section>
 
-    <div class="search-container">
-        <input type="text" id="buildingSearch" placeholder="Search buildings..." onkeyup="filterBuildings()">
-    </div>
-
-    <div class="building-grid" id="buildingGrid">
-        {% comment %} 
-            This loop finds all unique building names from files in the 'content' folder 
-        {% endcomment %}
-        {% assign unique_condos = "" | split: "," %}
+    <div class="community-grid" id="communityGrid">
+        {% assign condos = "" | split: "," %}
         {% for p in site.pages %}
-            {% if p.path contains 'content/' and p.condo %}
-                {% unless unique_condos contains p.condo %}
-                    {% assign unique_condos = unique_condos | push: p.condo %}
-                {% endunless %}
+            {% if p.condo %}
+                {% assign condos = condos | push: p.condo | uniq %}
             {% endif %}
         {% endfor %}
 
-        {% for building in unique_condos %}
-        <div class="building-card">
-            <div class="building-icon">🏙️</div>
+        {% for building in condos %}
+        <div class="community-card">
+            <div class="card-icon">🏙️</div>
             <h3>{{ building }}</h3>
             {% assign folder = building | replace: " ", "-" %}
-            <a href="{{ site.baseurl }}/content/{{ folder }}/" class="enter-btn">Enter Wiki</a>
+            <a href="{{ site.baseurl }}/content/{{ folder }}/" class="btn-secondary">View Wiki</a>
         </div>
         {% endfor %}
 
-        <div class="building-card register-card">
-            <div class="building-icon">➕</div>
-            <h3>New Community?</h3>
-            <p>Be the first to create a wiki for your building.</p>
-            <a href="{{ site.baseurl }}/submit.html" class="register-btn">Create Wiki</a>
+        <div class="community-card create-new">
+            <div class="card-icon">➕</div>
+            <h3>New Building?</h3>
+            <p>Be the first to start a community wiki.</p>
+            <a href="{{ site.baseurl }}/submit.html" class="btn-primary">Create Building Wiki</a>
         </div>
     </div>
 </div>
 
 <script>
-function filterBuildings() {
-    let input = document.getElementById('buildingSearch').value.toLowerCase();
-    let cards = document.getElementsByClassName('building-card');
-    for (let card of cards) {
-        let title = card.querySelector('h3').innerText.toLowerCase();
-        card.style.display = title.includes(input) ? "block" : "none";
+function filterCommunities() {
+    let input = document.getElementById('directorySearch').value.toLowerCase();
+    let cards = document.getElementsByClassName('community-card');
+    for (let i = 0; i < cards.length; i++) {
+        let title = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+        cards[i].style.display = title.includes(input) ? "" : "none";
     }
 }
 </script>
