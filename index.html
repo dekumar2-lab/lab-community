@@ -1,1 +1,19 @@
 
+<div id="submission-section">
+  <h2>Add a New Community Guide</h2>
+  <form action="https://plain-smoke-2176.dekumar-ca.workers.dev" method="POST">
+    <input type="text" name="userName" placeholder="Your Name" required><br>
+    <input type="text" name="condo" placeholder="Your Building" required><br>
+    <input type="text" name="title" placeholder="Guide Topic" required><br>
+    <textarea name="content" placeholder="Write the guide here..." rows="5"></textarea><br>
+    <button type="submit">Submit for Review</button>
+  </form>
+</div>
+
+<script>
+  // Simple notification if coming back from a successful submission
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('status') === 'success') {
+    alert("Thank you! Your guide has been submitted for admin approval.");
+  }
+</script>
