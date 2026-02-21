@@ -22,7 +22,39 @@ body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color
 
 @media (max-width: 768px) { .app-container { flex-direction: column; } .sidebar { width: auto; border-right: none; } }
 
+/* Directory Styling */
+.directory-container { padding: 2rem 0; }
+.hero-section { text-align: center; margin-bottom: 3rem; }
+.hero-section h1 { font-size: 2.5rem; color: var(--dark); margin-bottom: 1rem; }
 
+.search-bar { 
+    max-width: 600px; margin: 0 auto; position: relative; 
+    background: white; border-radius: 50px; border: 1px solid var(--border); 
+    padding: 0.5rem 1.5rem; display: flex; align-items: center;
+}
+.search-bar input { border: none; width: 100%; padding: 10px; font-size: 1rem; outline: none; }
+.search-bar i { color: #94a3b8; margin-right: 10px; }
+
+.community-grid { 
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 1.5rem; margin-top: 2rem; 
+}
+
+.community-card { 
+    background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s; text-align: center;
+}
+.community-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+.community-card h3 { margin: 1rem 0 0.5rem; }
+.community-card p { color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+.card-icon { font-size: 2rem; color: var(--primary); }
+.create-new { border: 2px dashed var(--border); background: transparent; }
+
+.btn-secondary { 
+    display: inline-block; padding: 0.6rem 1.2rem; border: 1px solid var(--primary);
+    color: var(--primary); text-decoration: none; border-radius: 8px; font-weight: 600;
+}
 .community-select {
     padding: 0.5rem 1rem;
     border-radius: 8px;
