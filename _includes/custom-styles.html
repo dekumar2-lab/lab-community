@@ -278,19 +278,21 @@
     /* Sidebar Broadcast Button */
     .btn-broadcast {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        width: 100%;
-        padding: 0.75rem;
-        background: rgba(239, 68, 68, 0.1);
-        color: #ef4444;
-        border: 1px solid rgba(239, 68, 68, 0.2);
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 0.9rem;
-        transition: 0.3s;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;             /* Fills sidebar width */
+    box-sizing: border-box;  /* Ensures padding doesn't push it out */
+    padding: 0.8rem;
+    margin: 1rem 0;          /* Adds breathing room */
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444 !important;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 12px;
+    text-decoration: none !important;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: 0.2s;
     }
 
     .btn-broadcast:hover {
@@ -332,4 +334,35 @@
         background: var(--primary) !important;
         color: white !important;
     }
+
+    .collapsible-alert {
+    background: #fff5f5;
+    border: 1px solid #fee2e2;
+    border-radius: 10px;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+}
+.alert-header {
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #991b1b;
+}
+.alert-body {
+    display: block; /* Shown by default, can be toggled */
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+.close-alert {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #ef4444;
+    cursor: pointer;
+    padding: 0 5px;
+}
+.close-alert:hover { color: #b91c1c; }
 </style>

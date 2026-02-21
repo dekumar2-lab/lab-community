@@ -1,67 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | CondoWiki</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <script>
+        function toggleAlert(id) {
+            const body = document.getElementById(id);
+            body.style.display = (body.style.display === "none") ? "block" : "none";
+        }
+
+        function dismissAlert(id, event) {
+            event.stopPropagation(); // Prevents toggleAlert from firing
+            const el = document.getElementById(id);
+            el.style.opacity = '0';
+            setTimeout(() => el.remove(), 300);
+        }
+    </script>
     {% include custom-styles.html %}
 </head>
+
 <body>
 
-<header class="site-header">
-    <div style="display: flex; align-items: center; gap: 2rem;">
-        <a href="{{ site.baseurl }}/" class="logo">🏙️ Condo<span>Wiki</span></a>
-        
-        <select class="community-switcher" onchange="location = this.value;">
-            <option value="">Switch Community...</option>
-            {% assign condos = site.pages | map: 'condo' | uniq | compact %}
-            {% for building in condos %}
-                <option value="{{ site.baseurl }}/content/{{ building | slugify }}/" 
-                {% if page.condo == building %}selected{% endif %}>
+    <header class="site-header">
+        <div style="display: flex; align-items: center; gap: 2rem;">
+            <a href="{{ site.baseurl }}/" class="logo">🏙️ Condo<span>Wiki</span></a>
+
+            <select class="community-switcher" onchange="location = this.value;">
+                <option value="">Switch Community...</option>
+                {% assign condos = site.pages | map: 'condo' | uniq | compact %}
+                {% for building in condos %}
+                <option value="{{ site.baseurl }}/content/{{ building | slugify }}/" {% if page.condo==building
+                    %}selected{% endif %}>
                     {{ building }}
                 </option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <div style="display: flex; align-items: center; gap: 1.5rem;">
-        {% if page.condo %}
-           {% assign alert_count = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | size %}
-            <div class="bell-wrapper" style="position: relative; cursor: pointer;">
-                <i class="fa-{% if alert_count > 0 %}solid{% else %}regular{% endif %} fa-bell" style="font-size: 1.2rem;"></i>
-                {% if alert_count > 0 %}
-                    <span class="bell-badge"></span>
-                {% endif %}
-            </div>
-        {% endif %}
-        
-        <a href="{{ site.baseurl }}/submit.html?mode=new" style="text-decoration: none; color: var(--primary); font-weight: 600;">Create Community</a>
-    </div>
-</header>
-
-<div class="app-shell">
-    {% if page.condo %}
-    <aside class="sidebar">
-        <div style="margin-bottom: 2rem;">
-            <h3 style="margin: 0 0 1rem 0; font-size: 1.1rem; color: var(--text-main);">{{ page.condo }}</h3>
-            
-            <a href="{{ site.baseurl }}/broadcast.html?condo={{ page.condo | slugify }}" class="btn-broadcast">
-                <i class="fa-solid fa-bullhorn"></i> Send Broadcast
-            </a>
+                {% endfor %}
+            </select>
         </div>
 
-        <div class="sidebar-section">
-            <p class="sidebar-label">Navigation</p>
-            <ul>
-                <li>
-                    <a href="{{ site.baseurl }}/content/{{ page.condo | slugify }}/" class="{% if page.url contains 'index.html' %}active{% endif %}">
-                        <i class="fa-solid fa-house-chimney"></i> Overview
-                    </a>
-                </li>
-                {% for p in site.pages %}
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            {% if page.condo %}
+            {% assign alert_count = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | size %}
+            <div class="bell-wrapper" style="position: relative; cursor: pointer;">
+                <i class="fa-{% if alert_count > 0 %}solid{% else %}regular{% endif %} fa-bell"
+                    style="font-size: 1.2rem;"></i>
+                {% if alert_count > 0 %}
+                <span class="bell-badge"></span>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <a href="{{ site.baseurl }}/submit.html?mode=new"
+                style="text-decoration: none; color: var(--primary); font-weight: 600;">Create Community</a>
+        </div>
+    </header>
+
+    <div class="app-shell">
+        {% if page.condo %}
+        <aside class="sidebar">
+            <div style="margin-bottom: 2rem;">
+                <h3 style="margin: 0 0 1rem 0; font-size: 1.1rem; color: var(--text-main);">{{ page.condo }}</h3>
+
+                <a href="{{ site.baseurl }}/broadcast.html?condo={{ page.condo | slugify }}" class="btn-broadcast">
+                    <i class="fa-solid fa-bullhorn"></i> Send Broadcast
+                </a>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="sidebar-label">Navigation</p>
+                <ul>
+                    <li>
+                        <a href="{{ site.baseurl }}/content/{{ page.condo | slugify }}/"
+                            class="{% if page.url contains 'index.html' %}active{% endif %}">
+                            <i class="fa-solid fa-house-chimney"></i> Overview
+                        </a>
+                    </li>
+                    {% for p in site.pages %}
                     {% if p.condo == page.condo and p.layout != 'broadcast' and p.title != page.condo %}
                     <li>
                         <a href="{{ site.baseurl }}{{ p.url }}" class="{% if page.url == p.url %}active{% endif %}">
@@ -69,37 +87,45 @@
                         </a>
                     </li>
                     {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-    </aside>
-    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+        {% endif %}
 
-<main class="content-card">
-    {% if page.condo %}
-        {% assign alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | sort: 'date' | reverse %}
-        {% if alerts.size > 0 %}
-            <div class="broadcast-container" style="margin-bottom: 2.5rem;">
-                <h3 style="color: #ef4444; display: flex; align-items: center; gap: 8px; font-size: 1.1rem;">
-                    <i class="fa-solid fa-bullhorn"></i> Active Announcements
+        <main class="content-card">
+            {% if page.condo %}
+            {% assign alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo %}
+            {% if alerts.size > 0 %}
+            <div id="broadcast-wrapper">
+                <h3 style="color: #ef4444; font-size: 1rem; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-bullhorn"></i> Active Alerts
                 </h3>
                 {% for alert in alerts %}
-                    <div class="alert-box">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                            <strong style="font-size: 1rem;">{{ alert.title }}</strong>
-                            <small style="color: #64748b;">{{ alert.date | date: "%b %d" }}</small>
+                <div class="collapsible-alert" id="alert-{{ forloop.index }}">
+                    <div class="alert-header" onclick="toggleAlert('alert-body-{{ forloop.index }}')">
+                        <span><strong>{{ alert.title }}</strong> — {{ alert.date | date: "%b %d" }}</span>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <i class="fa-solid fa-chevron-down"></i>
+                            <button class="close-alert"
+                                onclick="dismissAlert('alert-{{ forloop.index }}', event)">&times;</button>
                         </div>
-                        <div class="alert-content">{{ alert.content | markdownify }}</div>
                     </div>
+                    <div class="alert-body" id="alert-body-{{ forloop.index }}">
+                        <div style="padding: 1rem; border-top: 1px solid rgba(239, 68, 68, 0.1);">
+                            {{ alert.content | markdownify }}
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
-            <hr style="border: 0; border-top: 1px solid var(--glass-border); margin-bottom: 2.5rem;">
-        {% endif %}
-    {% endif %}
+            {% endif %}
+            {% endif %}
 
-    {{ content }}
-</main>
-</div>
+            {{ content }}
+        </main>
+    </div>
 
 </body>
+
 </html>
