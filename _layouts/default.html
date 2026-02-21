@@ -1,42 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | CondoWiki</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/style.css">
+</head>
+<body>
+
 <header class="navbar">
     <div class="logo">🏙️ <a href="{{ site.baseurl }}/"><span>Condo</span>Wiki</a></div>
-    
     <div class="header-actions">
-        <select onchange="location = this.value;" class="community-select">
-            <option>Select Community...</option>
-            <option value="{{ site.baseurl }}/content/SkyTower/">SkyTower</option>
-            <option value="{{ site.baseurl }}/content/GrandPlaza/">Grand Plaza</option>
-        </select>
-        
-        <a href="{{ site.baseurl }}/submit.html" class="btn-primary"><i class="fa fa-plus"></i> New Guide</a>
-        <a href="mailto:admin@example.com?subject=New Community Request" class="nav-link-alt">Create Community</a>
+        <a href="{{ site.baseurl }}/submit.html" class="btn-primary">+ New Guide</a>
+        <a href="mailto:admin@example.com" class="nav-link-alt">Create Community</a>
     </div>
 </header>
 
 <div class="app-container">
+    {% if page.condo %}
     <aside class="sidebar">
         <div class="sidebar-inner">
-            <h3 class="sidebar-title">Building Guides</h3>
+            <h3 class="sidebar-title">{{ page.condo }} Guides</h3>
             <nav class="sidebar-nav">
                 <ul>
-                    {% comment %} 
-                        Logic: Only show pages that share the same parent folder as the current page
-                    {% endcomment %}
-                    {% assign current_dir = page.path | split: "/" | first | append: "/" | append: page.path | split: "/" | offset: 1 | first %}
-                    
                     {% for p in site.pages %}
-                        {% if p.path contains 'content/' %}
-                            {% assign p_dir = p.path | split: "/" | offset: 1 | first %}
-                            {% if p_dir == current_dir %}
-                                <li class="{% if page.url == p.url %}active{% endif %}">
-                                    <a href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a>
-                                </li>
-                            {% endif %}
+                        {% if p.condo == page.condo %}
+                        <li class="{% if page.url == p.url %}active{% endif %}">
+                            <a href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a>
+                        </li>
                         {% endif %}
                     {% endfor %}
                 </ul>
             </nav>
         </div>
     </aside>
-    ...
+    {% endif %}
+
+    <main class="main-body">
+        <article class="content-card">
+            {% if page.path contains 'content/' %}
+            <a href="{{ site.baseurl }}/submit.html?edit=true&title={{ page.title | url_encode }}&content={{ page.content | url_encode }}&condo={{ page.condo | url_encode }}" class="btn-edit">Edit</a>
+            {% endif %}
+            <h1>{{ page.title }}</h1>
+            <hr>
+            <div class="prose">{{ content }}</div>
+        </article>
+    </main>
 </div>
+
+</body>
+</html>
