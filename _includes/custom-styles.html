@@ -1,54 +1,202 @@
 <style>
-    :root { 
-        --primary: #2563eb !important; 
-        --glass: rgba(255, 255, 255, 0.85) !important; 
-        --border: rgba(226, 232, 240, 0.8) !important; 
+    :root {
+        --primary: #2563eb;
+        --glass: rgba(255, 255, 255, 0.85);
+        --border: rgba(226, 232, 240, 0.8);
+        --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+    }
+
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        margin: 0;
+        background: radial-gradient(at top right, #f8fafc, #e2e8f0);
+        color: #0f172a;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* --- Global Header --- */
+    .site-header {
+        backdrop-filter: blur(12px);
+        background: var(--glass);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        padding: 0.75rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-weight: 800;
+        font-size: 1.4rem;
+        text-decoration: none;
+        color: #0f172a;
+    }
+
+    .logo span {
+        color: var(--primary);
+    }
+
+    /* --- Sidebar & Main Layout --- */
+    .app-shell {
+        display: flex;
+        max-width: 1400px;
+        margin: 2.5rem auto;
+        padding: 0 2rem;
+        gap: 2.5rem;
+        flex: 1;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .sidebar {
+        width: 280px;
+        background: var(--glass);
+        backdrop-filter: blur(8px);
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        padding: 1.5rem;
+        height: fit-content;
+        position: sticky;
+        top: 6rem;
+        box-shadow: var(--shadow);
+    }
+
+    .sidebar h3 {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #64748b;
+        letter-spacing: 1px;
+        margin-bottom: 1.25rem;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar li a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0.85rem 1.25rem;
+        text-decoration: none;
+        color: #475569;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        margin-bottom: 6px;
+        font-weight: 500;
+    }
+
+    .sidebar li a:hover {
+        background: #f1f5f9;
+        color: var(--primary);
+        transform: translateX(5px);
+    }
+
+    .sidebar li a.active {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 8px 15px rgba(37, 99, 235, 0.25);
+    }
+
+    /* .content-card { 
+            flex: 1; background: white; padding: 3.5rem; border-radius: 28px; 
+            border: 1px solid var(--border); box-shadow: var(--shadow); 
+        } */
+
+    /* --- Footer --- */
+    .site-footer {
+        background: white;
+        border-top: 1px solid var(--border);
+        padding: 2.5rem;
+        text-align: center;
+        color: #64748b;
+        font-size: 0.9rem;
+        margin-top: auto;
+    }
+
+    /* --- Buttons & Inputs --- */
+    .btn {
+        background: var(--primary);
+        color: white;
+        padding: 0.75rem 1.75rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+    }
+
+    :root {
+        --primary: #2563eb !important;
+        --glass: rgba(255, 255, 255, 0.85) !important;
+        --border: rgba(226, 232, 240, 0.8) !important;
         --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05) !important;
     }
 
     /* Force the App Shell Layout */
-    .app-shell { 
-        display: flex !important; 
-        max-width: 1400px !important; 
-        margin: 2.5rem auto !important; 
-        padding: 0 2rem !important; 
-        gap: 2.5rem !important; 
-        flex: 1 !important; 
-        width: 100% !important; 
-        box-sizing: border-box !important; 
+    .app-shell {
+        display: flex !important;
+        max-width: 1400px !important;
+        margin: 2.5rem auto !important;
+        padding: 0 2rem !important;
+        gap: 2.5rem !important;
+        flex: 1 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     /* Force Sidebar Visibility */
-    .sidebar { 
-        width: 280px !important; 
-        background: var(--glass) !important; 
+    .sidebar {
+        width: 280px !important;
+        background: var(--glass) !important;
         backdrop-filter: blur(8px) !important;
-        border-radius: 20px !important; 
-        border: 1px solid var(--border) !important; 
-        padding: 1.5rem !important; 
-        height: fit-content !important; 
-        position: sticky !important; 
-        top: 6rem !important; 
+        border-radius: 20px !important;
+        border: 1px solid var(--border) !important;
+        padding: 1.5rem !important;
+        height: fit-content !important;
+        position: sticky !important;
+        top: 6rem !important;
         box-shadow: var(--shadow) !important;
     }
 
     /* Force Content Card Borders */
-    .content-card { 
-        flex: 1 !important; 
-        background: white !important; 
-        padding: 3.5rem !important; 
-        border-radius: 28px !important; 
-        border: 1px solid var(--border) !important; 
-        box-shadow: var(--shadow) !important; 
+    .content-card {
+        flex: 1 !important;
+        background: white !important;
+        padding: 3.5rem !important;
+        border-radius: 28px !important;
+        border: 1px solid var(--border) !important;
+        box-shadow: var(--shadow) !important;
     }
 
     /* Force Form Visibility */
-    input[type="text"], textarea {
+    input[type="text"],
+    textarea {
         width: 100% !important;
         padding: 1rem !important;
-        border: 1.5px solid #cbd5e1 !important; /* Hardcoded color for safety */
+        border: 1.5px solid #cbd5e1 !important;
+        /* Hardcoded color for safety */
         border-radius: 12px !important;
         font-size: 1rem !important;
         background: white !important;
+    }
+
+    #submissionForm {
+        display: flex;
+        flex-direction: column;
+        gap: 1.75rem;
     }
 </style>
