@@ -75,16 +75,30 @@
     </aside>
     {% endif %}
 
-    <main class="content-card">
-        {% if page.condo and community_alerts.size > 0 %}
-            <div class="active-alerts-banner">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <span>There are {{ community_alerts.size }} active announcements. Scroll down to view.</span>
+<main class="content-card">
+    {% if page.condo %}
+        {% assign alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | sort: 'date' | reverse %}
+        {% if alerts.size > 0 %}
+            <div class="broadcast-container" style="margin-bottom: 2.5rem;">
+                <h3 style="color: #ef4444; display: flex; align-items: center; gap: 8px; font-size: 1.1rem;">
+                    <i class="fa-solid fa-bullhorn"></i> Active Announcements
+                </h3>
+                {% for alert in alerts %}
+                    <div class="alert-box">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <strong style="font-size: 1rem;">{{ alert.title }}</strong>
+                            <small style="color: #64748b;">{{ alert.date | date: "%b %d" }}</small>
+                        </div>
+                        <div class="alert-content">{{ alert.content | markdownify }}</div>
+                    </div>
+                {% endfor %}
             </div>
+            <hr style="border: 0; border-top: 1px solid var(--glass-border); margin-bottom: 2.5rem;">
         {% endif %}
+    {% endif %}
 
-        {{ content }}
-    </main>
+    {{ content }}
+</main>
 </div>
 
 </body>
