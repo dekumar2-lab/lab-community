@@ -12,17 +12,35 @@
 <body>
 
 <header class="site-header">
-    <a href="{{ site.baseurl }}/" class="logo">🏙️ Condo<span>Wiki</span></a>
+    <div style="display: flex; align-items: center; gap: 2rem;">
+        <a href="{{ site.baseurl }}/" class="logo">🏙️ Condo<span>Wiki</span></a>
+        
+        <select class="community-switcher" onchange="location = this.value;">
+            <option value="">Switch Community...</option>
+            {% assign condos = site.pages | map: 'condo' | uniq | compact %}
+            {% for building in condos %}
+                <option value="{{ site.baseurl }}/content/{{ building | slugify }}/" 
+                {% if page.condo == building %}selected{% endif %}>
+                    {{ building }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
     <div style="display: flex; gap: 1rem;">
         <a href="{{ site.baseurl }}/submit.html?mode=new" style="text-decoration: none; color: var(--primary); font-weight: 600; padding-top: 8px;">Create Community</a>
-        <a href="{{ site.baseurl }}/submit.html" class="btn">+ New Guide</a>
     </div>
 </header>
 
 <div class="app-shell">
     {% if page.condo %}
     <aside class="sidebar">
-        <h3>{{ page.condo }} Navigation</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="margin: 0; font-size: 1.1rem;">{{ page.condo }}</h3>
+            <a href="{{ site.baseurl }}/submit.html?condo={{ page.condo | slugify }}" class="btn-nav" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
+                <i class="fa-solid fa-plus"></i> New
+            </a>
+        </div>
         <ul>
             {% for p in site.pages %}
                 {% if p.condo == page.condo %}
