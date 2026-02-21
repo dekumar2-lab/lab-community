@@ -1,21 +1,61 @@
 ---
 layout: default
-title: Home
+title: Community Directory
 ---
 
-<h2>Welcome to the Community Wiki</h2>
-<p>Select a guide from the left sidebar or use the button below to contribute.</p>
+<div class="directory-container">
+    <section class="hero-section">
+        <h1>Find Your Building Wiki</h1>
+        <p>Select your community to access visitor parking, move-in guides, and local rules.</p>
+        
+        <div class="search-bar">
+            <i class="fa fa-search"></i>
+            <input type="text" id="directorySearch" placeholder="Search by building name or address..." onkeyup="filterCommunities()">
+        </div>
+    </section>
 
-<div class="broadcast-bar" style="background: #e1f5fe; border-left: 5px solid #03a9f4; padding: 15px; margin: 20px 0;">
-    <strong>Latest Update:</strong> Our visitor parking policy has been updated for 2026.
+    <div class="community-grid" id="communityGrid">
+        {% comment %}
+            We loop through all pages to find unique condo names to build cards
+        {% endcomment %}
+        {% assign condos = "" | split: "," %}
+        {% for p in site.pages %}
+            {% if p.condo %}
+                {% assign condos = condos | push: p.condo | uniq %}
+            {% endif %}
+        {% endfor %}
+
+        {% for building in condos %}
+        <div class="community-card">
+            <div class="card-icon"><i class="fa fa-building"></i></div>
+            <h3>{{ building }}</h3>
+            <p>Access rules and guides for {{ building }} residents.</p>
+            {% assign folder = building | replace: " ", "-" %}
+            <a href="{{ site.baseurl }}/content/{{ folder }}/" class="btn-secondary">View Wiki</a>
+        </div>
+        {% endfor %}
+
+        <div class="community-card create-new">
+            <div class="card-icon"><i class="fa fa-plus-circle"></i></div>
+            <h3>New Building?</h3>
+            <p>Don't see your building? Be the first to start a community wiki.</p>
+            <a href="{{ site.baseurl }}/submit.html" class="btn-primary">Create Building Wiki</a>
+        </div>
+    </div>
 </div>
 
-<a href="{{ site.baseurl }}/submit.html" class="btn" style="background: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">+ Create New Page</a>
-
 <script>
-  // Simple notification if coming back from a successful submission
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('status') === 'success') {
-    alert("Thank you! Your guide has been submitted for admin approval.");
-  }
+function filterCommunities() {
+    let input = document.getElementById('directorySearch').value.toLowerCase();
+    let cards = document.getElementsByClassName('community-card');
+    
+    for (let i = 0; i < cards.length; i++) {
+        let title = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+        if (title.includes(input)) {
+            cards[i].style.display = "";
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
+}
 </script>
