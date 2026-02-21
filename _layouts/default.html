@@ -4,51 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | CondoWiki</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/style.css">
 </head>
 <body>
 
-<header class="navbar">
-    <div class="logo">🏙️ <a href="{{ site.baseurl }}/"><span>Condo</span>Wiki</a></div>
-    <div class="header-actions">
-        <a href="{{ site.baseurl }}/submit.html" class="btn-primary"><i class="fa fa-plus"></i> New Guide</a>
-        <a href="{{ site.baseurl }}/submit.html?new_community=true" class="nav-link-alt">Create Community</a>
+<header class="glass-header">
+    <div class="header-container">
+        <div class="logo">🏙️ <a href="{{ site.baseurl }}/"><span>Condo</span>Wiki</a></div>
+        
+        <nav class="header-nav">
+            <div class="dropdown">
+                <button class="dropbtn">Switch Community <i class="fa fa-chevron-down"></i></button>
+                <div class="dropdown-content">
+                    {% assign condos = "" | split: "," %}
+                    {% for p in site.pages %}{% if p.condo %}{% assign condos = condos | push: p.condo | uniq %}{% endif %}{% endfor %}
+                    {% for building in condos %}
+                        <a href="{{ site.baseurl }}/content/{{ building | replace: ' ', '-' }}/">{{ building }}</a>
+                    {% endfor %}
+                    <hr>
+                    <a href="{{ site.baseurl }}/submit.html?mode=new" class="create-link">Add Community</a>
+                </div>
+            </div>
+            <a href="{{ site.baseurl }}/submit.html" class="btn-primary-glass">+ New Guide</a>
+        </nav>
     </div>
 </header>
 
-<div class="app-container">
+<div class="app-shell">
     {% if page.condo %}
-    <aside class="sidebar">
-        <div class="sidebar-inner">
-            <h3 class="sidebar-title">{{ page.condo }} Guides</h3>
-            <nav class="sidebar-nav">
-                <ul>
-                    {% for p in site.pages %}
-                        {% if p.condo == page.condo %}
-                        <li class="{% if page.url == p.url %}active{% endif %}">
-                            <a href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a>
-                        </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </nav>
+    <aside class="glass-sidebar">
+        <div class="sidebar-header">
+            <h3>{{ page.condo }}</h3>
+            <p>Community Wiki</p>
         </div>
+        <nav class="sidebar-links">
+            <ul>
+                {% for p in site.pages %}
+                    {% if p.condo == page.condo %}
+                    <li class="{% if page.url == p.url %}active{% endif %}">
+                        <a href="{{ site.baseurl }}{{ p.url }}"><i class="fa fa-file-lines"></i> {{ p.title }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
     </aside>
     {% endif %}
 
-    <main class="main-body">
-        <article class="content-card">
-            {% if page.path contains 'content/' %}
-            <a href="{{ site.baseurl }}/submit.html?edit=true&title={{ page.title | url_encode }}&content={{ page.content | url_encode }}&condo={{ page.condo | url_encode }}" class="btn-edit">
-                <i class="fa fa-pen"></i> Edit Page
-            </a>
-            {% endif %}
-            <h1>{{ page.title }}</h1>
-            <hr>
-            <div class="prose">{{ content }}</div>
-        </article>
+    <main class="content-area">
+        <div class="glass-card">
+            {{ content }}
+        </div>
     </main>
 </div>
 </body>
