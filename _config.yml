@@ -1,0 +1,9 @@
+# Settings to fix the subfolder paths
+baseurl: "/lab-community"
+url: "https://dekumar2-lab.github.io"
+
+# Ensure Jekyll looks into these folders for your guides
+include: [content]
+
+# Optional: Set a default theme as a fallback
+theme: jekyll-theme-cayman
