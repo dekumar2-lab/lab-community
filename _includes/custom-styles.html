@@ -447,4 +447,88 @@
     .btn-close:hover {
         color: #ef4444;
     }
+
+    /* --- Compact Alert Strip --- */
+    .alert-strip-container {
+        background: #fff5f5;
+        border: 1px solid #fee2e2;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .alert-strip-header {
+        padding: 0.6rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        font-size: 0.85rem;
+    }
+
+    .pulse-icon {
+        color: #ef4444;
+        margin-right: 8px;
+        animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.3;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .alert-badge {
+        background: #ef4444;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        margin-right: 10px;
+    }
+
+    /* --- The Hidden Feed --- */
+    .alert-feed-hidden {
+        display: none;
+        padding: 1rem;
+        background: white;
+        border-top: 1px solid #fee2e2;
+    }
+
+    .mini-alert-card {
+        padding: 10px 0;
+        border-bottom: 1px dashed #f1f5f9;
+    }
+
+    .mini-alert-card:last-child {
+        border-bottom: none;
+    }
+
+    .urgency-tag {
+        font-size: 0.6rem;
+        font-weight: 900;
+        padding: 2px 5px;
+        border-radius: 4px;
+        vertical-align: middle;
+    }
+
+    .urgency-tag.high {
+        background: #fee2e2;
+        color: #ef4444;
+    }
+
+    .urgency-tag.info {
+        background: #e0f2fe;
+        color: #0369a1;
+    }
 </style>

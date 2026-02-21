@@ -73,12 +73,12 @@
             <div class="sidebar-section">
                 <p class="sidebar-label">Navigation</p>
                 <ul>
-                    <li>
+                    <!-- <li>
                         <a href="{{ site.baseurl }}/content/{{ page.condo | slugify }}/"
                             class="{% if page.url contains 'index.html' %}active{% endif %}">
                             <i class="fa-solid fa-house-chimney"></i> Overview
                         </a>
-                    </li>
+                    </li> -->
                     {% for p in site.pages %}
                     {% if p.condo == page.condo and p.layout != 'broadcast' and p.title != page.condo %}
                     <li>
@@ -94,41 +94,41 @@
         {% endif %}
 
         <main class="content-card">
-            {% if page.condo %}
-            {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | sort:
-            'date' | reverse %}
-
-            {% if active_alerts.size > 0 %}
-            <div id="broadcast-container" class="broadcast-wrapper">
-                <div class="broadcast-header">
-                    <h3><i class="fa-solid fa-bullhorn"></i> Community Announcements</h3>
-                    <span class="alert-count">{{ active_alerts.size }} Active</span>
-                </div>
-
-                {% for alert in active_alerts %}
-                <div class="alert-item" id="alert-{{ forloop.index }}">
-                    <div class="alert-item-header" onclick="toggleAlert('alert-content-{{ forloop.index }}')">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span class="urgency-dot {{ alert.alert_type | default: 'info' }}"></span>
-                            <strong>{{ alert.title }}</strong>
-                        </div>
-                        <div class="alert-controls">
-                            <small>{{ alert.date | date: "%b %d" }}</small>
-                            <i class="fa-solid fa-chevron-down chevron"></i>
-                            <button class="btn-close"
-                                onclick="dismissAlert('alert-{{ forloop.index }}', event)">&times;</button>
-                        </div>
-                    </div>
-                    <div class="alert-item-body" id="alert-content-{{ forloop.index }}">
-                        <div class="alert-inner-text">
-                            {{ alert.content | markdownify }}
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+           {% if page.condo %}
+    {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | sort: 'date' | reverse %}
+    
+    {% if active_alerts.size > 0 %}
+    <div class="alert-strip-container">
+        <div class="alert-strip-header" onclick="toggleAlertFeed()">
+            <div class="alert-strip-left">
+                <span class="pulse-icon"><i class="fa-solid fa-circle"></i></span>
+                <span class="alert-summary">
+                    <strong>Latest:</strong> {{ active_alerts.first.title }}
+                </span>
             </div>
-            {% endif %}
-            {% endif %}
+            <div class="alert-strip-right">
+                {% if active_alerts.size > 1 %}
+                    <span class="alert-badge">+{{ active_alerts.size | minus: 1 }} more</span>
+                {% endif %}
+                <i class="fa-solid fa-chevron-down" id="feed-chevron"></i>
+            </div>
+        </div>
+
+        <div id="full-alert-feed" class="alert-feed-hidden">
+            {% for alert in active_alerts %}
+            <div class="mini-alert-card">
+                <div class="mini-alert-meta">
+                    <span class="urgency-tag {{ alert.alert_type | default: 'info' }}">{{ alert.alert_type | upcase }}</span>
+                    <small>{{ alert.date | date: "%b %d" }}</small>
+                </div>
+                <h4>{{ alert.title }}</h4>
+                <div class="mini-alert-body">{{ alert.content | markdownify }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+{% endif %}
 
             <div class="wiki-content">
                 {{ content }}
