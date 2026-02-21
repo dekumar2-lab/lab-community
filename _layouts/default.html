@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page.title }} | Condo Community</title>
+    <link rel="stylesheet" href="/assets/style.css"> </head>
+<body>
+
+    <header>
+        <h1>🏙️ Condo Wiki</h1>
+        <nav><a href="/">Home</a> | <a href="/submit.html">Add New Guide</a></nav>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <h3>Guides</h3>
+            <ul id="dynamic-nav">
+                {% for post in site.pages %}
+                    {% if post.path contains 'content/' %}
+                        <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <main class="content">
+            {{ content }}
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Condo Community Lab. All guides are community-sourced.</p>
+    </footer>
+
+</body>
+</html>
