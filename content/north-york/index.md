@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Sopping details"
+title: "testing same"
 condo: "North York"
 ---
 
-Sopping details
+same community
