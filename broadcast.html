@@ -1,0 +1,63 @@
+---
+layout: default
+title: Send Broadcast
+---
+
+<div style="max-width: 650px; margin: 0 auto;">
+    <h1 style="font-size: 2.25rem; margin-bottom: 0.5rem;">Community Broadcast</h1>
+    <p style="color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem;">Send an urgent alert or announcement to all members of this community.</p>
+
+    <form id="broadcastForm" style="display: flex; flex-direction: column; gap: 1.75rem;">
+        <div>
+            <label style="font-weight: 700; display: block; margin-bottom: 0.6rem;">Target Community</label>
+            <input type="text" id="condo" name="condo" readonly 
+                   style="width: 100%; padding: 1rem; border: 1.5px solid var(--border); border-radius: 12px; font-size: 1rem; background: #f8fafc; cursor: not-allowed;">
+        </div>
+
+        <div>
+            <label style="font-weight: 700; display: block; margin-bottom: 0.6rem;">Broadcast Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="e.g. Scheduled Water Maintenance" required 
+                   style="width: 100%; padding: 1rem; border: 1.5px solid var(--border); border-radius: 12px; font-size: 1rem;">
+        </div>
+
+        <div>
+            <label style="font-weight: 700; display: block; margin-bottom: 0.6rem;">Message Content</label>
+            <textarea id="message" name="message" rows="8" placeholder="Type your broadcast message here..." required 
+                      style="width: 100%; padding: 1rem; border: 1.5px solid var(--border); border-radius: 12px; font-size: 1rem; font-family: inherit; resize: vertical;"></textarea>
+        </div>
+
+        <button type="submit" class="btn" style="padding: 1.1rem; font-size: 1.1rem; background: #ef4444; border-color: #ef4444;">
+            <i class="fa-solid fa-paper-plane"></i> Send Broadcast
+        </button>
+    </form>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const condoName = urlParams.get('condo');
+    
+    if (condoName) {
+        document.getElementById('condo').value = condoName;
+    } else {
+        // Redirect if no condo context is provided
+        window.location.href = "{{ site.baseurl }}/";
+    }
+
+    document.getElementById('broadcastForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        
+        // Using your existing Worker endpoint
+        const response = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            alert("Broadcast sent successfully!");
+            window.location.href = "{{ site.baseurl }}/content/" + condoName + "/";
+        } else {
+            alert("Failed to send broadcast. Please check permissions.");
+        }
+    };
+</script>
