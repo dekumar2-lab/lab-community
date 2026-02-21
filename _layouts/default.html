@@ -4,49 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | CondoWiki</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #2563eb; --glass: rgba(255, 255, 255, 0.85); --border: rgba(226, 232, 240, 0.8); }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: #f1f5f9; color: #1e293b; }
+        :root { --primary: #2563eb; --glass: rgba(255, 255, 255, 0.8); --border: rgba(226, 232, 240, 0.8); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #f8fafc; color: #0f172a; min-height: 100vh; display: flex; flex-direction: column; }
         
         /* Glassmorphism Header */
-        header { 
-            backdrop-filter: blur(12px); background: var(--glass); 
-            border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000;
-            padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;
-        }
-        .logo { font-weight: 800; font-size: 1.2rem; text-decoration: none; color: #0f172a; }
+        .site-header { backdrop-filter: blur(12px); background: var(--glass); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 800; font-size: 1.3rem; text-decoration: none; color: #0f172a; display: flex; align-items: center; gap: 8px; }
         .logo span { color: var(--primary); }
 
-        /* Sidebar & Content Wrapper */
-        .wrapper { display: flex; max-width: 1400px; margin: 2rem auto; padding: 0 1rem; gap: 2rem; }
+        /* Layout Structure */
+        .app-wrapper { display: flex; max-width: 1400px; margin: 2rem auto; padding: 0 2rem; gap: 2rem; flex: 1; width: 100%; box-sizing: border-box; }
         
-        .sidebar {
-            width: 260px; background: white; border-radius: 16px; 
-            border: 1px solid var(--border); padding: 1.5rem; height: fit-content;
-            position: sticky; top: 6rem;
-        }
-        .sidebar h3 { font-size: 0.8rem; text-transform: uppercase; color: #64748b; margin-bottom: 1rem; }
+        /* Sidebar (Left Menu) */
+        .sidebar { width: 280px; background: white; border-radius: 20px; border: 1px solid var(--border); padding: 1.5rem; height: fit-content; position: sticky; top: 6rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .sidebar h3 { font-size: 0.75rem; text-transform: uppercase; color: #64748b; letter-spacing: 1px; margin-bottom: 1rem; }
         .sidebar ul { list-style: none; padding: 0; margin: 0; }
-        .sidebar li a {
-            display: block; padding: 0.7rem 1rem; text-decoration: none; color: #475569;
-            border-radius: 8px; transition: 0.2s; margin-bottom: 0.3rem;
-        }
-        .sidebar li a:hover { background: #f8fafc; color: var(--primary); }
-        .sidebar li a.active { background: var(--primary); color: white; }
+        .sidebar li a { display: block; padding: 0.8rem 1rem; text-decoration: none; color: #475569; border-radius: 12px; transition: 0.3s; margin-bottom: 4px; font-weight: 500; }
+        .sidebar li a:hover { background: #f1f5f9; color: var(--primary); transform: translateX(5px); }
+        .sidebar li a.active { background: var(--primary); color: white; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); }
 
-        .main-card { flex: 1; background: white; padding: 3rem; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        /* Content Card */
+        .main-card { flex: 1; background: white; padding: 3rem; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); }
         
-        .btn { background: var(--primary); color: white; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 600; }
+        /* Buttons & Controls */
+        .btn { background: var(--primary); color: white; padding: 0.7rem 1.5rem; border-radius: 12px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; transition: 0.3s; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        .switcher { padding: 0.6rem 1rem; border-radius: 10px; border: 1px solid var(--border); font-family: inherit; font-weight: 500; }
+
+        footer { background: white; border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: #64748b; font-size: 0.9rem; margin-top: 4rem; }
     </style>
 </head>
 <body>
 
-<header>
+<header class="site-header">
     <a href="{{ site.baseurl }}/" class="logo">🏙️ Condo<span>Wiki</span></a>
-    <div style="display: flex; gap: 1rem;">
-        <select onchange="location = this.value;" style="padding: 0.5rem; border-radius: 8px; border: 1px solid var(--border);">
+    <div style="display: flex; gap: 1rem; align-items: center;">
+        <select class="switcher" onchange="location = this.value;">
             <option value="" disabled selected>Switch Community</option>
             {% assign condos = site.pages | map: 'condo' | uniq | compact %}
             {% for c in condos %}
@@ -57,14 +53,18 @@
     </div>
 </header>
 
-<div class="wrapper">
+<div class="app-wrapper">
     {% if page.condo %}
     <aside class="sidebar">
-        <h3>{{ page.condo }} Guides</h3>
+        <h3>{{ page.condo }} Navigation</h3>
         <ul>
             {% for p in site.pages %}
                 {% if p.condo == page.condo %}
-                <li><a href="{{ site.baseurl }}{{ p.url }}" class="{% if page.url == p.url %}active{% endif %}">{{ p.title }}</a></li>
+                <li>
+                    <a href="{{ site.baseurl }}{{ p.url }}" class="{% if page.url == p.url %}active{% endif %}">
+                        <i class="fa-regular fa-file-lines" style="margin-right: 8px;"></i> {{ p.title }}
+                    </a>
+                </li>
                 {% endif %}
             {% endfor %}
         </ul>
@@ -75,6 +75,10 @@
         {{ content }}
     </main>
 </div>
+
+<footer>
+    &copy; 2026 CondoWiki Community Project. Built with Cloudflare & GitHub.
+</footer>
 
 </body>
 </html>

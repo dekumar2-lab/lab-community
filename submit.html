@@ -1,36 +1,40 @@
 ---
 layout: default
-title: Submit Information
+title: Submit a New Guide
 ---
 
-<h2>Contribute to the Wiki</h2>
-<form id="wikiForm">
-    <div style="margin-bottom: 1.5rem;">
-        <label>Building / Community</label><br>
-        <input type="text" id="condo" name="condo" placeholder="e.g., 3504" required style="width:100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 8px; border: 1px solid #ccc;">
-    </div>
+<div style="max-width: 600px; margin: 0 auto;">
+    <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Contribute Knowledge</h2>
+    <p style="color: #64748b; margin-bottom: 2.5rem;">Fill in the details below. Your submission will create a Pull Request for review.</p>
 
-    <div style="margin-bottom: 1.5rem;">
-        <label>Guide Title</label><br>
-        <input type="text" id="title" name="title" placeholder="e.g., Guest Parking" required style="width:100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 8px; border: 1px solid #ccc;">
-    </div>
+    <form id="submissionForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div>
+            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Community / Building Name</label>
+            <input type="text" id="condo" name="condo" placeholder="e.g. 3504" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 10px; box-sizing: border-box;">
+        </div>
 
-    <div style="margin-bottom: 1.5rem;">
-        <label>Content (Markdown)</label><br>
-        <textarea id="content" name="content" rows="10" required style="width:100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 8px; border: 1px solid #ccc;"></textarea>
-    </div>
+        <div>
+            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Guide Title</label>
+            <input type="text" id="title" name="title" placeholder="e.g. Visitor Parking Rules" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 10px; box-sizing: border-box;">
+        </div>
 
-    <button type="submit" class="btn" style="width: 100%; border: none; cursor: pointer;">Create Pull Request</button>
-</form>
+        <div>
+            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Content (Markdown)</label>
+            <textarea id="content" name="content" rows="10" placeholder="Describe the guide content here..." required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 10px; box-sizing: border-box; font-family: inherit;"></textarea>
+        </div>
+
+        <button type="submit" class="btn" style="padding: 1rem;">Submit for Admin Review</button>
+    </form>
+</div>
 
 <script>
-    // Auto-fill building name if user is already in a community wiki
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('condo')) {
-        document.getElementById('condo').value = urlParams.get('condo');
+    // If user arrived from a building page, auto-fill the building name
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('condo')) {
+        document.getElementById('condo').value = params.get('condo');
     }
 
-    document.getElementById('wikiForm').onsubmit = async (e) => {
+    document.getElementById('submissionForm').onsubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         
@@ -40,10 +44,10 @@ title: Submit Information
         });
 
         if (response.ok) {
-            alert("Success! Your submission is pending review.");
+            alert("Success! A Pull Request has been opened on GitHub.");
             window.location.href = "{{ site.baseurl }}/";
         } else {
-            alert("Submission failed. Check your GitHub Token permissions.");
+            alert("Error: Check Cloudflare logs for Token issues.");
         }
     };
 </script>
