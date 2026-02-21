@@ -1,49 +1,26 @@
 ---
 layout: default
-title: Community Submission
+title: Submit a Guide
 ---
 
-<div class="form-wrapper">
-    <h2 id="form-heading" style="margin-top:0;">Create New Guide</h2>
-    <p style="color:#64748b; margin-bottom:2rem;">Fill in the details below. Once submitted, it will appear as a Pull Request for admin review.</p>
+<div style="max-width: 600px;">
+    <h2>Community Contribution</h2>
+    <p>Your proposal will be sent to the admin for review.</p>
     
     <form action="https://plain-smoke-2176.dekumar-ca.workers.dev" method="POST">
-        <div style="margin-bottom:1.5rem;">
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem;">Your Name</label>
-            <input type="text" name="userName" placeholder="John Doe" required style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px;">
-        </div>
-        
-        <div style="margin-bottom:1.5rem;">
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem;">Building/Condo</label>
-            <input type="text" name="condo" placeholder="Skyline A" required style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px;">
-        </div>
-        
-        <div style="margin-bottom:1.5rem;">
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem;">Topic Title</label>
-            <input type="text" name="title" id="form-title" placeholder="e.g., Visitor Parking" required style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px;">
-        </div>
-        
-        <div style="margin-bottom:1.5rem;">
-            <label style="display:block; font-weight:600; margin-bottom:0.5rem;">Guide Content (Markdown supported)</label>
-            <textarea name="content" id="form-content" rows="10" placeholder="Step 1: Get a pass..." style="width:100%; padding:12px; border:1px solid #e2e8f0; border-radius:8px; font-family:inherit;"></textarea>
-        </div>
-        
-        <button type="submit" class="btn-primary" style="width:100%; padding:1rem; border:none; cursor:pointer; font-size:1rem;">Send Proposal</button>
+        <input type="text" name="userName" placeholder="Your Name" required style="width:100%; padding:10px; margin-bottom:15px; border-radius:6px; border:1px solid #ddd;">
+        <input type="text" name="condo" placeholder="Building Name" required style="width:100%; padding:10px; margin-bottom:15px; border-radius:6px; border:1px solid #ddd;">
+        <input type="text" name="title" id="t" placeholder="Guide Title" required style="width:100%; padding:10px; margin-bottom:15px; border-radius:6px; border:1px solid #ddd;">
+        <textarea name="content" id="c" rows="10" placeholder="Content (Markdown)" style="width:100%; padding:10px; border-radius:6px; border:1px solid #ddd;"></textarea>
+        <button type="submit" class="btn-primary" style="width:100%; border:none; cursor:pointer; padding:15px;">Send Proposal</button>
     </form>
 </div>
 
 <script>
-    // 1. Handle Edit Logic
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('edit')) {
-        document.getElementById('form-heading').innerText = "Edit Existing Guide";
-        document.getElementById('form-title').value = params.get('title');
-        document.getElementById('form-title').readOnly = true;
-        document.getElementById('form-content').value = params.get('content');
-    }
-
-    // 2. Alert user on successful return (optional)
-    if (params.get('status') === 'success') {
-        alert("Success! Your proposal has been sent for review.");
+    const p = new URLSearchParams(window.location.search);
+    if(p.get('edit')){
+        document.getElementById('t').value = p.get('title');
+        document.getElementById('t').readOnly = true;
+        document.getElementById('c').value = p.get('content');
     }
 </script>
