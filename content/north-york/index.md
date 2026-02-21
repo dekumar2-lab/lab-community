@@ -1,7 +1,7 @@
 ---
 layout: default
-title: "Sopping details"
+title: "Passport Details"
 condo: "North York"
 ---
 
-Sopping details
+Passport details will come here
