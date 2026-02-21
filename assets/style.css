@@ -1,23 +1,27 @@
 :root { --primary: #2563eb; --bg: #f8fafc; --text: #1e293b; --border: #e2e8f0; }
 body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: var(--text); }
 
-.navbar { background: white; border-bottom: 1px solid var(--border); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; }
+.navbar { background: white; border-bottom: 1px solid var(--border); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
 .logo a { font-size: 1.5rem; font-weight: 800; color: var(--text); text-decoration: none; }
 .logo span { color: var(--primary); }
 
 .app-container { display: flex; max-width: 1400px; margin: 0 auto; min-height: 100vh; }
 .sidebar { width: 280px; background: white; border-right: 1px solid var(--border); padding: 2rem 1.5rem; }
-.sidebar-title { font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.05em; }
+.sidebar-title { font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.05em; margin-bottom: 1rem; }
 .sidebar-nav ul { list-style: none; padding: 0; }
 .sidebar-nav a { display: block; padding: 0.6rem; color: var(--text); text-decoration: none; border-radius: 6px; }
 .sidebar-nav li.active a { background: #eff6ff; color: var(--primary); font-weight: 600; }
 
 .main-body { flex: 1; padding: 3rem; }
 .content-card { background: white; padding: 3rem; border-radius: 12px; border: 1px solid var(--border); position: relative; }
-.btn-edit { position: absolute; top: 3rem; right: 3rem; color: var(--primary); border: 1px solid var(--primary); padding: 5px 15px; border-radius: 6px; text-decoration: none; }
+.btn-edit { position: absolute; top: 3rem; right: 3rem; color: var(--primary); border: 1px solid var(--primary); padding: 5px 15px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; }
 
-/* Directory Grid */
-.community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-.community-card { background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border); text-align: center; transition: 0.2s; }
-.community-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-.btn-primary { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; }
+.directory-wrap { text-align: center; width: 100%; }
+.search-bar { max-width: 500px; margin: 1.5rem auto; display: flex; align-items: center; border: 1px solid var(--border); border-radius: 30px; padding: 5px 20px; background: white; }
+.search-bar input { border: none; padding: 10px; width: 100%; outline: none; }
+.community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+.community-card { background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--border); transition: 0.2s; }
+.btn-primary { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block; }
+.nav-link-alt { color: var(--primary); text-decoration: none; font-weight: 600; margin-left: 15px; }
+
+@media (max-width: 768px) { .app-container { flex-direction: column; } .sidebar { width: 100%; border-right: none; } }
