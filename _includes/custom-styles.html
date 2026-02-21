@@ -278,21 +278,24 @@
     /* Sidebar Broadcast Button */
     .btn-broadcast {
         display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    width: 100%;             /* Fills sidebar width */
-    box-sizing: border-box;  /* Ensures padding doesn't push it out */
-    padding: 0.8rem;
-    margin: 1rem 0;          /* Adds breathing room */
-    background: rgba(239, 68, 68, 0.1);
-    color: #ef4444 !important;
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    border-radius: 12px;
-    text-decoration: none !important;
-    font-weight: 700;
-    font-size: 0.85rem;
-    transition: 0.2s;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        width: 100%;
+        /* Fills sidebar width */
+        box-sizing: border-box;
+        /* Ensures padding doesn't push it out */
+        padding: 0.8rem;
+        margin: 1rem 0;
+        /* Adds breathing room */
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444 !important;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 12px;
+        text-decoration: none !important;
+        font-weight: 700;
+        font-size: 0.85rem;
+        transition: 0.2s;
     }
 
     .btn-broadcast:hover {
@@ -336,33 +339,112 @@
     }
 
     .collapsible-alert {
-    background: #fff5f5;
-    border: 1px solid #fee2e2;
-    border-radius: 10px;
-    margin-bottom: 0.75rem;
-    overflow: hidden;
-}
-.alert-header {
-    padding: 0.75rem 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: #991b1b;
-}
-.alert-body {
-    display: block; /* Shown by default, can be toggled */
-    font-size: 0.9rem;
-    color: #4b5563;
-}
-.close-alert {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #ef4444;
-    cursor: pointer;
-    padding: 0 5px;
-}
-.close-alert:hover { color: #b91c1c; }
+        background: #fff5f5;
+        border: 1px solid #fee2e2;
+        border-radius: 10px;
+        margin-bottom: 0.75rem;
+        overflow: hidden;
+    }
+
+    .alert-header {
+        padding: 0.75rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: #991b1b;
+    }
+
+    .alert-body {
+        display: block;
+        /* Shown by default, can be toggled */
+        font-size: 0.9rem;
+        color: #4b5563;
+    }
+
+    .close-alert {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        color: #ef4444;
+        cursor: pointer;
+        padding: 0 5px;
+    }
+
+    .close-alert:hover {
+        color: #b91c1c;
+    }
+
+    /* --- Separate Broadcast Content Box --- */
+    .broadcast-wrapper {
+        background: #fffcfc;
+        border: 1px solid #fee2e2;
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 4px 20px rgba(239, 68, 68, 0.05);
+    }
+
+    .broadcast-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.2rem;
+    }
+
+    .alert-item {
+        background: white;
+        border: 1px solid #f1f5f9;
+        border-radius: 10px;
+        margin-bottom: 0.75rem;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+
+    .alert-item-header {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        background: white;
+    }
+
+    .alert-item-body {
+        display: block;
+        /* Visible by default */
+        background: #fafafa;
+    }
+
+    .alert-inner-text {
+        padding: 1rem;
+        border-top: 1px solid #f1f5f9;
+    }
+
+    /* Urgency Dots */
+    .urgency-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+    }
+
+    .urgency-dot.high {
+        background: #ef4444;
+        box-shadow: 0 0 8px #ef4444;
+    }
+
+    .urgency-dot.info {
+        background: #3b82f6;
+    }
+
+    .btn-close {
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        cursor: pointer;
+        color: #cbd5e1;
+    }
+
+    .btn-close:hover {
+        color: #ef4444;
+    }
 </style>

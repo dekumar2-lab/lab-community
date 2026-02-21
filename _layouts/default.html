@@ -95,24 +95,32 @@
 
         <main class="content-card">
             {% if page.condo %}
-            {% assign alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo %}
-            {% if alerts.size > 0 %}
-            <div id="broadcast-wrapper">
-                <h3 style="color: #ef4444; font-size: 1rem; margin-bottom: 1rem;">
-                    <i class="fa-solid fa-bullhorn"></i> Active Alerts
-                </h3>
-                {% for alert in alerts %}
-                <div class="collapsible-alert" id="alert-{{ forloop.index }}">
-                    <div class="alert-header" onclick="toggleAlert('alert-body-{{ forloop.index }}')">
-                        <span><strong>{{ alert.title }}</strong> — {{ alert.date | date: "%b %d" }}</span>
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <i class="fa-solid fa-chevron-down"></i>
-                            <button class="close-alert"
+            {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | sort:
+            'date' | reverse %}
+
+            {% if active_alerts.size > 0 %}
+            <div id="broadcast-container" class="broadcast-wrapper">
+                <div class="broadcast-header">
+                    <h3><i class="fa-solid fa-bullhorn"></i> Community Announcements</h3>
+                    <span class="alert-count">{{ active_alerts.size }} Active</span>
+                </div>
+
+                {% for alert in active_alerts %}
+                <div class="alert-item" id="alert-{{ forloop.index }}">
+                    <div class="alert-item-header" onclick="toggleAlert('alert-content-{{ forloop.index }}')">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span class="urgency-dot {{ alert.alert_type | default: 'info' }}"></span>
+                            <strong>{{ alert.title }}</strong>
+                        </div>
+                        <div class="alert-controls">
+                            <small>{{ alert.date | date: "%b %d" }}</small>
+                            <i class="fa-solid fa-chevron-down chevron"></i>
+                            <button class="btn-close"
                                 onclick="dismissAlert('alert-{{ forloop.index }}', event)">&times;</button>
                         </div>
                     </div>
-                    <div class="alert-body" id="alert-body-{{ forloop.index }}">
-                        <div style="padding: 1rem; border-top: 1px solid rgba(239, 68, 68, 0.1);">
+                    <div class="alert-item-body" id="alert-content-{{ forloop.index }}">
+                        <div class="alert-inner-text">
                             {{ alert.content | markdownify }}
                         </div>
                     </div>
@@ -122,7 +130,9 @@
             {% endif %}
             {% endif %}
 
-            {{ content }}
+            <div class="wiki-content">
+                {{ content }}
+            </div>
         </main>
     </div>
 
