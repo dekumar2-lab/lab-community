@@ -1,26 +1,25 @@
 ---
 layout: default
-title: Submit a Guide
+title: Community Submission
 ---
-
-<div style="max-width: 600px;">
-    <h2>Community Contribution</h2>
-    <p>Your proposal will be sent to the admin for review.</p>
-    
+<div style="max-width: 600px; margin: 0 auto;">
+    <h2>Add/Edit Community Guide</h2>
     <form action="https://plain-smoke-2176.dekumar-ca.workers.dev" method="POST">
-        <input type="text" name="userName" placeholder="Your Name" required style="width:100%; padding:10px; margin-bottom:15px; border-radius:6px; border:1px solid #ddd;">
-        <input type="text" name="condo" placeholder="Building Name" required style="width:100%; padding:10px; margin-bottom:15px; border-radius:6px; border:1px solid #ddd;">
-        <input type="text" name="title" id="t" placeholder="Guide Title" required style="width:100%; padding:10px; margin-bottom:15px; border-radius:6px; border:1px solid #ddd;">
-        <textarea name="content" id="c" rows="10" placeholder="Content (Markdown)" style="width:100%; padding:10px; border-radius:6px; border:1px solid #ddd;"></textarea>
-        <button type="submit" class="btn-primary" style="width:100%; border:none; cursor:pointer; padding:15px;">Send Proposal</button>
+        <input type="text" name="userName" placeholder="Your Name" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid var(--border); border-radius:8px;">
+        <input type="text" name="condo" id="f-condo" placeholder="Building Name (e.g. SkyTower)" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid var(--border); border-radius:8px;">
+        <input type="text" name="title" id="f-title" placeholder="Topic (e.g. Visitor Parking)" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid var(--border); border-radius:8px;">
+        <textarea name="content" id="f-content" rows="10" placeholder="Write your guide here..." style="width:100%; padding:12px; border:1px solid var(--border); border-radius:8px;"></textarea>
+        <button type="submit" class="btn-primary" style="width:100%; cursor:pointer; border:none;">Submit for Review</button>
     </form>
 </div>
 
 <script>
     const p = new URLSearchParams(window.location.search);
     if(p.get('edit')){
-        document.getElementById('t').value = p.get('title');
-        document.getElementById('t').readOnly = true;
-        document.getElementById('c').value = p.get('content');
+        document.getElementById('f-title').value = p.get('title');
+        document.getElementById('f-title').readOnly = true;
+        document.getElementById('f-condo').value = p.get('condo');
+        document.getElementById('f-condo').readOnly = true;
+        document.getElementById('f-content').value = p.get('content');
     }
 </script>
