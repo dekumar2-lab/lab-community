@@ -21,13 +21,13 @@
 <div class="app-container">
     <aside class="sidebar">
         <div class="sidebar-inner">
-            <h3 class="sidebar-title">All Community Guides</h3>
+            <h3 class="sidebar-title">All Guides</h3>
             <nav class="sidebar-nav">
-                <ul id="guide-links">
+                <ul>
                     {% for p in site.pages %}
                         {% if p.path contains 'content/' %}
                         <li class="{% if page.url == p.url %}active{% endif %}">
-                            <a href="{{ site.baseurl }}{{ p.url }}">{{ p.title | default: p.name }}</a>
+                            <a href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a>
                         </li>
                         {% endif %}
                     {% endfor %}
@@ -37,26 +37,18 @@
     </aside>
 
     <main class="main-body">
-        <div class="card">
-            <header class="page-header">
+        <article class="content-card">
+            <header class="card-header">
                 <h1>{{ page.title }}</h1>
                 {% if page.path contains 'content/' %}
                 <a href="{{ site.baseurl }}/submit.html?edit=true&title={{ page.title | url_encode }}&content={{ page.content | url_encode }}" class="btn-edit">
-                    <i class="fa fa-pen"></i> Edit Page
+                    <i class="fa fa-pen"></i> Edit
                 </a>
                 {% endif %}
             </header>
-            
-            {% if page.author %}
-            <div class="meta-info">Contributed by {{ page.author }} • {{ page.condo }}</div>
-            {% endif %}
-            
             <hr>
-            
-            <article class="prose">
-                {{ content }}
-            </article>
-        </div>
+            <div class="prose">{{ content }}</div>
+        </article>
     </main>
 </div>
 
