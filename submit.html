@@ -1,49 +1,49 @@
-<form id="submissionForm">
-  <label for="userName">Your Name</label>
-  <input type="text" id="userName" name="userName" required>
+---
+layout: default
+title: Submit Information
+---
 
-  <label for="condo">Community / Building</label>
-  <select id="condoSelect" onchange="toggleNewCommunity(this.value)">
-    <option value="SkyTower">SkyTower</option>
-    <option value="GrandPlaza">GrandPlaza</option>
-    <option value="OTHER">-- Add New Community --</option>
-  </select>
-  
-  <input type="text" id="newCondo" name="newCondo" placeholder="Enter building name" style="display:none; margin-top:10px;">
-  
-  <input type="hidden" id="condo" name="condo">
+<h2>Contribute to the Wiki</h2>
+<form id="wikiForm">
+    <div style="margin-bottom: 1.5rem;">
+        <label>Building / Community</label><br>
+        <input type="text" id="condo" name="condo" placeholder="e.g., 3504" required style="width:100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 8px; border: 1px solid #ccc;">
+    </div>
 
-  <label for="title">Guide Title</label>
-  <input type="text" id="title" name="title" placeholder="e.g. Visitor Parking" required>
+    <div style="margin-bottom: 1.5rem;">
+        <label>Guide Title</label><br>
+        <input type="text" id="title" name="title" placeholder="e.g., Guest Parking" required style="width:100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 8px; border: 1px solid #ccc;">
+    </div>
 
-  <label for="content">Content (Markdown)</label>
-  <textarea id="content" name="content" rows="10" required></textarea>
+    <div style="margin-bottom: 1.5rem;">
+        <label>Content (Markdown)</label><br>
+        <textarea id="content" name="content" rows="10" required style="width:100%; padding: 0.8rem; margin-top: 0.5rem; border-radius: 8px; border: 1px solid #ccc;"></textarea>
+    </div>
 
-  <button type="submit">Submit for Review</button>
+    <button type="submit" class="btn" style="width: 100%; border: none; cursor: pointer;">Create Pull Request</button>
 </form>
 
 <script>
-function toggleNewCommunity(val) {
-    const newCityInput = document.getElementById('newCondo');
-    newCityInput.style.display = (val === 'OTHER') ? 'block' : 'none';
-}
-
-document.getElementById('submissionForm').onsubmit = async (e) => {
-    e.preventDefault();
-    const selectVal = document.getElementById('condoSelect').value;
-    // Set the hidden condo field based on selection
-    document.getElementById('condo').value = (selectVal === 'OTHER') ? document.getElementById('newCondo').value : selectVal;
-
-    const formData = new FormData(e.target);
-    const response = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
-        method: 'POST',
-        body: formData
-    });
-    
-    if (response.ok) {
-        alert("Success! A Pull Request has been opened for admin review.");
-    } else {
-        alert("Submission failed. Check Cloudflare logs.");
+    // Auto-fill building name if user is already in a community wiki
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('condo')) {
+        document.getElementById('condo').value = urlParams.get('condo');
     }
-};
+
+    document.getElementById('wikiForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        
+        const response = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            alert("Success! Your submission is pending review.");
+            window.location.href = "{{ site.baseurl }}/";
+        } else {
+            alert("Submission failed. Check your GitHub Token permissions.");
+        }
+    };
 </script>
