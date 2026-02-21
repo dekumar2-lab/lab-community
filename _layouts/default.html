@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | CondoWiki</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/lab-community/assets/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/style.css">
 </head>
 <body>
 
 <header class="navbar">
-    <div class="logo">🏙️ <a href="/lab-community/" style="text-decoration:none; color:inherit;"><span>Condo</span>Wiki</a></div>
+    <div class="logo">🏙️ <a href="{{ site.baseurl }}/"><span>Condo</span>Wiki</a></div>
     <div class="header-actions">
-        <a href="/lab-community/" class="nav-link"><i class="fa fa-home"></i> Home</a>
-        <a href="/lab-community/submit.html" class="btn-primary"><i class="fa fa-plus"></i> New Guide</a>
+        <a href="{{ site.baseurl }}/" class="nav-link"><i class="fa fa-home"></i> Home</a>
+        <a href="{{ site.baseurl }}/submit.html" class="btn-primary"><i class="fa fa-plus"></i> New Guide</a>
     </div>
 </header>
 
 <div class="app-container">
     <aside class="sidebar">
         <div class="sidebar-inner">
-            <h3 class="sidebar-title">Guides</h3>
+            <h3 class="sidebar-title">All Community Guides</h3>
             <nav class="sidebar-nav">
-                <ul>
+                <ul id="guide-links">
                     {% for p in site.pages %}
                         {% if p.path contains 'content/' %}
                         <li class="{% if page.url == p.url %}active{% endif %}">
-                            <a href="/lab-community{{ p.url }}">{{ p.title }}</a>
+                            <a href="{{ site.baseurl }}{{ p.url }}">{{ p.title | default: p.name }}</a>
                         </li>
                         {% endif %}
                     {% endfor %}
@@ -41,13 +41,18 @@
             <header class="page-header">
                 <h1>{{ page.title }}</h1>
                 {% if page.path contains 'content/' %}
-                <a href="/lab-community/submit.html?edit=true&title={{ page.title | url_encode }}&content={{ page.content | url_encode }}" class="btn-edit">
-                    <i class="fa fa-pen"></i> Edit
+                <a href="{{ site.baseurl }}/submit.html?edit=true&title={{ page.title | url_encode }}&content={{ page.content | url_encode }}" class="btn-edit">
+                    <i class="fa fa-pen"></i> Edit Page
                 </a>
                 {% endif %}
             </header>
+            
+            {% if page.author %}
             <div class="meta-info">Contributed by {{ page.author }} • {{ page.condo }}</div>
+            {% endif %}
+            
             <hr>
+            
             <article class="prose">
                 {{ content }}
             </article>
