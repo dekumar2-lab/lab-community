@@ -1,63 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | CondoWiki</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/style.css">
-</head>
-<body>
-
 <header class="glass-header">
-    <div class="header-container">
-        <div class="logo">🏙️ <a href="{{ site.baseurl }}/"><span>Condo</span>Wiki</a></div>
-        
-        <nav class="header-nav">
-            <div class="dropdown">
-                <button class="dropbtn">Switch Community <i class="fa fa-chevron-down"></i></button>
-                <div class="dropdown-content">
-                    {% assign condos = "" | split: "," %}
-                    {% for p in site.pages %}{% if p.condo %}{% assign condos = condos | push: p.condo | uniq %}{% endif %}{% endfor %}
-                    {% for building in condos %}
-                        <a href="{{ site.baseurl }}/content/{{ building | replace: ' ', '-' }}/">{{ building }}</a>
-                    {% endfor %}
-                    <hr>
-                    <a href="{{ site.baseurl }}/submit.html?mode=new" class="create-link">Add Community</a>
-                </div>
-            </div>
-            <a href="{{ site.baseurl }}/submit.html" class="btn-primary-glass">+ New Guide</a>
-        </nav>
-    </div>
+    <div class="logo">🏙️ CondoWiki</div>
+    <nav>
+        <select onchange="window.location.href=this.value">
+            <option>Switch Community</option>
+            {% assign communities = site.pages | map: "condo" | uniq %}
+            {% for c in communities %}
+                <option value="{{ site.baseurl }}/content/{{ c }}/">{{ c }}</option>
+            {% endfor %}
+        </select>
+    </nav>
 </header>
 
-<div class="app-shell">
+<div class="main-container">
     {% if page.condo %}
-    <aside class="glass-sidebar">
-        <div class="sidebar-header">
-            <h3>{{ page.condo }}</h3>
-            <p>Community Wiki</p>
-        </div>
-        <nav class="sidebar-links">
-            <ul>
-                {% for p in site.pages %}
-                    {% if p.condo == page.condo %}
-                    <li class="{% if page.url == p.url %}active{% endif %}">
-                        <a href="{{ site.baseurl }}{{ p.url }}"><i class="fa fa-file-lines"></i> {{ p.title }}</a>
-                    </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </nav>
+    <aside class="sidebar">
+        <h3>{{ page.condo }} Menu</h3>
+        <ul>
+            {% for p in site.pages %}
+                {% if p.condo == page.condo %}
+                <li><a href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
     </aside>
     {% endif %}
-
-    <main class="content-area">
-        <div class="glass-card">
-            {{ content }}
-        </div>
+    
+    <main class="content">
+        {{ content }}
     </main>
 </div>
-</body>
-</html>

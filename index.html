@@ -1,33 +1,25 @@
 ---
 layout: default
-title: Welcome to CondoWiki
+title: Home
 ---
-<div style="text-align:center; padding: 4rem 0;">
-    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Community Directory</h1>
-    <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 3rem;">Search for your building or start a new community wiki.</p>
-    
-    <div style="max-width: 500px; margin: 0 auto 4rem; position: relative;">
-        <input type="text" id="dirSearch" placeholder="Search by building name..." 
-               style="width: 100%; padding: 1rem 3rem; border-radius: 50px; border: 1px solid var(--border); outline: none;">
-        <i class="fa fa-search" style="position: absolute; left: 1.2rem; top: 1.2rem; color: #94a3b8;"></i>
-    </div>
+<div style="text-align: center; padding: 3rem 0;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Find Your Community</h1>
+    <p style="color: var(--text-muted); margin-bottom: 3rem;">Select your building below or start a new wiki directory.</p>
 
-    <div class="community-grid" id="communityGrid">
-        {% assign condos = "" | split: "," %}
-        {% for p in site.pages %}{% if p.condo %}{% assign condos = condos | push: p.condo | uniq %}{% endif %}{% endfor %}
-
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+        {% assign condos = site.pages | map: 'condo' | uniq | compact %}
         {% for building in condos %}
-        <a href="{{ site.baseurl }}/content/{{ building | replace: ' ', '-' }}/" class="building-card">
-            <div class="card-icon">🏙️</div>
-            <h3>{{ building }}</h3>
-            <span>Explore Guides →</span>
+        <a href="{{ site.baseurl }}/content/{{ building | slugify }}/" class="content-card" style="text-decoration: none; padding: 2rem; transition: 0.3s;">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">🏢</div>
+            <h3 style="margin: 0; color: var(--text-main);">{{ building }}</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">View Guides →</p>
         </a>
         {% endfor %}
 
-        <a href="{{ site.baseurl }}/submit.html?mode=new" class="building-card create-card">
-            <div class="card-icon"><i class="fa fa-plus"></i></div>
-            <h3>Add Community</h3>
-            <p>Start a wiki for a new building.</p>
+        <a href="{{ site.baseurl }}/submit.html?mode=new" class="content-card" style="text-decoration: none; padding: 2rem; border: 2px dashed var(--primary); background: transparent;">
+            <div style="font-size: 2rem; margin-bottom: 1rem; color: var(--primary);">+</div>
+            <h3 style="margin: 0; color: var(--primary);">Add Community</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Start a wiki for a new building.</p>
         </a>
     </div>
 </div>
