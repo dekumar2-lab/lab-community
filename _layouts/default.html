@@ -13,8 +13,8 @@
 <header class="navbar">
     <div class="logo">🏙️ <a href="{{ site.baseurl }}/"><span>Condo</span>Wiki</a></div>
     <div class="header-actions">
-        <a href="{{ site.baseurl }}/submit.html" class="btn-primary">+ New Guide</a>
-        <a href="mailto:admin@example.com" class="nav-link-alt">Create Community</a>
+        <a href="{{ site.baseurl }}/submit.html" class="btn-primary"><i class="fa fa-plus"></i> New Guide</a>
+        <a href="{{ site.baseurl }}/submit.html?new_community=true" class="nav-link-alt">Create Community</a>
     </div>
 </header>
 
@@ -41,7 +41,9 @@
     <main class="main-body">
         <article class="content-card">
             {% if page.path contains 'content/' %}
-            <a href="{{ site.baseurl }}/submit.html?edit=true&title={{ page.title | url_encode }}&content={{ page.content | url_encode }}&condo={{ page.condo | url_encode }}" class="btn-edit">Edit</a>
+            <a href="{{ site.baseurl }}/submit.html?edit=true&title={{ page.title | url_encode }}&content={{ page.content | url_encode }}&condo={{ page.condo | url_encode }}" class="btn-edit">
+                <i class="fa fa-pen"></i> Edit Page
+            </a>
             {% endif %}
             <h1>{{ page.title }}</h1>
             <hr>
@@ -49,6 +51,5 @@
         </article>
     </main>
 </div>
-
 </body>
 </html>
