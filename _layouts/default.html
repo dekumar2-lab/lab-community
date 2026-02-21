@@ -2,35 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ page.title }} | Condo Community</title>
-    <link rel="stylesheet" href="/assets/style.css"> </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | CondoWiki</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
 <body>
 
-    <header>
-        <h1>🏙️ Condo Wiki</h1>
-        <nav><a href="/">Home</a> | <a href="/submit.html">Add New Guide</a></nav>
-    </header>
+<header class="navbar">
+    <div class="logo">🏙️ <span>Condo</span>Wiki</div>
+    <nav class="header-links">
+        <a href="/"><i class="fa fa-home"></i> Home</a>
+        <a href="/submit.html" class="btn-primary"><i class="fa fa-plus"></i> New Guide</a>
+    </nav>
+</header>
 
-    <div class="main-container">
-        <aside class="sidebar">
-            <h3>Guides</h3>
-            <ul id="dynamic-nav">
-                {% for post in site.pages %}
-                    {% if post.path contains 'content/' %}
-                        <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <h4><i class="fa fa-book-open"></i> Community Guides</h4>
+            <ul id="nav-list">
+                {% for p in site.pages %}
+                    {% if p.path contains 'content/' %}
+                        <li class="{% if page.url == p.url %}active{% endif %}">
+                            <a href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a>
+                        </li>
                     {% endif %}
                 {% endfor %}
             </ul>
-        </aside>
+        </div>
+    </aside>
 
-        <main class="content">
-            {{ content }}
-        </main>
-    </div>
+    <main class="main-content">
+        <article class="card">
+            <div class="content-header">
+                <h1>{{ page.title }}</h1>
+                {% if page.path contains 'content/' %}
+                <a href="/submit.html?edit=true&title={{ page.title | url_encode }}&content={{ page.content | url_encode }}" class="btn-edit">
+                    <i class="fa fa-pen-to-square"></i> Edit
+                </a>
+                {% endif %}
+            </div>
+            <div class="meta">Published by {{ page.author | default: "Community" }} • {{ page.condo }}</div>
+            <hr>
+            <section class="markdown-body">
+                {{ content }}
+            </section>
+        </article>
+    </main>
+</div>
 
-    <footer>
-        <p>&copy; 2026 Condo Community Lab. All guides are community-sourced.</p>
-    </footer>
+<footer class="footer">
+    <p>&copy; 2026 Condo Community Lab • Built with ❤️ for Neighbors</p>
+</footer>
 
 </body>
 </html>
