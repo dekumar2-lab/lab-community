@@ -13,12 +13,12 @@ title: Home
         <a href="{{ site.baseurl }}/content/{{ building | slugify }}/" class="content-card" style="text-decoration: none; padding: 2rem; transition: 0.3s;">
 
             {% if building_alerts.size > 0 %}
-            <div class="card-notification-badge" title="{{ building_alerts.size }} Active Alerts">
+            <div class="card-bell-container">
                 <i class="fa-solid fa-bell"></i>
-                <span>{{ building_alerts.size }}</span>
+                <span class="bell-count">{{ building_alerts.size }}</span>
             </div>
             {% endif %}
-            
+
             <div style="font-size: 2rem; margin-bottom: 1rem;">🏢</div>
             <h3 style="margin: 0; color: var(--text-main);">{{ building }}</h3>
             <p style="font-size: 0.9rem; color: var(--text-muted);">View Guides →</p>

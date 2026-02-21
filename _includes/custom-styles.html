@@ -533,25 +533,80 @@
     }
 
     /* Home Page Card Notification Badge */
-.card-notification-badge {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background: #ef4444; /* Urgent Red */
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
-    border: 2px solid white;
-    z-index: 10;
-}
+    .card-notification-badge {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        /* Centers it perfectly on the top edge */
+        background: #ff4757 !important;
+        /* Brighter, modern red */
+        color: white !important;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+        border: 2px solid #fff;
+        z-index: 10;
+        white-space: nowrap;
+    }
 
-.card-notification-badge i {
-    font-size: 0.7rem;
-}
+    .card-notification-badge i {
+        font-size: 0.7rem;
+    }
+
+    .community-card {
+        position: relative;
+        background: var(--glass);
+        border: 1px solid var(--border);
+        backdrop-filter: blur(10px);
+        padding: 2.5rem;
+        border-radius: 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        overflow: visible;
+        /* Allows bell to sit slightly off-edge if desired */
+    }
+
+    .community-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+        border-color: var(--primary);
+    }
+
+    /* The Bell Icon Container */
+    .card-bell-container {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(239, 68, 68, 0.1);
+        /* Soft Red Glow */
+        color: #ef4444;
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+    }
+
+    /* The small number badge on the bell */
+    .bell-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ef4444;
+        color: white;
+        font-size: 0.65rem;
+        font-weight: 800;
+        padding: 2px 6px;
+        border-radius: 8px;
+        border: 2px solid white;
+    }
 </style>
