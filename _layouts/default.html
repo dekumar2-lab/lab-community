@@ -29,11 +29,11 @@
 
     <div style="display: flex; align-items: center; gap: 1.5rem;">
         {% if page.condo %}
-            {% assign community_alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo %}
-            <div class="notification-wrapper" title="{{ community_alerts.size }} Active Alerts">
-                <i class="fa-{% if community_alerts.size > 0 %}solid{% else %}regular{% endif %} fa-bell"></i>
-                {% if community_alerts.size > 0 %}
-                    <span class="notification-badge"></span>
+           {% assign alert_count = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | size %}
+            <div class="bell-wrapper" style="position: relative; cursor: pointer;">
+                <i class="fa-{% if alert_count > 0 %}solid{% else %}regular{% endif %} fa-bell" style="font-size: 1.2rem;"></i>
+                {% if alert_count > 0 %}
+                    <span class="bell-badge"></span>
                 {% endif %}
             </div>
         {% endif %}
