@@ -27,31 +27,53 @@
         </select>
     </div>
 
-    <div style="display: flex; gap: 1rem;">
-        <a href="{{ site.baseurl }}/submit.html?mode=new" style="text-decoration: none; color: var(--primary); font-weight: 600; padding-top: 8px;">Create Community</a>
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+        {% if page.condo %}
+        <div class="notification-wrapper">
+            <i class="fa-regular fa-bell" title="Community Notifications"></i>
+            <span class="notification-badge"></span>
+        </div>
+        {% endif %}
+        
+        <a href="{{ site.baseurl }}/submit.html?mode=new" style="text-decoration: none; color: var(--primary); font-weight: 600;">Create Community</a>
     </div>
 </header>
 
 <div class="app-shell">
     {% if page.condo %}
     <aside class="sidebar">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
             <h3 style="margin: 0; font-size: 1.1rem;">{{ page.condo }}</h3>
             <a href="{{ site.baseurl }}/submit.html?condo={{ page.condo | slugify }}" class="btn-nav" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
                 <i class="fa-solid fa-plus"></i> New
             </a>
         </div>
-        <ul>
-            {% for p in site.pages %}
-                {% if p.condo == page.condo %}
+
+        <div class="sidebar-section">
+            <p class="sidebar-label">Community Tools</p>
+            <ul>
                 <li>
-                    <a href="{{ site.baseurl }}{{ p.url }}" class="{% if page.url == p.url %}active{% endif %}">
-                        <i class="fa-regular fa-file-lines"></i> {{ p.title }}
+                    <a href="#" class="broadcast-link">
+                        <i class="fa-solid fa-bullhorn"></i> Send Broadcast
                     </a>
                 </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
+            </ul>
+        </div>
+
+        <div class="sidebar-section" style="margin-top: 1.5rem;">
+            <p class="sidebar-label">Navigation</p>
+            <ul>
+                {% for p in site.pages %}
+                    {% if p.condo == page.condo %}
+                    <li>
+                        <a href="{{ site.baseurl }}{{ p.url }}" class="{% if page.url == p.url %}active{% endif %}">
+                            <i class="fa-regular fa-file-lines"></i> {{ p.title }}
+                        </a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
     </aside>
     {% endif %}
 
@@ -59,10 +81,6 @@
         {{ content }}
     </main>
 </div>
-
-<footer class="site-footer">
-    &copy; 2026 CondoWiki Project. Built for better community living.
-</footer>
 
 </body>
 </html>
