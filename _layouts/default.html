@@ -6,54 +6,88 @@
     <title>{{ page.title }} | CondoWiki</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root { --primary: #2563eb; --glass: rgba(255, 255, 255, 0.8); --border: rgba(226, 232, 240, 0.8); }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #f8fafc; color: #0f172a; min-height: 100vh; display: flex; flex-direction: column; }
-        
-        /* Glassmorphism Header */
-        .site-header { backdrop-filter: blur(12px); background: var(--glass); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-weight: 800; font-size: 1.3rem; text-decoration: none; color: #0f172a; display: flex; align-items: center; gap: 8px; }
+        :root { 
+            --primary: #2563eb; 
+            --glass: rgba(255, 255, 255, 0.85); 
+            --border: rgba(226, 232, 240, 0.8); 
+            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+        }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            margin: 0; 
+            background: radial-gradient(at top right, #f8fafc, #e2e8f0);
+            color: #0f172a; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Global Header --- */
+        .site-header { 
+            backdrop-filter: blur(12px); 
+            background: var(--glass); 
+            border-bottom: 1px solid var(--border); 
+            position: sticky; top: 0; z-index: 1000; 
+            padding: 0.75rem 2rem; 
+            display: flex; justify-content: space-between; align-items: center; 
+        }
+        .logo { font-weight: 800; font-size: 1.4rem; text-decoration: none; color: #0f172a; }
         .logo span { color: var(--primary); }
 
-        /* Layout Structure */
-        .app-wrapper { display: flex; max-width: 1400px; margin: 2rem auto; padding: 0 2rem; gap: 2rem; flex: 1; width: 100%; box-sizing: border-box; }
-        
-        /* Sidebar (Left Menu) */
-        .sidebar { width: 280px; background: white; border-radius: 20px; border: 1px solid var(--border); padding: 1.5rem; height: fit-content; position: sticky; top: 6rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .sidebar h3 { font-size: 0.75rem; text-transform: uppercase; color: #64748b; letter-spacing: 1px; margin-bottom: 1rem; }
+        /* --- Sidebar & Main Layout --- */
+        .app-shell { 
+            display: flex; max-width: 1400px; margin: 2.5rem auto; 
+            padding: 0 2rem; gap: 2.5rem; flex: 1; width: 100%; box-sizing: border-box; 
+        }
+
+        .sidebar { 
+            width: 280px; background: var(--glass); backdrop-filter: blur(8px);
+            border-radius: 20px; border: 1px solid var(--border); padding: 1.5rem; 
+            height: fit-content; position: sticky; top: 6rem; box-shadow: var(--shadow);
+        }
+        .sidebar h3 { font-size: 0.75rem; text-transform: uppercase; color: #64748b; letter-spacing: 1px; margin-bottom: 1.25rem; }
         .sidebar ul { list-style: none; padding: 0; margin: 0; }
-        .sidebar li a { display: block; padding: 0.8rem 1rem; text-decoration: none; color: #475569; border-radius: 12px; transition: 0.3s; margin-bottom: 4px; font-weight: 500; }
+        .sidebar li a { 
+            display: flex; align-items: center; gap: 10px; padding: 0.85rem 1.25rem; 
+            text-decoration: none; color: #475569; border-radius: 12px; 
+            transition: all 0.3s ease; margin-bottom: 6px; font-weight: 500; 
+        }
         .sidebar li a:hover { background: #f1f5f9; color: var(--primary); transform: translateX(5px); }
-        .sidebar li a.active { background: var(--primary); color: white; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); }
+        .sidebar li a.active { background: var(--primary); color: white; box-shadow: 0 8px 15px rgba(37, 99, 235, 0.25); }
 
-        /* Content Card */
-        .main-card { flex: 1; background: white; padding: 3rem; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); }
-        
-        /* Buttons & Controls */
-        .btn { background: var(--primary); color: white; padding: 0.7rem 1.5rem; border-radius: 12px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; transition: 0.3s; }
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
-        .switcher { padding: 0.6rem 1rem; border-radius: 10px; border: 1px solid var(--border); font-family: inherit; font-weight: 500; }
+        .content-card { 
+            flex: 1; background: white; padding: 3.5rem; border-radius: 28px; 
+            border: 1px solid var(--border); box-shadow: var(--shadow); 
+        }
 
-        footer { background: white; border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: #64748b; font-size: 0.9rem; margin-top: 4rem; }
+        /* --- Footer --- */
+        .site-footer { 
+            background: white; border-top: 1px solid var(--border); 
+            padding: 2.5rem; text-align: center; color: #64748b; font-size: 0.9rem; margin-top: auto;
+        }
+
+        /* --- Buttons & Inputs --- */
+        .btn { 
+            background: var(--primary); color: white; padding: 0.75rem 1.75rem; 
+            border-radius: 12px; text-decoration: none; font-weight: 600; 
+            border: none; cursor: pointer; transition: 0.3s;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2); }
     </style>
 </head>
 <body>
 
 <header class="site-header">
     <a href="{{ site.baseurl }}/" class="logo">🏙️ Condo<span>Wiki</span></a>
-    <div style="display: flex; gap: 1rem; align-items: center;">
-        <select class="switcher" onchange="location = this.value;">
-            <option value="" disabled selected>Switch Community</option>
-            {% assign condos = site.pages | map: 'condo' | uniq | compact %}
-            {% for c in condos %}
-                <option value="{{ site.baseurl }}/content/{{ c | slugify }}/">{{ c }}</option>
-            {% endfor %}
-        </select>
+    <div style="display: flex; gap: 1rem;">
+        <a href="{{ site.baseurl }}/submit.html?mode=new" style="text-decoration: none; color: var(--primary); font-weight: 600; padding-top: 8px;">Create Community</a>
         <a href="{{ site.baseurl }}/submit.html" class="btn">+ New Guide</a>
     </div>
 </header>
 
-<div class="app-wrapper">
+<div class="app-shell">
     {% if page.condo %}
     <aside class="sidebar">
         <h3>{{ page.condo }} Navigation</h3>
@@ -62,7 +96,7 @@
                 {% if p.condo == page.condo %}
                 <li>
                     <a href="{{ site.baseurl }}{{ p.url }}" class="{% if page.url == p.url %}active{% endif %}">
-                        <i class="fa-regular fa-file-lines" style="margin-right: 8px;"></i> {{ p.title }}
+                        <i class="fa-regular fa-file-lines"></i> {{ p.title }}
                     </a>
                 </li>
                 {% endif %}
@@ -71,13 +105,13 @@
     </aside>
     {% endif %}
 
-    <main class="main-card">
+    <main class="content-card">
         {{ content }}
     </main>
 </div>
 
-<footer>
-    &copy; 2026 CondoWiki Community Project. Built with Cloudflare & GitHub.
+<footer class="site-footer">
+    &copy; 2026 CondoWiki Project. Built for better community living.
 </footer>
 
 </body>

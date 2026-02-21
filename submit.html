@@ -1,37 +1,40 @@
 ---
 layout: default
-title: Submit a New Guide
+title: Submit Guide
 ---
 
-<div style="max-width: 600px; margin: 0 auto;">
-    <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Contribute Knowledge</h2>
-    <p style="color: #64748b; margin-bottom: 2.5rem;">Fill in the details below. Your submission will create a Pull Request for review.</p>
+<div style="max-width: 650px; margin: 0 auto;">
+    <h1 style="font-size: 2.25rem; margin-bottom: 0.5rem;">Contribute Content</h1>
+    <p style="color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem;">Your submission will create a Pull Request on GitHub for admin review.</p>
 
-    <form id="submissionForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
+    <form id="submissionForm" style="display: flex; flex-direction: column; gap: 1.75rem;">
         <div>
-            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Community / Building Name</label>
-            <input type="text" id="condo" name="condo" placeholder="e.g. 3504" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 10px; box-sizing: border-box;">
+            <label style="font-weight: 700; display: block; margin-bottom: 0.6rem;">Community / Building</label>
+            <input type="text" id="condo" name="condo" placeholder="e.g. 3504" required 
+                   style="width: 100%; padding: 1rem; border: 1.5px solid var(--border); border-radius: 12px; font-size: 1rem;">
         </div>
 
         <div>
-            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Guide Title</label>
-            <input type="text" id="title" name="title" placeholder="e.g. Visitor Parking Rules" required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 10px; box-sizing: border-box;">
+            <label style="font-weight: 700; display: block; margin-bottom: 0.6rem;">Guide Title</label>
+            <input type="text" id="title" name="title" placeholder="e.g. Visitor Parking Rules" required 
+                   style="width: 100%; padding: 1rem; border: 1.5px solid var(--border); border-radius: 12px; font-size: 1rem;">
         </div>
 
         <div>
-            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Content (Markdown)</label>
-            <textarea id="content" name="content" rows="10" placeholder="Describe the guide content here..." required style="width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 10px; box-sizing: border-box; font-family: inherit;"></textarea>
+            <label style="font-weight: 700; display: block; margin-bottom: 0.6rem;">Content (Markdown Support)</label>
+            <textarea id="content" name="content" rows="12" placeholder="Write your guide content here..." required 
+                      style="width: 100%; padding: 1rem; border: 1.5px solid var(--border); border-radius: 12px; font-size: 1rem; font-family: inherit; resize: vertical;"></textarea>
         </div>
 
-        <button type="submit" class="btn" style="padding: 1rem;">Submit for Admin Review</button>
+        <button type="submit" class="btn" style="padding: 1.1rem; font-size: 1.1rem;">Submit for Review</button>
     </form>
 </div>
 
 <script>
-    // If user arrived from a building page, auto-fill the building name
-    const params = new URLSearchParams(window.location.search);
-    if (params.has('condo')) {
-        document.getElementById('condo').value = params.get('condo');
+    // Pre-fill building if coming from a specific wiki
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('condo')) {
+        document.getElementById('condo').value = urlParams.get('condo');
     }
 
     document.getElementById('submissionForm').onsubmit = async (e) => {
@@ -44,10 +47,10 @@ title: Submit a New Guide
         });
 
         if (response.ok) {
-            alert("Success! A Pull Request has been opened on GitHub.");
+            alert("Success! Your contribution has been sent for review.");
             window.location.href = "{{ site.baseurl }}/";
         } else {
-            alert("Error: Check Cloudflare logs for Token issues.");
+            alert("Submission failed. Please check your GitHub Token permissions in the Worker.");
         }
     };
 </script>
