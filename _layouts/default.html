@@ -1,31 +1,63 @@
-<header class="glass-header">
-    <div class="logo">🏙️ CondoWiki</div>
-    <nav>
-        <select onchange="window.location.href=this.value">
-            <option>Switch Community</option>
-            {% assign communities = site.pages | map: "condo" | uniq %}
-            {% for c in communities %}
-                <option value="{{ site.baseurl }}/content/{{ c }}/">{{ c }}</option>
-            {% endfor %}
-        </select>
-    </nav>
-</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | CondoWiki</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/style.css">
+</head>
+<body>
 
-<div class="main-container">
-    {% if page.condo %}
-    <aside class="sidebar">
-        <h3>{{ page.condo }} Menu</h3>
-        <ul>
-            {% for p in site.pages %}
-                {% if p.condo == page.condo %}
-                <li><a href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a></li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </aside>
-    {% endif %}
-    
-    <main class="content">
-        {{ content }}
-    </main>
-</div>
+    <header class="glass-header">
+        <div class="header-inner">
+            <a href="{{ site.baseurl }}/" class="logo">🏙️ Condo<span>Wiki</span></a>
+            
+            <div class="nav-group">
+                <div class="custom-select-wrapper">
+                    <select onchange="location = this.value;" class="community-switcher">
+                        <option value="" disabled selected>Switch Community</option>
+                        {% assign condos = site.pages | map: 'condo' | uniq | compact %}
+                        {% for c in condos %}
+                            <option value="{{ site.baseurl }}/content/{{ c | slugify }}/">{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <a href="{{ site.baseurl }}/submit.html" class="btn-nav">+ New Guide</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+        {% if page.condo %}
+        <aside class="sidebar-glass">
+            <div class="sidebar-section">
+                <p class="sidebar-label">Community</p>
+                <h2 class="sidebar-title">{{ page.condo }}</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    {% for p in site.pages %}
+                        {% if p.condo == page.condo %}
+                        <li>
+                            <a href="{{ site.baseurl }}{{ p.url }}" class="{% if page.url == p.url %}active{% endif %}">
+                                <i class="far fa-file-alt"></i> {{ p.title }}
+                            </a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </aside>
+        {% endif %}
+
+        <main class="main-content {% unless page.condo %}full-width{% endunless %}">
+            <div class="content-card">
+                {{ content }}
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
