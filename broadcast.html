@@ -1,60 +1,88 @@
 ---
 layout: default
-title: Send Broadcast
+title: Send Community Broadcast
 ---
 
 <div style="max-width: 650px; margin: 0 auto;">
-    <h1 style="font-size: 2.25rem; margin-bottom: 0.5rem;">Community Broadcast</h1>
-    <p style="color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem;">Submit an announcement. Once approved by an admin, it will appear on the community page.</p>
+    <h1 style="font-size: 2.25rem; margin-bottom: 0.5rem; letter-spacing: -1px;">📢 Send Broadcast</h1>
+    <p style="color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem;">Submit an announcement for your community. Approved messages trigger the notification bell.</p>
 
-    <form id="broadcastForm" style="display: flex; flex-direction: column; gap: 1.75rem;">
+    <form id="broadcastForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
         <input type="hidden" name="type" value="broadcast">
         
-        <div>
-            <label style="font-weight: 700; display: block; margin-bottom: 0.6rem;">Target Community</label>
+        <div class="form-group">
+            <label style="font-weight: 700; display: block; margin-bottom: 0.5rem;">Target Community</label>
             <input type="text" id="condo" name="condo" readonly 
-                   style="width: 100%; padding: 1rem; border: 1.5px solid var(--border); border-radius: 12px; font-size: 1rem; background: #f8fafc;">
+                   style="width: 100%; padding: 0.8rem; border: 1.5px solid var(--border); border-radius: 10px; background: #f8fafc; color: #64748b; cursor: not-allowed;">
         </div>
 
-        <div>
-            <label style="font-weight: 700; display: block; margin-bottom: 0.6rem;">Alert Subject</label>
-            <input type="text" id="title" name="title" placeholder="e.g. Elevator Maintenance" required 
-                   style="width: 100%; padding: 1rem; border: 1.5px solid var(--border); border-radius: 12px; font-size: 1rem;">
+        <div class="form-group">
+            <label style="font-weight: 700; display: block; margin-bottom: 0.5rem;">Urgency Level</label>
+            <select name="alert_type" style="width: 100%; padding: 0.8rem; border: 1.5px solid var(--border); border-radius: 10px; background: white;">
+                <option value="info">Standard Info (Blue)</option>
+                <option value="medium">Warning (Yellow)</option>
+                <option value="high">Urgent / Emergency (Red)</option>
+            </select>
         </div>
 
-        <div>
-            <label style="font-weight: 700; display: block; margin-bottom: 0.6rem;">Message Details</label>
-            <textarea id="content" name="content" rows="8" placeholder="Type the alert details..." required 
-                      style="width: 100%; padding: 1rem; border: 1.5px solid var(--border); border-radius: 12px; font-size: 1rem; font-family: inherit;"></textarea>
+        <div class="form-group">
+            <label style="font-weight: 700; display: block; margin-bottom: 0.5rem;">Subject</label>
+            <input type="text" name="title" placeholder="e.g., Scheduled Maintenance" required 
+                   style="width: 100%; padding: 0.8rem; border: 1.5px solid var(--border); border-radius: 10px;">
         </div>
 
-        <button type="submit" class="btn" style="padding: 1.1rem; font-size: 1.1rem; background: #ef4444; border: none;">
-            <i class="fa-solid fa-bullhorn"></i> Submit Broadcast for Review
+        <div class="form-group">
+            <label style="font-weight: 700; display: block; margin-bottom: 0.5rem;">Announcement Details</label>
+            <textarea name="content" rows="6" placeholder="Provide full details of the broadcast..." required 
+                      style="width: 100%; padding: 0.8rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: inherit;"></textarea>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn" style="padding: 1rem; background: #ef4444; border: none; width: 100%; font-size: 1.1rem;">
+            <i class="fa-solid fa-paper-plane"></i> Submit Broadcast Request
         </button>
     </form>
 </div>
 
+
+
 <script>
+    // 1. Auto-fill the building name from URL
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('condo')) {
-        document.getElementById('condo').value = urlParams.get('condo');
+    const condoValue = urlParams.get('condo');
+    if (condoValue) {
+        // Convert slug (north-york) back to readable text (North York) if needed
+        document.getElementById('condo').value = condoValue.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
 
+    // 2. Handle the Submission
     document.getElementById('broadcastForm').onsubmit = async (e) => {
         e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        const originalText = btn.innerHTML;
+        
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+
         const formData = new FormData(e.target);
         
-        // Use your existing worker
-        const response = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
-            method: 'POST',
-            body: formData
-        });
+        try {
+            const response = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
+                method: 'POST',
+                body: formData
+            });
 
-        if (response.ok) {
-            alert("Success! Your broadcast request is now a Pull Request on GitHub.");
-            window.location.href = "{{ site.baseurl }}/";
-        } else {
-            alert("Failed to submit. Check worker configuration.");
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("Broadcast Submitted! A Pull Request has been created. Once merged, the community will be notified.");
+                window.location.href = "{{ site.baseurl }}/";
+            } else {
+                throw new Error(result.error || "Submission failed");
+            }
+        } catch (err) {
+            alert("Error: " + err.message);
+            btn.disabled = false;
+            btn.innerHTML = originalText;
         }
     };
 </script>
