@@ -4,57 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | CondoWiki</title>
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/lab-community/assets/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
 <header class="navbar">
-    <div class="logo">🏙️ <span>Condo</span>Wiki</div>
-    <nav class="header-links">
-        <a href="/"><i class="fa fa-home"></i> Home</a>
-        <a href="/submit.html" class="btn-primary"><i class="fa fa-plus"></i> New Guide</a>
-    </nav>
+    <div class="logo">🏙️ <a href="/lab-community/" style="text-decoration:none; color:inherit;"><span>Condo</span>Wiki</a></div>
+    <div class="header-actions">
+        <a href="/lab-community/" class="nav-link"><i class="fa fa-home"></i> Home</a>
+        <a href="/lab-community/submit.html" class="btn-primary"><i class="fa fa-plus"></i> New Guide</a>
+    </div>
 </header>
 
-<div class="container">
+<div class="app-container">
     <aside class="sidebar">
-        <div class="sidebar-section">
-            <h4><i class="fa fa-book-open"></i> Community Guides</h4>
-            <ul id="nav-list">
-                {% for p in site.pages %}
-                    {% if p.path contains 'content/' %}
+        <div class="sidebar-inner">
+            <h3 class="sidebar-title">Guides</h3>
+            <nav class="sidebar-nav">
+                <ul>
+                    {% for p in site.pages %}
+                        {% if p.path contains 'content/' %}
                         <li class="{% if page.url == p.url %}active{% endif %}">
-                            <a href="{{ site.baseurl }}{{ p.url }}">{{ p.title }}</a>
+                            <a href="/lab-community{{ p.url }}">{{ p.title }}</a>
                         </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
         </div>
     </aside>
 
-    <main class="main-content">
-        <article class="card">
-            <div class="content-header">
+    <main class="main-body">
+        <div class="card">
+            <header class="page-header">
                 <h1>{{ page.title }}</h1>
                 {% if page.path contains 'content/' %}
-                <a href="/submit.html?edit=true&title={{ page.title | url_encode }}&content={{ page.content | url_encode }}" class="btn-edit">
-                    <i class="fa fa-pen-to-square"></i> Edit
+                <a href="/lab-community/submit.html?edit=true&title={{ page.title | url_encode }}&content={{ page.content | url_encode }}" class="btn-edit">
+                    <i class="fa fa-pen"></i> Edit
                 </a>
                 {% endif %}
-            </div>
-            <div class="meta">Published by {{ page.author | default: "Community" }} • {{ page.condo }}</div>
+            </header>
+            <div class="meta-info">Contributed by {{ page.author }} • {{ page.condo }}</div>
             <hr>
-            <section class="markdown-body">
+            <article class="prose">
                 {{ content }}
-            </section>
-        </article>
+            </article>
+        </div>
     </main>
 </div>
-
-<footer class="footer">
-    <p>&copy; 2026 Condo Community Lab • Built with ❤️ for Neighbors</p>
-</footer>
 
 </body>
 </html>
