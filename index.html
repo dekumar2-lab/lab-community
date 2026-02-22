@@ -13,7 +13,7 @@ title: Home
         <a href="{{ site.baseurl }}/content/{{ building | slugify }}/" class="content-card" style="text-decoration: none; padding: 2rem; transition: 0.3s;">
 
             {% if building_alerts.size > 0 %}
-            <div class="card-notification-badge">
+            <div class="card-bell-container">
                 <i class="fa-solid fa-bell"></i>
                 <span class="bell-count">{{ building_alerts.size }}</span>
             </div>
