@@ -62,7 +62,7 @@
                 <i class="fa-{% if alert_count > 0 %}solid{% else %}regular{% endif %} fa-bell"
                     style="font-size: 1.2rem;"></i>
                 {% if alert_count > 0 %}
-                <span class="bell-badge"></span>
+                <span class="bell-badge">{{ alert_count.size }}</span>
                 {% endif %}
             </div>
             {% endif %}
