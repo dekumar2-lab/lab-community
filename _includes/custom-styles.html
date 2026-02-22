@@ -14,6 +14,39 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+
+        /* Add a subtle dot-grid pattern */
+        background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+        background-size: 30px 30px;
+        /* Spacing of the grid */
+        background-attachment: fixed;
+
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        bottom: -50px;
+        /* Slightly offset for a natural look */
+        right: -50px;
+        width: 500px;
+        /* Large enough to feel like a structural element */
+        height: 500px;
+
+        /* Subtle Architectural Image */
+        background-image: url('https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/building-2.svg');
+        background-repeat: no-repeat;
+        background-size: contain;
+
+        /* High Transparency is key */
+        opacity: 0.03;
+        filter: grayscale(100%);
+
+        /* Ensure it doesn't interfere with clicks or layout */
+        z-index: -1;
+        pointer-events: none;
+        transform: rotate(-15deg);
+        /* Slight tilt adds modern character */
     }
 
     /* --- Global Header --- */
