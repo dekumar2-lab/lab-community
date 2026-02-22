@@ -16,32 +16,6 @@
         flex-direction: column;
     }
 
-    .content-card::before {
-        content: "";
-        position: fixed;
-        bottom: -50px;
-        /* Slightly offset for a natural look */
-        right: -50px;
-        width: 500px;
-        /* Large enough to feel like a structural element */
-        height: 500px;
-
-        /* Subtle Architectural Image */
-        background-image: url('https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/building-2.svg');
-        background-repeat: no-repeat;
-        background-size: contain;
-
-        /* High Transparency is key */
-        opacity: 0.03;
-        filter: grayscale(100%);
-
-        /* Ensure it doesn't interfere with clicks or layout */
-        z-index: -1;
-        pointer-events: none;
-        transform: rotate(-15deg);
-        /* Slight tilt adds modern character */
-    }
-
     /* --- Global Header --- */
     .site-header {
         backdrop-filter: blur(12px);
@@ -206,6 +180,43 @@
         border-radius: 28px !important;
         border: 1px solid var(--border) !important;
         box-shadow: var(--shadow) !important;
+        position: relative;
+        /* Essential for positioning the watermark */
+        overflow: hidden;
+        /* Clips the watermark to the card's rounded corners */
+    }
+
+    .content-card::after {
+        content: "";
+        position: absolute;
+        bottom: -30px;
+        /* Positions it in the bottom-right corner */
+        right: -20px;
+        width: 250px;
+        /* Adjusted size to fit inside cards without overcrowding */
+        height: 250px;
+
+        /* Using a subtle building silhouette */
+        background-image: url('https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/building.svg');
+        background-repeat: no-repeat;
+        background-size: contain;
+
+        /* Extremely faint to ensure text readability */
+        opacity: 0.02;
+        filter: grayscale(100%);
+
+        /* Technical safety */
+        pointer-events: none;
+        /* Prevents the image from blocking clicks on text/links */
+        z-index: 0;
+        /* Sits behind the text content */
+        transform: rotate(-10deg);
+    }
+
+    /* Ensure text stays above the watermark */
+    .content-card>* {
+        position: relative;
+        z-index: 1;
     }
 
     /* Force Form Visibility */
