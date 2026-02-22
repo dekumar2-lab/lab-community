@@ -14,16 +14,9 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-
-        /* Add a subtle dot-grid pattern */
-        background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-        background-size: 30px 30px;
-        /* Spacing of the grid */
-        background-attachment: fixed;
-
     }
 
-    body::before {
+    .content-card::before {
         content: "";
         position: fixed;
         bottom: -50px;
