@@ -204,33 +204,6 @@
         /* Clips the watermark to the card's rounded corners */
     }
 
-    .content-card::after {
-        content: "";
-        position: absolute;
-        bottom: -30px;
-        /* Positions it in the bottom-right corner */
-        right: -20px;
-        width: 250px;
-        /* Adjusted size to fit inside cards without overcrowding */
-        height: 250px;
-
-        /* Using a subtle building silhouette */
-        background-image: url('https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/building.svg');
-        background-repeat: no-repeat;
-        background-size: contain;
-
-        /* Extremely faint to ensure text readability */
-        opacity: 0.02;
-        filter: grayscale(100%);
-
-        /* Technical safety */
-        pointer-events: none;
-        /* Prevents the image from blocking clicks on text/links */
-        z-index: 0;
-        /* Sits behind the text content */
-        transform: rotate(-10deg);
-    }
-
     /* Ensure text stays above the watermark */
     .content-card>* {
         position: relative;
