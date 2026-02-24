@@ -2,11 +2,11 @@
 layout: default
 title: "Passport Updates"
 condo: "Elm Drive"
-date: 2026-02-22T02:16:17.127Z
+date: 2026-02-24T21:22:03.323Z
 ---
 
 *Passport Updates*
 
 `How to renew your passport`
 
-**BLS procedure**
+**BLS procedure 12345 **
