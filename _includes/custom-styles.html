@@ -325,45 +325,71 @@
         }
     }
 
-    /* Footer */
+    /* --- Professional Compact Footer --- */
     .site-footer {
-        background: #f1f5f9;
-        padding: 3rem;
-        text-align: center;
+        background: var(--white);
         border-top: 1px solid var(--border);
+        padding: 1.5rem 2rem;
+        /* Reduced padding from 3rem */
         margin-top: auto;
     }
 
+    .footer-inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+    }
+
     .footer-logo {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-weight: 800;
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .footer-logo span {
         color: var(--primary);
+    }
 
-        .wiki-content-render {
-            color: var(--text-main);
-            line-height: 1.6;
-        }
+    .footer-links {
+        display: flex;
+        gap: 24px;
+    }
 
-        .wiki-content-render h1,
-        .wiki-content-render h2 {
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-        }
+    .footer-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
 
-        .wiki-content-render p {
-            margin-bottom: 1rem;
-        }
+    .footer-links a:hover {
+        color: var(--primary);
+    }
 
-        .wiki-content-render ul,
-        .wiki-content-render ol {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-        }
+    .footer-copyright {
+        opacity: 0.8;
+    }
+
+    .wiki-content-render h1,
+    .wiki-content-render h2 {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .wiki-content-render p {
+        margin-bottom: 1rem;
+    }
+
+    .wiki-content-render ul,
+    .wiki-content-render ol {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
     }
 
     .community-switcher {

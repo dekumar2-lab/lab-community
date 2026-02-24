@@ -111,12 +111,24 @@
         </main>
     </div>
 
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="footer-logo">Resi<span>Hub</span></div>
-            <p>© 2026 The Hub Collective. All rights reserved.</p>
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-logo">
+            <i class="fa-solid fa-city" style="font-size: 0.9rem; opacity: 0.5;"></i>
+            The Hub<span>Collective</span>
         </div>
-    </footer>
+        
+        <div class="footer-links">
+            <a href="{{ site.baseurl }}/">Dashboard</a>
+            <a href="{{ site.baseurl }}/submit.html">Contribute</a>
+            <a href="https://github.com/{{ site.github_username }}/{{ site.github_repo }}" target="_blank">GitHub</a>
+        </div>
+
+        <div class="footer-copyright">
+            © {{ "now" | date: "%Y" }} Intelligence Layer v1.0
+        </div>
+    </div>
+</footer>
 
     <script>
         function toggleAlertFeed() {
