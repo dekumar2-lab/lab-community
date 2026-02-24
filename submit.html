@@ -6,61 +6,53 @@ title: Contribute to ResiHub
 <div class="submission-container">
     <div class="form-header">
         <h1>Contribute Content</h1>
-        <p>Your submission will create a secure Pull Request on GitHub. Once an administrator reviews and merges your
-            contribution, it will be live for the community.</p>
+        <p>Your submission will create a secure Pull Request on GitHub. Approved content becomes live for the community.</p>
     </div>
 
-    <form id="submissionForm" class="professional-form">
+    <form id="submissionForm">
         <input type="hidden" name="type" value="wiki">
 
         <div class="form-group">
             <label for="condo">Community / Building Hub</label>
             <input type="text" id="condo" name="condo" placeholder="e.g., North York District" required>
-            <small class="input-hint">Ensure this matches the existing district name if contributing to a specific
-                wiki.</small>
+            <small class="input-hint">Ensure this matches the existing district name if contributing to a specific wiki.</small>
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: center; gap: 12px; background: var(--primary-light); padding: 1.25rem; border-radius: 12px; margin: 2rem 0; border: 1px solid #dbeafe;">
+            <input type="checkbox" id="setupDefaults" name="setupDefaults" style="width: 20px; height: 20px; cursor: pointer;">
+            <label for="setupDefaults" style="margin: 0; cursor: pointer; font-size: 0.95rem;">
+                <strong>Initialize Community Hub</strong> 
+                <br><span style="font-weight: 400; color: var(--text-muted);">Automatically create Overview, Intelligence, Movie, and Restaurant pages.</span>
+            </label>
         </div>
 
         <div class="form-group">
             <label for="title">Resource Title</label>
-            <input type="text" id="title" name="title" placeholder="e.g., Waste Management & Recycling Guide" required>
+            <input type="text" id="title" name="title" placeholder="e.g., Waste Management Guide" required>
         </div>
 
         <div class="form-group">
-            <label for="content">Documentation Content (Markdown Supported)</label>
-            <textarea id="content" name="content" rows="12"
-                placeholder="Structure your guide here. You can use # for headers, - for bullets, and **bold** for emphasis..."
-                required></textarea>
+            <label for="content">Documentation Content (Markdown)</label>
+            <textarea id="content" name="content" rows="12" placeholder="Write your content here..." required></textarea>
         </div>
 
         <div class="form-actions">
             <a href="{{ site.baseurl }}/" class="btn-cancel">Cancel</a>
             <button type="submit" id="submitBtn" class="btn-submit-main">
-                <i class="fa-solid fa-cloud-arrow-up"></i> Submit for Review
+                <i class="fa-solid fa-cloud-arrow-up"></i> Submit to Review
             </button>
-
         </div>
     </form>
 </div>
 
 <script>
-    // 1. Context Awareness: Pre-fill building if coming from a specific district page
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('condo')) {
-        // Formats slug back to readable text for the user
-        const condoName = urlParams.get('condo').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-        document.getElementById('condo').value = condoName;
-    }
-
-    // 2. High-Performance Submission Logic
     document.getElementById('submissionForm').onsubmit = async (e) => {
         e.preventDefault();
-
         const btn = document.getElementById('submitBtn');
         const originalContent = btn.innerHTML;
-
-        // Visual feedback for the "Professional" feel
+        
         btn.disabled = true;
-        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Synchronizing ...';
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Synchronizing...';
 
         const formData = new FormData(e.target);
 
@@ -71,23 +63,19 @@ title: Contribute to ResiHub
             });
 
             if (response.ok) {
-                // Success State
                 btn.style.background = "#22c55e";
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> Contribution Sent!';
-
                 setTimeout(() => {
-                    alert("Success! Your contribution has been staged for review. Redirecting to dashboard...");
+                    alert("Success! The community and default pages have been staged for review.");
                     window.location.href = "{{ site.baseurl }}/";
-                }, 500);
+                }, 800);
             } else {
-                const errorData = await response.json();
-                throw new Error(errorData.error || "Network synchronization failed");
+                throw new Error("Network synchronization failed");
             }
         } catch (err) {
-            // Error Handling
             btn.disabled = false;
             btn.innerHTML = originalContent;
-            alert("Submission Error: " + err.message);
+            alert("Error: " + err.message);
         }
     };
 </script>
