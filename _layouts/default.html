@@ -24,7 +24,7 @@
                     {% endfor %}
                 </select>
                 {% endif %}
-                <a href="{{ site.baseurl }}/submit.html?mode=new" class="btn-primary-nav">Create Hub</a>
+                <a href="{{ site.baseurl }}/submit.html?mode=new" class="btn-primary-header">Create Hub</a>
             </div>
         </div>
     </header>
@@ -55,26 +55,26 @@
             {% if page.condo %}
                 {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | sort: 'date' | reverse %}
                 {% if active_alerts.size > 0 %}
-                <div class="alert-strip-container">
+                <div class="alert-collapsible-wrapper">
                     <div class="alert-strip-header" onclick="toggleAlertFeed()">
                         <div class="strip-left">
-                            <span class="pulse-dot"></span>
-                            <span class="strip-text"><strong>Live:</strong> {{ active_alerts.first.title }}</span>
+                            <span class="live-indicator"></span>
+                            <span class="strip-text"><strong>Live Notice:</strong> {{ active_alerts.first.title }}</span>
                         </div>
                         <div class="strip-right">
-                            <span class="count-badge">{{ active_alerts.size }} Announcements</span>
+                            <span class="alert-count">{{ active_alerts.size }} Announcements</span>
                             <i class="fa-solid fa-chevron-down" id="chevron-icon"></i>
                         </div>
                     </div>
-                    <div id="alert-drawer" class="alert-drawer-content">
+                    <div id="alert-drawer" class="alert-drawer-body">
                         {% for alert in active_alerts %}
-                        <div class="drawer-card urgency-{{ alert.alert_type | default: 'info' }}">
-                            <div class="card-meta">
-                                <span class="tag">{{ alert.alert_type | upcase }}</span>
-                                <span class="date">{{ alert.date | date: "%B %d" }}</span>
+                        <div class="drawer-item urgency-{{ alert.alert_type | default: 'info' }}">
+                            <div class="drawer-meta">
+                                <span class="urgency-pill">{{ alert.alert_type | upcase }}</span>
+                                <small>{{ alert.date | date: "%B %d, %Y" }}</small>
                             </div>
                             <h4>{{ alert.title }}</h4>
-                            <div class="card-body">{{ alert.content | markdownify }}</div>
+                            <div class="drawer-body-text">{{ alert.content | markdownify }}</div>
                         </div>
                         {% endfor %}
                     </div>
@@ -82,16 +82,16 @@
                 {% endif %}
             {% endif %}
 
-            <div class="content-card main-wiki-card">
+            <article class="content-card main-wiki-area">
                 {{ content }}
-            </div>
+            </article>
         </main>
     </div>
 
     <footer class="site-footer">
         <div class="footer-inner">
-            <div class="footer-brand">Resi<span>Hub</span></div>
-            <p>Intelligence for Modern Communities. © 2026</p>
+            <div class="footer-logo">Resi<span>Hub</span></div>
+            <p>© 2026 Residential Intelligence Platform. All rights reserved.</p>
         </div>
     </footer>
 

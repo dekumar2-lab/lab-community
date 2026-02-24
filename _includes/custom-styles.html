@@ -6,7 +6,7 @@
         --text-muted: #64748b;
         --border: #e2e8f0;
         --white: #ffffff;
-        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        --shadow: 0 4px 15px -1px rgba(0, 0, 0, 0.05);
     }
 
     body {
@@ -20,55 +20,61 @@
 
     h1, h2, h3, .logo { font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -0.02em; }
 
-    /* Header & Branding */
-    .site-header { background: var(--white); border-bottom: 1px solid var(--border); padding: 0.75rem 2rem; position: sticky; top: 0; z-index: 100; }
+    /* Header Styling */
+    .site-header { background: var(--white); border-bottom: 1px solid var(--border); padding: 0.8rem 2rem; position: sticky; top: 0; z-index: 1000; }
     .header-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 1.4rem; font-weight: 800; text-decoration: none; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+    .logo { font-size: 1.5rem; font-weight: 800; text-decoration: none; color: var(--text-main); }
     .logo span { color: var(--primary); }
-    .btn-primary-nav { background: var(--primary); color: white; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    .btn-primary-header { background: var(--primary); color: white; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.85rem; }
 
     /* Sidebar Navigation */
     .app-shell { display: flex; flex: 1; width: 100%; max-width: 1400px; margin: 0 auto; }
-    .sidebar { width: 260px; padding: 2.5rem 1.5rem; border-right: 1px solid var(--border); }
+    .sidebar { width: 260px; padding: 2rem 1.5rem; border-right: 1px solid var(--border); background: #ffffff; }
     .nav-section { margin-bottom: 2rem; }
-    .nav-section small { color: var(--text-muted); font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 1rem; }
-    .nav-item { display: flex; align-items: center; gap: 12px; padding: 0.7rem 1rem; color: var(--text-muted); text-decoration: none; border-radius: 10px; font-weight: 500; font-size: 0.9rem; transition: 0.2s; }
+    .nav-section small { color: var(--text-muted); font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 0.8rem; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 0.75rem 1rem; color: var(--text-muted); text-decoration: none; border-radius: 10px; font-weight: 500; font-size: 0.9rem; transition: 0.2s; }
     .nav-item:hover, .nav-item.active { background: var(--primary-light); color: var(--primary); }
-    .btn-broadcast-sidebar { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 0.75rem; margin-top: 1rem; background: #fff1f2; color: #e11d48 !important; border-radius: 10px; font-weight: 700; text-decoration: none; border: 1px solid #fecaca; font-size: 0.85rem; }
+    .btn-broadcast-sidebar { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 0.75rem; margin-top: 1rem; background: #fff1f2; color: #ef4444 !important; border-radius: 10px; font-weight: 700; text-decoration: none; border: 1px solid #fecaca; font-size: 0.85rem; }
 
-    /* Main Content & Submission Forms */
-    .main-content { flex: 1; padding: 2.5rem; }
+    /* Main Content Card & Watermark */
+    .main-content { flex: 1; padding: 2.5rem; max-width: 1000px; }
     .content-card { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 3rem; box-shadow: var(--shadow); position: relative; overflow: hidden; }
     
-    /* Submission Form Restoration */
-    #submissionForm div { margin-bottom: 1.5rem; }
-    #submissionForm label { display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--text-main); }
-    #submissionForm input, #submissionForm textarea { width: 100%; padding: 0.8rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: inherit; box-sizing: border-box; }
-
-    /* Home Page Cards & Watermarks */
-    .community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.5rem; padding-top: 2rem; }
-    .hub-card { 
-        background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; text-align: center; text-decoration: none; position: relative; overflow: hidden; transition: 0.3s;
-    }
-    .hub-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-    .hub-card::after {
+    /* Subtle Architectural Watermark */
+    .content-card::after, .hub-card::after {
         content: "\f1ad"; font-family: "Font Awesome 6 Free"; font-weight: 900;
-        position: absolute; bottom: -15px; right: -5px; font-size: 4rem; color: var(--primary); opacity: 0.03; transform: rotate(-10deg);
+        position: absolute; bottom: -20px; right: -10px; font-size: 6rem; color: var(--primary); opacity: 0.025; transform: rotate(-10deg); pointer-events: none;
     }
 
-    /* Mini-Collapsible Alerts */
-    .alert-strip-container { margin-bottom: 2rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
-    .alert-strip-header { background: var(--text-main); color: white; padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-    .pulse-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; margin-right: 10px; animation: blink 2s infinite; }
-    .alert-drawer-content { display: none; background: white; max-height: 400px; overflow-y: auto; }
-    .alert-drawer-content.is-open { display: block; }
-    .drawer-card { padding: 1.5rem; border-bottom: 1px solid var(--border); }
-    .urgency-high { background: #fff1f2; border-left: 4px solid #e11d48; }
+    /* Forms (Submit/Broadcast) Fix */
+    #submissionForm, #broadcastForm { display: flex; flex-direction: column; gap: 1.5rem; }
+    .form-group label { display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.5rem; }
+    input, textarea, select { width: 100%; padding: 0.8rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 0.95rem; box-sizing: border-box; }
+    input:focus, textarea:focus { border-color: var(--primary); outline: none; }
 
-    @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    /* Home Page Grid & Reduced Card Sizes */
+    .community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1.25rem; margin-top: 3rem; }
+    .hub-card { 
+        background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; 
+        text-align: center; text-decoration: none; position: relative; overflow: hidden; transition: 0.3s;
+    }
+    .hub-card:hover { transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); }
+    .hub-card h3 { margin: 0.5rem 0 0.2rem 0; font-size: 1rem; color: var(--text-main); }
+    .hub-card p { font-size: 0.75rem; color: var(--primary); font-weight: 700; }
+
+    /* Alert Drawer Styles */
+    .alert-collapsible-wrapper { margin-bottom: 2rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+    .alert-strip-header { background: var(--text-main); color: white; padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .live-indicator { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; margin-right: 8px; animation: pulse 2s infinite; }
+    .alert-drawer-body { display: none; background: white; max-height: 350px; overflow-y: auto; }
+    .alert-drawer-body.is-open { display: block; }
+    .drawer-item { padding: 1.5rem; border-bottom: 1px solid var(--border); }
+    .urgency-high { border-left: 4px solid #ef4444; background: #fff1f2; }
+
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
     /* Footer */
-    .site-footer { background: white; border-top: 1px solid var(--border); padding: 3rem; margin-top: auto; text-align: center; }
-    .footer-brand { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.2rem; margin-bottom: 0.5rem; }
-    .footer-brand span { color: var(--primary); }
+    .site-footer { background: #f1f5f9; padding: 3rem; text-align: center; border-top: 1px solid var(--border); margin-top: auto; }
+    .footer-logo { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .footer-logo span { color: var(--primary); }
 </style>

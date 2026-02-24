@@ -1,55 +1,88 @@
 ---
 layout: default
-title: Submit Guide
+title: Contribute to ResiHub
 ---
 
-<div id="submitDiv">
-    <h1 style="font-size: 2.25rem; margin-bottom: 0.5rem;">Contribute Content</h1>
-    <p style="color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem;">Your submission will create a Pull Request on
-        GitHub for admin review.</p>
+<div class="submission-container">
+    <div class="form-header">
+        <h1>Contribute Content</h1>
+        <p>Your submission will create a secure Pull Request on GitHub. Once an administrator reviews and merges your contribution, it will be live for the community.</p>
+    </div>
 
-    <form id="submissionForm">
-        <div>
-            <label >Community / Building</label>
-            <input type="text" id="condo" name="condo" placeholder="e.g. 3504" required>
+    <form id="submissionForm" class="professional-form">
+        <input type="hidden" name="type" value="wiki">
+
+        <div class="form-group">
+            <label for="condo">Community / Building Hub</label>
+            <input type="text" id="condo" name="condo" placeholder="e.g., North York District" required>
+            <small class="input-hint">Ensure this matches the existing district name if contributing to a specific wiki.</small>
         </div>
 
-        <div>
-            <label >Guide Title</label>
-            <input type="text" id="title" name="title" placeholder="e.g. Visitor Parking Rules" required>
+        <div class="form-group">
+            <label for="title">Resource Title</label>
+            <input type="text" id="title" name="title" placeholder="e.g., Waste Management & Recycling Guide" required>
         </div>
 
-        <div>
-            <label >Content (Markdown Support)</label>
-            <textarea id="content" name="content" rows="12" placeholder="Write your guide content here..."
-                required></textarea>
+        <div class="form-group">
+            <label for="content">Documentation Content (Markdown Supported)</label>
+            <textarea id="content" name="content" rows="12" placeholder="Structure your guide here. You can use # for headers, - for bullets, and **bold** for emphasis..." required></textarea>
         </div>
 
-        <button type="submit" class="btn" style="padding: 1.1rem; font-size: 1.1rem;">Submit for Review</button>
+        <div class="form-actions">
+            <button type="submit" id="submitBtn" class="btn-submit-main">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Submit for Review
+            </button>
+            <a href="{{ site.baseurl }}/" class="btn-cancel">Cancel</a>
+        </div>
     </form>
 </div>
 
 <script>
-    // Pre-fill building if coming from a specific wiki
+    // 1. Context Awareness: Pre-fill building if coming from a specific district page
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('condo')) {
-        document.getElementById('condo').value = urlParams.get('condo');
+        // Formats slug back to readable text for the user
+        const condoName = urlParams.get('condo').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        document.getElementById('condo').value = condoName;
     }
 
+    // 2. High-Performance Submission Logic
     document.getElementById('submissionForm').onsubmit = async (e) => {
         e.preventDefault();
+        
+        const btn = document.getElementById('submitBtn');
+        const originalContent = btn.innerHTML;
+        
+        // Visual feedback for the "Professional" feel
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Synchronizing with GitHub...';
+
         const formData = new FormData(e.target);
 
-        const response = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
-            method: 'POST',
-            body: formData
-        });
+        try {
+            const response = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
+                method: 'POST',
+                body: formData
+            });
 
-        if (response.ok) {
-            alert("Success! Your contribution has been sent for review.");
-            window.location.href = "{{ site.baseurl }}/";
-        } else {
-            alert("Submission failed. Please check your GitHub Token permissions in the Worker.");
+            if (response.ok) {
+                // Success State
+                btn.style.background = "#22c55e";
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Contribution Sent!';
+                
+                setTimeout(() => {
+                    alert("Success! Your contribution has been staged for review. Redirecting to dashboard...");
+                    window.location.href = "{{ site.baseurl }}/";
+                }, 500);
+            } else {
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Network synchronization failed");
+            }
+        } catch (err) {
+            // Error Handling
+            btn.disabled = false;
+            btn.innerHTML = originalContent;
+            alert("Submission Error: " + err.message);
         }
     };
 </script>
