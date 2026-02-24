@@ -21,20 +21,24 @@
                     <option value="#">Switch Community...</option>
                     {% assign condos = site.pages | map: 'condo' | uniq | compact %}
                     {% for c in condos %}
-                    <option value="{{ site.baseurl }}/content/{{ c | slugify }}/" {% if c == page.condo %}selected{% endif %}>
-                        {{ c }}
-                    </option>
+                    <option value="{{ site.baseurl }}/content/{{ c | slugify }}/" {% if c == page.condo %}selected{% endif %}>{{ c }}</option>
                     {% endfor %}
                 </select>
                 {% endif %}
-                <a href="{{ site.baseurl }}/submit.html" class="btn-primary-header"><i class="fa-solid fa-plus"></i> Create Hub</a>
+                <a href="{{ site.baseurl }}/submit.html?mode=new" class="btn-primary-header">Create Hub</a>
             </div>
         </div>
     </header>
 
-    <div class="main-container">
+    <div class="app-shell">
         <aside class="sidebar">
             <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <small>DASHBOARD</small>
+                    <a href="{{ site.baseurl }}/" class="nav-item"><i class="fa-solid fa-grip"></i> Overview</a>
+                    <a href="{{ site.baseurl }}/submit.html?mode=new" class="nav-item"><i class="fa-solid fa-plus"></i> New District</a>
+                </div>
+
                 {% if page.condo %}
                 <div class="nav-section">
                     <small>{{ page.condo | upcase }}</small>
@@ -58,33 +62,94 @@
 
                     <div style="margin: 0.5rem 0; border-top: 1px dashed var(--border);"></div>
 
-                    {% assign sorted_pages = condo_pages | sort: "title" %}
-                    {% for p in sorted_pages %}
+                    {% assign sorted_others = condo_pages | sort: "title" %}
+                    {% for p in sorted_others %}
                         {% unless p.url contains '/index' or p.title == "Essential Intelligence" or p.layout == "broadcast" %}
                         <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}" style="padding-left: 1.5rem; font-size: 0.9rem;">
                             <i class="fa-solid fa-file-lines" style="opacity: 0.6;"></i> {{ p.title }}
                         </a>
                         {% endunless %}
                     {% endfor %}
+
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                        <a href="{{ site.baseurl }}/broadcast.html?condo={{ page.condo | slugify }}" class="btn-broadcast-sidebar">
+                            <i class="fa-solid fa-bullhorn"></i> Dispatch Alert
+                        </a>
+                    </div>
                 </div>
                 {% endif %}
             </nav>
         </aside>
 
         <main class="main-content">
+            {% if page.condo %}
+                {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | sort: 'date' | reverse %}
+                {% if active_alerts.size > 0 %}
+                <div class="alert-collapsible-wrapper">
+                    <div class="alert-strip-header" onclick="toggleAlertFeed()">
+                        <div class="strip-left">
+                            <span class="live-indicator"></span>
+                            <span class="strip-text"><strong>Live Notice:</strong> {{ active_alerts.first.title }}</span>
+                        </div>
+                        <div class="strip-right">
+                            <span class="alert-count">{{ active_alerts.size }} Announcements</span>
+                            <i class="fa-solid fa-chevron-down" id="chevron-icon"></i>
+                        </div>
+                    </div>
+                    <div id="alert-drawer" class="alert-drawer-body">
+                        {% for alert in active_alerts %}
+                        <div class="drawer-item urgency-{{ alert.alert_type | default: 'info' }}">
+                            <div class="drawer-meta">
+                                <span class="urgency-pill">{{ alert.alert_type | upcase }}</span>
+                                <small>{{ alert.date | date: "%B %d, %Y" }}</small>
+                            </div>
+                            <h4>{{ alert.title }}</h4>
+                            <div class="drawer-body-text">{{ alert.content | markdownify }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
+
             <article class="content-card main-wiki-area">
                 {% if page.condo %}
-                <div style="display: flex; justify-content: flex-end; margin-bottom: 1.5rem;">
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
                     <a href="{{ site.baseurl }}/submit.html?edit=true&condo={{ page.condo | url_encode }}&title={{ page.title | url_encode }}" class="btn-edit-action">
                         <i class="fa-regular fa-pen-to-square"></i> Edit Page
                     </a>
                 </div>
                 {% endif %}
-                <div class="wiki-content">
+                <div class="wiki-content-render">
                     {{ content }}
                 </div>
             </article>
         </main>
     </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <i class="fa-solid fa-city" style="font-size: 0.9rem; opacity: 0.5;"></i>
+                The Hub<span>Collective</span>
+            </div>
+            <div class="footer-links">
+                <a href="{{ site.baseurl }}/">Dashboard</a>
+                <a href="{{ site.baseurl }}/submit.html">Contribute</a>
+            </div>
+            <div class="footer-copyright">
+                © {{ "now" | date: "%Y" }} Intelligence Layer v1.0
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAlertFeed() {
+            const drawer = document.getElementById('alert-drawer');
+            const icon = document.getElementById('chevron-icon');
+            drawer.classList.toggle('is-open');
+            icon.style.transform = drawer.classList.contains('is-open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+    </script>
 </body>
 </html>
