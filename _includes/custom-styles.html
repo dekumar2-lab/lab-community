@@ -336,4 +336,40 @@
             padding-left: 1.5rem;
         }
     }
+
+    .community-switcher {
+        max-width: 180px;
+        padding: 0.5rem;
+        font-size: 0.85rem;
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        background: #fdfdfd;
+    }
+
+    /* Fixes alignment of the "Create Hub" button text */
+    .btn-primary-header {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        white-space: nowrap;
+        line-height: 1;
+    }
+
+    /* Fixes alignment of the "Dispatch Alert" button in sidebar */
+    .btn-broadcast-sidebar {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+        /* Crucial for width: 100% */
+    }
+
+    /* Ensure icons have consistent spacing */
+    .btn-primary-header i,
+    .btn-broadcast-sidebar i {
+        margin-right: 8px;
+    }
 </style>
