@@ -420,4 +420,30 @@
             transform: rotate(360deg);
         }
     }
+
+    /* --- Form Action Bar --- */
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border);
+    }
+    
+    .btn-cancel {
+        background: transparent;
+        color: var(--text-muted);
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        border: 1px solid var(--border);
+        transition: all 0.2s;
+    }
+
+    .btn-cancel:hover {
+        background: #f1f5f9;
+        color: var(--text-main);
+    }
 </style>
