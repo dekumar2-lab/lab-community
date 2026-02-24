@@ -372,4 +372,52 @@
     .btn-broadcast-sidebar i {
         margin-right: 8px;
     }
+
+    /* --- Main Form Submission Button --- */
+    .btn-submit-main {
+        background: var(--primary);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 1rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        /* Full width for mobile-friendly forms */
+        box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-submit-main:hover {
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-submit-main:disabled {
+        background: #94a3b8;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    /* Spinner for Loading State */
+    .fa-spin {
+        animation: fa-spin 1s infinite linear;
+    }
+
+    @keyframes fa-spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 </style>
