@@ -421,31 +421,63 @@
         }
     }
 
-    /* --- Form Action Bar --- */
-    .form-actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 2.5rem;
-        padding-top: 2rem;
-        border-top: 1px solid var(--border);
-    }
+    /* --- Form Action Bar Split --- */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2.5rem auto 0 auto; /* Centered in the form */
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    gap: 20px; /* Space between the two 50% buttons */
+    max-width: 500px; /* Prevents the buttons from being too wide on desktop */
+    width: 100%;
+}
 
-    .btn-cancel {
-        background: transparent;
-        color: var(--text-muted);
-        padding: 0.8rem 1.5rem;
-        border-radius: 10px;
-        font-weight: 600;
-        text-decoration: none;
-        border: 1px solid var(--border);
-        transition: all 0.2s;
-    }
+.btn-cancel, 
+.btn-submit-main {
+    flex: 1; /* This forces both buttons to take exactly 50% of the space */
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
 
-    .btn-cancel:hover {
-        background: #f1f5f9;
-        color: var(--text-main);
-    }
+.btn-cancel {
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1.5px solid var(--border);
+    transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+    background: #f1f5f9;
+    color: var(--text-main);
+    border-color: #cbd5e1;
+}
+
+.btn-submit-main {
+    background: var(--primary);
+    color: white;
+    border-radius: 12px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    gap: 10px;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+    width: auto !important; /* Overriding previous full-width setting */
+}
+
+.btn-submit-main:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
 
     .home-hero-section {
     background: radial-gradient(at 0% 0%, hsla(221,83%,93%,1) 0, transparent 50%), 
@@ -462,5 +494,40 @@
 .hub-card:hover {
     box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.1), 0 8px 10px -6px rgba(37, 99, 235, 0.1);
     background: linear-gradient(to bottom right, #ffffff, #f0f7ff);
+}
+
+/* --- Home Page Park Watermark --- */
+.home-watermark-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.home-watermark-wrapper::before {
+    content: "\f1bb"; /* Font Awesome Tree Icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40rem; /* Massive size to fill space */
+    color: var(--primary);
+    opacity: 0.02; /* Extremely faint */
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Subtle architectural detail for cards */
+.hub-card::after {
+    content: "\f1bb"; /* Matching small tree icon in cards */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    bottom: -10px;
+    right: -5px;
+    font-size: 4rem;
+    color: var(--primary);
+    opacity: 0.03;
+    transform: rotate(-15deg);
 }
 </style>
