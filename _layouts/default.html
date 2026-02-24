@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | ResiHub</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     {% include custom-styles.html %}
 </head>
@@ -24,64 +22,62 @@
                     <option value="#">Switch Community...</option>
                     {% assign condos = site.pages | map: 'condo' | uniq | compact %}
                     {% for c in condos %}
-                    <option value="{{ site.baseurl }}/content/{{ c | slugify }}/" {% if c==page.condo %}selected{% endif
-                        %}>{{ c }}</option>
+                    <option value="{{ site.baseurl }}/content/{{ c | slugify }}/" {% if c == page.condo %}selected{% endif %}>
+                        {{ c }}
+                    </option>
                     {% endfor %}
                 </select>
                 {% endif %}
-                <a href="{{ site.baseurl }}/submit.html?mode=new" class="btn-primary-header">Create Hub</a>
+                <a href="{{ site.baseurl }}/submit.html" class="btn-primary-header"><i class="fa-solid fa-plus"></i> Create Hub</a>
             </div>
         </div>
     </header>
 
-    <div class="app-shell">
-        <aside class="sidebar">
+    <div class="main-container" style="display: flex; min-height: calc(100vh - 70px);">
+        <aside class="sidebar" style="width: 280px; border-right: 1px solid var(--border); background: #fff; padding: 1.5rem;">
             <nav class="sidebar-nav">
-                <div class="nav-section">
-                    <small>DASHBOARD</small>
-                    <a href="{{ site.baseurl }}/" class="nav-item"><i class="fa-solid fa-grip"></i> Overview</a>
-                    <a href="{{ site.baseurl }}/submit.html?mode=new" class="nav-item"><i class="fa-solid fa-plus"></i>
-                        New District</a>
+                <div class="nav-section" style="margin-bottom: 2rem;">
+                    <small style="color: var(--text-muted); font-weight: 700; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;">Dashboard</small>
+                    <a href="{{ site.baseurl }}/" class="nav-item" style="display: flex; align-items: center; gap: 10px; padding: 0.8rem; text-decoration: none; color: var(--text-main); font-size: 0.9rem; border-radius: 8px; margin-top: 0.5rem;">
+                        <i class="fa-solid fa-grip" style="color: var(--primary);"></i> Global Overview
+                    </a>
                 </div>
 
                 {% if page.condo %}
                 <div class="nav-section">
-                    <small>{{ page.condo | upcase }}</small>
-
+                    <small style="color: var(--text-muted); font-weight: 700; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;">{{ page.condo }}</small>
+                    
                     {% assign condo_pages = site.pages | where: "condo", page.condo %}
 
                     {% for p in condo_pages %}
-                    {% if p.url contains '/index' %}
-                    <a href="{{ site.baseurl }}{{ p.url }}"
-                        class="nav-item {% if page.url == p.url %}active{% endif %}">
-                        <i class="fa-solid fa-house"></i> District Overview
-                    </a>
-                    {% endif %}
+                        {% if p.url contains '/index' %}
+                        <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}" style="display: flex; align-items: center; gap: 10px; padding: 0.8rem; text-decoration: none; color: var(--text-main); font-size: 0.9rem; border-radius: 8px; margin-top: 0.5rem;">
+                            <i class="fa-solid fa-house"></i> District Overview
+                        </a>
+                        {% endif %}
                     {% endfor %}
 
-                    <!-- {% for p in condo_pages %}
-                    {% if p.title == "Essential Intelligence" %}
-                    <a href="{{ site.baseurl }}{{ p.url }}"
-                        class="nav-item {% if page.url == p.url %}active{% endif %}">
-                        <i class="fa-solid fa-shield-halved"></i> Essential Intelligence
-                    </a>
-                    {% endif %}
-                    {% endfor %} -->
-
-                    {% assign sorted_others = condo_pages | sort: "title" %}
-                    {% for p in sorted_others %}
-                    {% unless p.url contains '/index' or p.layout == "broadcast"
-                    %}
-                    <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}"
-                        style="padding-left: 1.5rem; font-size: 0.9rem;">
-                        <i class="fa-solid fa-file-lines" style="opacity: 0.6;"></i> {{ p.title }}
-                    </a>
-                    {% endunless %}
+                    {% for p in condo_pages %}
+                        {% if p.title == "Essential Intelligence" %}
+                        <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}" style="display: flex; align-items: center; gap: 10px; padding: 0.8rem; text-decoration: none; color: var(--text-main); font-size: 0.9rem; border-radius: 8px;">
+                            <i class="fa-solid fa-shield-halved"></i> Essential Intelligence
+                        </a>
+                        {% endif %}
                     {% endfor %}
 
-                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-                        <a href="{{ site.baseurl }}/broadcast.html?condo={{ page.condo | slugify }}"
-                            class="btn-broadcast-sidebar">
+                    <div style="margin: 0.8rem 0; border-top: 1px dashed var(--border);"></div>
+
+                    {% assign sorted_pages = condo_pages | sort: "title" %}
+                    {% for p in sorted_pages %}
+                        {% unless p.url contains '/index' or p.title == "Essential Intelligence" or p.layout == "broadcast" %}
+                        <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}" style="display: flex; align-items: center; gap: 10px; padding: 0.6rem 0.8rem; text-decoration: none; color: var(--text-main); font-size: 0.85rem; border-radius: 8px;">
+                            <i class="fa-solid fa-file-lines" style="opacity: 0.5;"></i> {{ p.title }}
+                        </a>
+                        {% endunless %}
+                    {% endfor %}
+
+                    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                        <a href="{{ site.baseurl }}/broadcast.html?condo={{ page.condo | slugify }}" class="btn-broadcast-sidebar" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--primary-light); color: var(--primary); padding: 0.8rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.8rem;">
                             <i class="fa-solid fa-bullhorn"></i> Dispatch Alert
                         </a>
                     </div>
@@ -90,47 +86,41 @@
             </nav>
         </aside>
 
-        <main class="main-content">
+        <main class="main-content" style="flex: 1; padding: 2rem; background: #f8fafc;">
+            
             {% if page.condo %}
-            {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | sort:
-            'date' | reverse %}
-            {% if active_alerts.size > 0 %}
-            <div class="alert-collapsible-wrapper">
-                <div class="alert-strip-header" onclick="toggleAlertFeed()">
-                    <div class="strip-left">
-                        <span class="live-indicator"></span>
-                        <span class="strip-text"><strong>Live Notice:</strong> {{ active_alerts.first.title }}</span>
-                    </div>
-                    <div class="strip-right">
-                        <span class="alert-count">{{ active_alerts.size }} Announcements</span>
+                {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | sort: 'date' | reverse %}
+                {% if active_alerts.size > 0 %}
+                <div class="alert-collapsible-wrapper" style="margin-bottom: 2rem;">
+                    <div class="alert-strip-header" onclick="toggleAlertFeed()" style="background: #fff; border: 1px solid var(--border); padding: 1rem; border-radius: 12px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                        <div class="strip-left" style="display: flex; align-items: center; gap: 12px;">
+                            <span class="live-indicator" style="height: 10px; width: 10px; background: #ef4444; border-radius: 50%; display: inline-block;"></span>
+                            <span class="strip-text"><strong>Latest Notice:</strong> {{ active_alerts.first.title }}</span>
+                        </div>
                         <i class="fa-solid fa-chevron-down" id="chevron-icon"></i>
                     </div>
-                </div>
-                <div id="alert-drawer" class="alert-drawer-body">
-                    {% for alert in active_alerts %}
-                    <div class="drawer-item urgency-{{ alert.alert_type | default: 'info' }}">
-                        <div class="drawer-meta">
-                            <span class="urgency-pill">{{ alert.alert_type | upcase }}</span>
-                            <small>{{ alert.date | date: "%B %d, %Y" }}</small>
+                    <div id="alert-drawer" class="alert-drawer-body" style="display: none; background: #fff; border: 1px solid var(--border); border-top: 0; padding: 1.5rem; border-radius: 0 0 12px 12px;">
+                        {% for alert in active_alerts %}
+                        <div class="drawer-item" style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #f1f5f9;">
+                            <small style="color: var(--text-muted);">{{ alert.date | date: "%B %d, %Y" }} • {{ alert.alert_type | upcase }}</small>
+                            <h4 style="margin: 0.5rem 0;">{{ alert.title }}</h4>
+                            <div style="font-size: 0.9rem;">{{ alert.content | markdownify }}</div>
                         </div>
-                        <h4>{{ alert.title }}</h4>
-                        <div class="drawer-body-text">{{ alert.content | markdownify }}</div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
-            </div>
-            {% endif %}
+                {% endif %}
             {% endif %}
 
-            <article class="content-card main-wiki-area">
+            <article class="content-card main-wiki-area" style="background: #fff; padding: 3rem; border-radius: 16px; box-shadow: var(--shadow); position: relative;">
                 {% if page.condo %}
-                <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
-                    <a href="{{ site.baseurl }}/submit.html?edit=true&condo={{ page.condo | url_encode }}&title={{ page.title | url_encode }}"
-                        class="btn-edit-action">
+                <div style="position: absolute; top: 2rem; right: 2rem;">
+                    <a href="{{ site.baseurl }}/submit.html?edit=true&condo={{ page.condo | url_encode }}&title={{ page.title | url_encode }}" class="btn-edit-action" style="text-decoration: none; font-size: 0.8rem; font-weight: 700; color: var(--primary); background: var(--primary-light); padding: 0.6rem 1rem; border-radius: 8px; display: flex; align-items: center; gap: 8px;">
                         <i class="fa-regular fa-pen-to-square"></i> Edit Page
                     </a>
                 </div>
                 {% endif %}
+                
                 <div class="wiki-content-render">
                     {{ content }}
                 </div>
@@ -138,17 +128,12 @@
         </main>
     </div>
 
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="footer-logo">
-                <i class="fa-solid fa-city" style="font-size: 0.9rem; opacity: 0.5;"></i>
-                The Hub<span>Collective</span>
+    <footer class="site-footer" style="background: var(--white); border-top: 1px solid var(--border); padding: 2rem;">
+        <div class="footer-inner" style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+            <div class="footer-logo" style="font-weight: 800;">
+                <i class="fa-solid fa-city" style="color: var(--primary);"></i> ResiHub
             </div>
-            <div class="footer-links">
-                <a href="{{ site.baseurl }}/">Dashboard</a>
-                <a href="{{ site.baseurl }}/submit.html">Contribute</a>
-            </div>
-            <div class="footer-copyright">
+            <div class="footer-copyright" style="font-size: 0.8rem; color: var(--text-muted);">
                 © {{ "now" | date: "%Y" }} Intelligence Layer v1.0
             </div>
         </div>
@@ -158,10 +143,14 @@
         function toggleAlertFeed() {
             const drawer = document.getElementById('alert-drawer');
             const icon = document.getElementById('chevron-icon');
-            drawer.classList.toggle('is-open');
-            icon.style.transform = drawer.classList.contains('is-open') ? 'rotate(180deg)' : 'rotate(0deg)';
+            if (drawer.style.display === "none") {
+                drawer.style.display = "block";
+                icon.style.transform = "rotate(180deg)";
+            } else {
+                drawer.style.display = "none";
+                icon.style.transform = "rotate(0deg)";
+            }
         }
     </script>
 </body>
-
 </html>
