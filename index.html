@@ -12,17 +12,7 @@ title: Home
         {% assign condos = site.pages | map: 'condo' | uniq | compact %}
         {% for building in condos %}
             {% assign alerts = site.pages | where: "layout", "broadcast" | where: "condo", building %}
-            <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 3rem;">
-                <div style="text-align: center;">
-                    <div style="font-weight: 800; color: var(--text-main);">{{ condos.size }}</div>
-                    <small style="color: var(--text-muted); text-transform: uppercase; font-size: 0.65rem;">Active Hubs</small>
-                </div>
-                <div style="width: 1px; background: var(--border); height: 30px;"></div>
-                <div style="text-align: center;">
-                    <div style="font-weight: 800; color: var(--text-main);">Live</div>
-                    <small style="color: var(--text-muted); text-transform: uppercase; font-size: 0.65rem;">Dispatch Status</small>
-                </div>
-            </div>
+          
             <a href="{{ site.baseurl }}/content/{{ building | slugify }}/" class="hub-card">
                 {% if alerts.size > 0 %}
                 <div style="position: absolute; top: 12px; right: 12px; background: #ef4444; color: white; font-size: 0.65rem; padding: 3px 7px; border-radius: 6px; font-weight: 800; border: 2px solid white;">
