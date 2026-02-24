@@ -2,33 +2,25 @@
 layout: default
 title: Home
 ---
-<div style="text-align: center; padding: 3rem 0;">
-    <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Find Your Own Community</h1>
-    <p style="color: var(--text-muted); margin-bottom: 3rem;">Select your building below or start a new wiki directory.</p>
+<div style="text-align: center; padding: 4rem 0;">
+    <h1 style="font-size: 3rem; margin-bottom: 0.5rem; letter-spacing: -1.5px;">Find Your District</h1>
+    <p style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 4rem;">Select your community hub below to access local intelligence.</p>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
         {% assign condos = site.pages | map: 'condo' | uniq | compact %}
         {% for building in condos %}
-        {% assign building_alerts = site.pages | where: "layout", "broadcast" | where: "condo", building %}
-        <a href="{{ site.baseurl }}/content/{{ building | slugify }}/" class="content-card" style="text-decoration: none; padding: 2rem; transition: 0.3s;">
-
-            {% if building_alerts.size > 0 %}
-            <div class="card-bell-container">
+        {% assign alerts = site.pages | where: "layout", "broadcast" | where: "condo", building %}
+        <a href="{{ site.baseurl }}/content/{{ building | slugify }}/" class="content-card" style="text-decoration: none; padding: 2.5rem; text-align: center;">
+            {% if alerts.size > 0 %}
+            <div class="card-bell-container" style="position: absolute; top: 20px; right: 20px; background: #fff1f2; color: var(--accent); width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
                 <i class="fa-solid fa-bell"></i>
-                <span class="bell-count">{{ building_alerts.size }}</span>
+                <span style="position: absolute; top: -5px; right: -5px; background: var(--accent); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 8px; border: 2px solid white;">{{ alerts.size }}</span>
             </div>
             {% endif %}
-
-            <div style="font-size: 2rem; margin-bottom: 1rem;">🏢</div>
-            <h3 style="margin: 0; color: var(--text-main);">{{ building }}</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">View Guides →</p>
+            <div style="font-size: 3rem; margin-bottom: 1.5rem;">🏢</div>
+            <h3 style="margin: 0; color: var(--text-main); font-size: 1.4rem;">{{ building }}</h3>
+            <p style="color: var(--primary); font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">Access Wiki →</p>
         </a>
         {% endfor %}
-
-        <a href="{{ site.baseurl }}/submit.html?mode=new" class="content-card" style="text-decoration: none; padding: 2rem; border: 2px dashed var(--primary); background: transparent;">
-            <div style="font-size: 2rem; margin-bottom: 1rem; color: var(--primary);">+</div>
-            <h3 style="margin: 0; color: var(--primary);">Add Community</h3>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">Start a wiki for a new building.</p>
-        </a>
     </div>
 </div>
