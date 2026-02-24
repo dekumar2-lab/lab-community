@@ -24,7 +24,7 @@
                     {% endfor %}
                 </select>
                 {% endif %}
-                <a href="{{ site.baseurl }}/submit.html?mode=new" class="btn-primary">Create Community</a>
+                <a href="{{ site.baseurl }}/submit.html?mode=new" class="btn-primary-nav">Create Hub</a>
             </div>
         </div>
     </header>
@@ -33,18 +33,18 @@
         <aside class="sidebar">
             <nav class="sidebar-nav">
                 <div class="nav-section">
-                    <small>NAVIGATION</small>
-                    <a href="{{ site.baseurl }}/" class="nav-item"><i class="fa-solid fa-house"></i> Home</a>
-                    <a href="{{ site.baseurl }}/submit.html?mode=new" class="nav-item"><i class="fa-solid fa-plus"></i> Add Community</a>
+                    <small>DASHBOARD</small>
+                    <a href="{{ site.baseurl }}/" class="nav-item"><i class="fa-solid fa-grip"></i> Overview</a>
+                    <a href="{{ site.baseurl }}/submit.html?mode=new" class="nav-item"><i class="fa-solid fa-plus"></i> New District</a>
                 </div>
 
                 {% if page.condo %}
                 <div class="nav-section">
-                    <small>{{ page.condo | uppercase }}</small>
-                    <a href="{{ site.baseurl }}/content/{{ page.condo | slugify }}/" class="nav-item active"><i class="fa-solid fa-book"></i> Wiki Home</a>
-                    <a href="{{ site.baseurl }}/submit.html?condo={{ page.condo | slugify }}" class="nav-item"><i class="fa-solid fa-pen-nib"></i> Contribute</a>
-                    <a href="{{ site.baseurl }}/broadcast.html?condo={{ page.condo | slugify }}" class="btn-broadcast">
-                        <i class="fa-solid fa-bullhorn"></i> Send Broadcast
+                    <small>{{ page.condo | upcase }}</small>
+                    <a href="{{ site.baseurl }}/content/{{ page.condo | slugify }}/" class="nav-item active"><i class="fa-solid fa-book-bookmark"></i> Knowledge Base</a>
+                    <a href="{{ site.baseurl }}/submit.html?condo={{ page.condo | slugify }}" class="nav-item"><i class="fa-solid fa-pen-to-square"></i> Contribute</a>
+                    <a href="{{ site.baseurl }}/broadcast.html?condo={{ page.condo | slugify }}" class="btn-broadcast-sidebar">
+                        <i class="fa-solid fa-bullhorn"></i> Dispatch Alert
                     </a>
                 </div>
                 {% endif %}
@@ -53,37 +53,55 @@
 
         <main class="main-content">
             {% if page.condo %}
-            {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | sort: 'date' | reverse %}
-            {% if active_alerts.size > 0 %}
-            <div class="alert-strip-container" onclick="toggleAlertFeed()">
-                <div class="alert-strip-header">
-                    <div class="alert-strip-left">
-                        <span class="pulse-icon"><i class="fa-solid fa-circle"></i></span>
-                        <span class="alert-summary"><strong>Latest:</strong> {{ active_alerts.first.title }}</span>
-                    </div>
-                    <div class="alert-strip-right">
-                        <span class="alert-badge">{{ active_alerts.size }} Active</span>
-                        <i class="fa-solid fa-chevron-down" id="feed-chevron"></i>
-                    </div>
-                </div>
-                <div id="full-alert-feed" class="alert-feed-hidden">
-                    {% for alert in active_alerts %}
-                    <div class="mini-alert-card urgency-{{ alert.alert_type | default: 'info' }}">
-                        <div class="mini-alert-meta">
-                            <span class="urgency-tag">{{ alert.alert_type | upcase }}</span>
-                            <small>{{ alert.date | date: "%b %d" }}</small>
+                {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", page.condo | sort: 'date' | reverse %}
+                {% if active_alerts.size > 0 %}
+                <div class="alert-strip-container">
+                    <div class="alert-strip-header" onclick="toggleAlertFeed()">
+                        <div class="strip-left">
+                            <span class="pulse-dot"></span>
+                            <span class="strip-text"><strong>Live:</strong> {{ active_alerts.first.title }}</span>
                         </div>
-                        <h4>{{ alert.title }}</h4>
-                        <div class="mini-alert-body">{{ alert.content | markdownify }}</div>
+                        <div class="strip-right">
+                            <span class="count-badge">{{ active_alerts.size }} Announcements</span>
+                            <i class="fa-solid fa-chevron-down" id="chevron-icon"></i>
+                        </div>
                     </div>
-                    {% endfor %}
+                    <div id="alert-drawer" class="alert-drawer-content">
+                        {% for alert in active_alerts %}
+                        <div class="drawer-card urgency-{{ alert.alert_type | default: 'info' }}">
+                            <div class="card-meta">
+                                <span class="tag">{{ alert.alert_type | upcase }}</span>
+                                <span class="date">{{ alert.date | date: "%B %d" }}</span>
+                            </div>
+                            <h4>{{ alert.title }}</h4>
+                            <div class="card-body">{{ alert.content | markdownify }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
-            {% endif %}
+                {% endif %}
             {% endif %}
 
-            <article class="content-card">
-                <div class="wiki-content">{{ content }}</div>
-            </article>
+            <div class="content-card main-wiki-card">
+                {{ content }}
+            </div>
         </main>
     </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">Resi<span>Hub</span></div>
+            <p>Intelligence for Modern Communities. © 2026</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAlertFeed() {
+            const drawer = document.getElementById('alert-drawer');
+            const icon = document.getElementById('chevron-icon');
+            drawer.classList.toggle('is-open');
+            icon.style.transform = drawer.classList.contains('is-open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+    </script>
+</body>
+</html>
