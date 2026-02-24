@@ -49,8 +49,8 @@
                 {% if page.condo %}
                 <div class="nav-section">
                     <small>{{ page.condo | upcase }}</small>
-                    <a href="{{ site.baseurl }}/content/{{ page.condo | slugify }}/" class="nav-item"><i
-                            class="fa-solid fa-book-bookmark"></i> District Home</a>
+                    <!-- <a href="{{ site.baseurl }}/content/{{ page.condo | slugify }}/" class="nav-item"><i
+                            class="fa-solid fa-book-bookmark"></i> District Home</a> -->
 
                     {% assign community_pages = site.pages | where: "condo", page.condo | sort: "title" %}
                     {% for p in community_pages %}
