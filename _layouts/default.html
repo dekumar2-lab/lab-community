@@ -40,9 +40,24 @@
 
                 {% if page.condo %}
                 <div class="nav-section">
-                    <small>{{ page.condo | upcase }}</small>
-                    <a href="{{ site.baseurl }}/content/{{ page.condo | slugify }}/" class="nav-item active"><i class="fa-solid fa-book-bookmark"></i> Knowledge Base</a>
-                    <a href="{{ site.baseurl }}/submit.html?condo={{ page.condo | slugify }}" class="nav-item"><i class="fa-solid fa-pen-to-square"></i> Contribute</a>
+                    <small>{{ page.condo | upcase }} RESOURCES</small>
+                    <a href="{{ site.baseurl }}/content/{{ page.condo | slugify }}/" class="nav-item {% if page.url contains 'index' %}active{% endif %}">
+                        <i class="fa-solid fa-house-chimney"></i> District Home
+                    </a>
+
+                    {% assign community_pages = site.pages | where: "condo", page.condo | sort: "title" %}
+                    {% for p in community_pages %}
+                        {% unless p.url contains "index" or p.layout == "broadcast" %}
+                        <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}">
+                            <i class="fa-solid fa-file-lines"></i> {{ p.title }}
+                        </a>
+                        {% endunless %}
+                    {% endfor %}
+
+                    <a href="{{ site.baseurl }}/submit.html?condo={{ page.condo | slugify }}" class="nav-item">
+                        <i class="fa-solid fa-pen-to-square"></i> Contribute
+                    </a>
+                    
                     <a href="{{ site.baseurl }}/broadcast.html?condo={{ page.condo | slugify }}" class="btn-broadcast-sidebar">
                         <i class="fa-solid fa-bullhorn"></i> Dispatch Alert
                     </a>
@@ -83,7 +98,9 @@
             {% endif %}
 
             <article class="content-card main-wiki-area">
-                {{ content }}
+                <div class="wiki-content-render">
+                    {{ content }}
+                </div>
             </article>
         </main>
     </div>
