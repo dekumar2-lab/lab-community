@@ -65,7 +65,7 @@
         font-size: 0.85rem;
     }
 
-    /* Sidebar Navigation */
+
     .app-shell {
         display: flex;
         flex: 1;
@@ -74,44 +74,68 @@
         margin: 0 auto;
     }
 
+        /* Sidebar Navigation */
     .sidebar {
-        width: 260px;
-        padding: 2rem 1.5rem;
-        border-right: 1px solid var(--border);
-        background: #ffffff;
+       width: 280px;
+    padding: 2.5rem 1.5rem; /* Matches main content padding style */
+    background: transparent; /* Makes the cards "pop" from the background */
+    border-right: none;
     }
 
     .nav-section {
-        margin-bottom: 2rem;
+        background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px; /* Exact match to .content-card */
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow); /* Matches .content-card shadow */
+    position: relative;
+    overflow: hidden;
     }
 
-    .nav-section small {
-        color: var(--text-muted);
-        font-size: 0.65rem;
-        font-weight: 800;
-        letter-spacing: 1px;
-        display: block;
-        margin-bottom: 0.8rem;
-    }
+   /* architectural watermark for sidebar sections */
+.nav-section::after {
+    content: "\f1ad";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    bottom: -15px;
+    right: -5px;
+    font-size: 3rem;
+    color: var(--primary);
+    opacity: 0.02;
+    pointer-events: none;
+}
 
-    .nav-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 0.75rem 1rem;
-        color: var(--text-muted);
-        text-decoration: none;
-        border-radius: 10px;
-        font-weight: 500;
-        font-size: 0.9rem;
-        transition: 0.2s;
-    }
+.nav-section small {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+}
 
-    .nav-item:hover,
-    .nav-item.active {
-        background: var(--primary-light);
-        color: var(--primary);
-    }
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.75rem 1rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 12px; /* Smooth rounded corners for items */
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: 0.2s;
+    margin-bottom: 4px;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: var(--primary-light);
+    color: var(--primary);
+}
 
     .btn-broadcast-sidebar {
         display: flex;
