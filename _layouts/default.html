@@ -36,59 +36,55 @@
 
     <div class="app-shell">
         <aside class="sidebar">
-            <nav class="sidebar-nav">
-                <div class="nav-section">
-                    <small>DASHBOARD</small>
-                    <a href="{{ site.baseurl }}/" class="nav-item"><i class="fa-solid fa-grip"></i> Overview</a>
-                    <a href="{{ site.baseurl }}/submit.html?mode=new" class="nav-item"><i class="fa-solid fa-plus"></i>
-                        New District</a>
-                </div>
+    <nav class="sidebar-nav">
+        <div class="nav-section">
+            <small>DASHBOARD</small>
+            <a href="{{ site.baseurl }}/" class="nav-item"><i class="fa-solid fa-grip"></i> Overview</a>
+            <a href="{{ site.baseurl }}/submit.html?mode=new" class="nav-item"><i class="fa-solid fa-plus"></i> New District</a>
+        </div>
 
-                {% if page.condo %}
-                <div class="nav-section">
-                    <small>{{ page.condo | upcase }}</small>
+        {% if page.condo %}
+        <div class="nav-section">
+            <small>{{ page.condo | upcase }}</small>
+            
+            {% assign condo_pages = site.pages | where: "condo", page.condo %}
 
-                    {% assign condo_pages = site.pages | where: "condo", page.condo %}
-
-                    {% for p in condo_pages %}
-                    {% if p.url contains '/index' %}
-                    <a href="{{ site.baseurl }}{{ p.url }}"
-                        class="nav-item {% if page.url == p.url %}active{% endif %}">
-                        <i class="fa-solid fa-house"></i> District Overview
-                    </a>
-                    {% endif %}
-                    {% endfor %}
-
-                    {% for p in condo_pages %}
-                    {% if p.title == "Essential Intelligence" %}
-                    <a href="{{ site.baseurl }}{{ p.url }}"
-                        class="nav-item {% if page.url == p.url %}active{% endif %}">
-                        <i class="fa-solid fa-shield-halved"></i> Essential Intelligence
-                    </a>
-                    {% endif %}
-                    {% endfor %}
-
-                    {% assign sorted_others = condo_pages | sort: "title" %}
-                    {% for p in sorted_others %}
-                    {% unless p.url contains '/index' or p.title == "Essential Intelligence" or p.layout == "broadcast"
-                    %}
-                    <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}"
-                        style="padding-left: 1.5rem; font-size: 0.9rem;">
-                        <i class="fa-solid fa-file-lines" style="opacity: 0.6;"></i> {{ p.title }}
-                    </a>
-                    {% endunless %}
-                    {% endfor %}
-
-                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
-                        <a href="{{ site.baseurl }}/broadcast.html?condo={{ page.condo | slugify }}"
-                            class="btn-broadcast-sidebar">
-                            <i class="fa-solid fa-bullhorn"></i> Dispatch Alert
-                        </a>
-                    </div>
-                </div>
+            {% for p in condo_pages %}
+                {% if p.url contains '/index' %}
+                <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}">
+                    <i class="fa-solid fa-house"></i> District Overview
+                </a>
                 {% endif %}
-            </nav>
-        </aside>
+            {% endfor %}
+
+            {% for p in condo_pages %}
+                {% if p.title == "Essential Intelligence" %}
+                <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}">
+                    <i class="fa-solid fa-shield-halved"></i> Essential Intelligence
+                </a>
+                {% endif %}
+            {% endfor %}
+
+            <div style="margin: 0.5rem 0; border-top: 1px dashed var(--border); opacity: 0.5;"></div>
+
+            {% assign sorted_others = condo_pages | sort: "title" %}
+            {% for p in sorted_others %}
+                {% unless p.url contains '/index' or p.title == "Essential Intelligence" or p.layout == "broadcast" %}
+                <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}" style="padding-left: 1.5rem; font-size: 0.9rem;">
+                    <i class="fa-solid fa-file-lines" style="opacity: 0.6;"></i> {{ p.title }}
+                </a>
+                {% endunless %}
+            {% endfor %}
+
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                <a href="{{ site.baseurl }}/broadcast.html?condo={{ page.condo | slugify }}" class="btn-broadcast-sidebar">
+                    <i class="fa-solid fa-bullhorn"></i> Dispatch Alert
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </nav>
+</aside>
 
         <main class="main-content">
             {% if page.condo %}
