@@ -38,34 +38,34 @@ title: Send Community Broadcast
             <textarea name="content" rows="6" placeholder="Provide full details of the broadcast..." required
                 style="width: 100%; padding: 0.8rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: inherit;"></textarea>
         </div>
+
         <div class="form-actions">
             <a href="{{ site.baseurl }}/" class="btn-cancel">Cancel</a>
             <button type="submit" id="submitBtn" class="btn-submit-main">
-                <i class="fa-solid fa-cloud-arrow-up"></i> Submit for Review
+                <i class="fa-solid fa-cloud-arrow-up"></i> <span id="btnText">Submit for Review</span>
             </button>
         </div>
     </form>
 </div>
-
-
 
 <script>
     // 1. Auto-fill the building name from URL
     const urlParams = new URLSearchParams(window.location.search);
     const condoValue = urlParams.get('condo');
     if (condoValue) {
-        // Convert slug (north-york) back to readable text (North York) if needed
         document.getElementById('condo').value = condoValue.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
 
-    // 2. Handle the Submission
+    // 2. Handle the Submission with Professional Success Message
     document.getElementById('broadcastForm').onsubmit = async (e) => {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
-        const originalText = btn.innerHTML;
+        const btnText = document.getElementById('btnText');
+        const originalContent = btn.innerHTML;
 
+        // Loading State
         btn.disabled = true;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Dispatching...';
 
         const formData = new FormData(e.target);
 
@@ -75,18 +75,45 @@ title: Send Community Broadcast
                 body: formData
             });
 
-            const result = await response.json();
-
             if (response.ok) {
-                alert("Broadcast Submitted! A Pull Request has been created. Once merged, the community will be notified.");
-                window.location.href = "{{ site.baseurl }}/";
+                // Professional Success State
+                btn.style.background = "#22c55e"; // Success Green
+                btn.style.borderColor = "#22c55e";
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Broadcast Staged!';
+                
+                // Add a small inline success hint
+                const successHint = document.createElement('div');
+                successHint.style.cssText = "color: #22c55e; font-weight: 600; font-size: 0.9rem; text-align: right; margin-top: 10px; animation: fadeIn 0.5s ease-in;";
+                successHint.innerHTML = "Pull Request created. Redirecting...";
+                btn.parentNode.appendChild(successHint);
+
+                setTimeout(() => {
+                    window.location.href = "{{ site.baseurl }}/";
+                }, 1800);
             } else {
+                const result = await response.json();
                 throw new Error(result.error || "Submission failed");
             }
         } catch (err) {
-            alert("Error: " + err.message);
+            // Error Handling
             btn.disabled = false;
-            btn.innerHTML = originalText;
+            btn.style.background = "#ef4444"; // Error Red
+            btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Retry Submission';
+            console.error("Broadcast Error:", err.message);
+            
+            // Revert back after a few seconds so user can try again
+            setTimeout(() => {
+                btn.style.background = "";
+                btn.style.borderColor = "";
+                btn.innerHTML = originalContent;
+            }, 3000);
         }
     };
 </script>
+
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
