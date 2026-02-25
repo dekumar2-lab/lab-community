@@ -9,37 +9,37 @@
         --shadow: 0 4px 15px -1px rgba(0, 0, 0, 0.05);
     }
 
-   body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    /* The Image */
-    background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=2000');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Keeps the image still while you scroll */
-    background-repeat: no-repeat;
-}
+    body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        /* The Image */
+        background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=2000');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        /* Keeps the image still while you scroll */
+        background-repeat: no-repeat;
+    }
 
-/* This adds a semi-transparent layer over the photo so text remains readable */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        135deg, 
-        rgba(248, 250, 252, 0.9) 0%, 
-        rgba(248, 250, 252, 0.7) 100%
-    );
-    z-index: -1; /* Sits behind your content */
-}
+    /* This adds a semi-transparent layer over the photo so text remains readable */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg,
+                rgba(248, 250, 252, 0.9) 0%,
+                rgba(248, 250, 252, 0.7) 100%);
+        z-index: -1;
+        /* Sits behind your content */
+    }
 
-/* Adjust your main shell to ensure it looks good over the background */
+    /* Adjust your main shell to ensure it looks good over the background */
 
 
     h1,
@@ -96,7 +96,8 @@ body::before {
         width: 100%;
         max-width: 1400px;
         margin: 0 auto;
-        position: relative; /* Ensures content sits above the ::before overlay */
+        position: relative;
+        /* Ensures content sits above the ::before overlay */
         z-index: 1;
     }
 
@@ -796,6 +797,19 @@ body::before {
     .btn-broadcast-sidebar:hover {
         background: #ffe4e6;
         border-color: #fda4af;
+    }
+
+    /* Styling for Global Nav Items */
+    .nav-item i.fa-earth-americas,
+    .nav-item i.fa-sun {
+        color: #f59e0b;
+        /* A warm amber color for general/fun content */
+    }
+
+    .nav-section small {
+        /* Existing small styles */
+        border-left: 3px solid var(--primary);
+        padding-left: 8px;
     }
 
     /* --- Responsive Logic --- */
