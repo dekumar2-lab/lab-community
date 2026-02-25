@@ -679,4 +679,38 @@
     padding: 4rem;
     color: var(--text-muted);
 }
+
+/* Container for the floating action button */
+.edit-btn-container {
+    position: fixed; /* Fixes it relative to the browser window */
+    bottom: 30px;    /* 30px from the bottom */
+    right: 30px;     /* 30px from the right */
+    z-index: 1000;   /* Ensures it stays above all other content */
+}
+
+.btn-edit-action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.8rem 1.5rem;
+    background: var(--primary); /* Uses your main brand color */
+    color: white !important;   /* White text for contrast */
+    border-radius: 50px;       /* Pill shape for a modern FAB look */
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); /* Soft shadow for depth */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+}
+
+.btn-edit-action:hover {
+    transform: translateY(-3px); /* Lifts up on hover */
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    background: #1d4ed8; /* Slightly darker blue */
+}
+
+.btn-edit-action i {
+    font-size: 1.1rem;
+}
 </style>
