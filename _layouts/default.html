@@ -141,6 +141,17 @@
                     </div>
                 </div>
                 {% endif %}
+
+                <div class="nav-section">
+                    <small>{{ current_condo | upcase }} ECOSYSTEM</small>
+                    <a href="{{ site.baseurl }}/marketplace.html?condo={{ current_condo | slugify }}" 
+                    class="nav-item {% if page.url contains 'marketplace' %}active{% endif %}">
+                        <i class="fa-solid fa-tags"></i> Sale & Resale
+                    </a>
+                    <a href="{{ site.baseurl }}/content/{{ current_condo | slugify }}/" class="nav-item">
+                        <i class="fa-solid fa-book"></i> District Wiki
+                    </a>
+                </div>
             </nav>
         </aside>
 

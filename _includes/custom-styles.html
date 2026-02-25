@@ -380,6 +380,30 @@
     margin: 5px 0;
 }
 
+.marketplace-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 300px));
+    gap: 20px;
+    justify-content: center;
+}
+
+.ad-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: transform 0.2s;
+    overflow: hidden;
+}
+
+.ad-card .price-tag {
+    background: #10b981;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
     @keyframes pulse {
         0% {
             opacity: 1;

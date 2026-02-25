@@ -26,6 +26,32 @@ title: Contribute to ResiHub
                 <label for="content">Documentation Content (Markdown Supported)</label>
                 <textarea id="content" name="content" rows="12" required></textarea>
             </div>
+            <div class="form-group">
+                <label>Post Category</label>
+                <select id="postCategory" onchange="toggleMarketplaceFields()">
+                    <option value="wiki">Wiki / Information</option>
+                    <option value="ad">Marketplace / Resale</option>
+                </select>
+            </div>
+
+            <div id="marketplaceFields"
+                style="display: none; background: #f8fafc; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label>Asking Price</label>
+                        <input type="text" id="adPrice" placeholder="e.g. $50 or Free">
+                    </div>
+                    <div class="form-group">
+                        <label>Item Condition</label>
+                        <select id="adCondition">
+                            <option value="new">New</option>
+                            <option value="used">Used - Like New</option>
+                            <option value="good">Used - Good</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="form-actions">
                 <a href="{{ site.baseurl }}/" class="btn-cancel">Cancel</a>
@@ -33,6 +59,8 @@ title: Contribute to ResiHub
                     <i class="fa-solid fa-cloud-arrow-up"></i> Submit Changes
                 </button>
             </div>
+
+
         </form>
     </div>
 </div>
@@ -114,4 +142,10 @@ title: Contribute to ResiHub
             console.error(err);
         }
     };
+
+    function toggleMarketplaceFields() {
+        const category = document.getElementById('postCategory').value;
+        const fields = document.getElementById('marketplaceFields');
+        fields.style.display = (category === 'ad') ? 'block' : 'none';
+    }
 </script>
