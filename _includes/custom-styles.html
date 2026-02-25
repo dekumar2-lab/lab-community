@@ -807,9 +807,17 @@
     }
 
     .nav-section small {
+
         /* Existing small styles */
-        border-left: 3px solid var(--primary);
-        padding-left: 8px;
+        .nav-section small {
+            display: block;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            /* Use your theme's brand color */
+            border-left: 3px solid var(--primary);
+            padding-left: 8px;
+            margin-bottom: 12px;
+        }
     }
 
     /* --- Responsive Logic --- */
