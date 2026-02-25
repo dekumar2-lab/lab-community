@@ -116,7 +116,7 @@
 
                         <div class="nav-divider"></div>
 
-                        {% assign sorted_others = condo_pages | sort: "title" %}
+                        {% assign sorted_others = condo_pages %}
                         {% for p in sorted_others %}
                             {% unless p.url contains '/index' or p.title == "Essential Intelligence" or p.layout == "broadcast" %}
                             <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item secondary {% if page.url == p.url %}active{% endif %}">
