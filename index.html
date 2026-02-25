@@ -5,12 +5,9 @@ title: Home
 
 <div class="home-watermark-wrapper">
     <div style="text-align: center;">
-        <h1 style="font-size: 3rem; margin-bottom: 0.75rem; letter-spacing: -2px; font-weight: 800;">The Hub Collective
-        </h1>
-        <p
-            style="color: var(--text-muted); font-size: 1.15rem; max-width: 650px; margin: 0 auto 4rem auto; line-height: 1.6;">
-            The unified intelligence layer for modern districts. Select a community hub to access local documentation or
-            broadcast a dispatch.
+        <h1 style="font-size: 3rem; margin-bottom: 0.75rem; letter-spacing: -2px; font-weight: 800;">The Hub Collective</h1>
+        <p style="color: var(--text-muted); font-size: 1.15rem; max-width: 650px; margin: 0 auto 4rem auto; line-height: 1.6;">
+            The unified intelligence layer for modern districts. Select a community hub to access local documentation or broadcast a dispatch.
         </p>
 
         <section class="dashboard-controls">
@@ -22,20 +19,17 @@ title: Home
 
             <div class="search-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="communitySearch" placeholder="Find a community by name..."
-                    onkeyup="filterHubs()">
+                <input type="text" id="communitySearch" placeholder="Find a community by name..." onkeyup="filterHubs()">
             </div>
         </section>
 
-        <div class="community-grid">
-            {% assign condos = site.pages | map: 'condo' | uniq | compact %}
+        <div class="community-grid" id="hubGrid">
             {% for building in condos %}
             {% assign alerts = site.pages | where: "layout", "broadcast" | where: "condo", building %}
 
-            <a href="{{ site.baseurl }}/content/{{ building | slugify }}/" class="hub-card">
+            <a href="{{ site.baseurl }}/content/{{ building | slugify }}/" class="hub-card" data-name="{{ building | downcase }}">
                 {% if alerts.size > 0 %}
-                <div
-                    style="position: absolute; top: 12px; right: 12px; background: #ef4444; color: white; font-size: 0.65rem; padding: 3px 7px; border-radius: 6px; font-weight: 800; border: 2px solid white;">
+                <div style="position: absolute; top: 12px; right: 12px; background: #ef4444; color: white; font-size: 0.65rem; padding: 3px 7px; border-radius: 6px; font-weight: 800; border: 2px solid white;">
                     <i class="fa-solid fa-bell"></i> {{ alerts.size }}
                 </div>
                 {% endif %}
@@ -45,12 +39,17 @@ title: Home
             </a>
             {% endfor %}
 
-            <a href="{{ site.baseurl }}/submit.html?mode=new" class="hub-card"
+            <a href="{{ site.baseurl }}/submit.html?mode=new" class="hub-card static-card"
                 style="border: 2px dashed var(--border); background: transparent; box-shadow: none;">
                 <div style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-muted); opacity: 0.5;">+</div>
                 <h3 style="color: var(--text-muted);">New Hub</h3>
                 <p style="color: var(--text-muted);">Register Community</p>
             </a>
+
+            <div id="noResults" style="display: none; grid-column: 1 / -1; padding: 3rem; color: var(--text-muted);">
+                <i class="fa-solid fa-magnifying-glass" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                <p>No communities match your search.</p>
+            </div>
         </div>
     </div>
 </div>
@@ -58,13 +57,15 @@ title: Home
 <script>
     function filterHubs() {
         const input = document.getElementById('communitySearch').value.toLowerCase();
-        const cards = document.getElementsByClassName('hub-card');
+        const cards = document.querySelectorAll('.hub-card:not(.static-card)'); // Only filter actual community cards
         const noResults = document.getElementById('noResults');
         let visibleCount = 0;
 
         for (let card of cards) {
             const name = card.getAttribute('data-name');
-            if (name.includes(input)) {
+            
+            // Safety check: only proceed if data-name exists
+            if (name && name.includes(input)) {
                 card.style.display = "block";
                 visibleCount++;
             } else {
@@ -72,8 +73,9 @@ title: Home
             }
         }
 
-        // Show empty state if nothing matches
-        noResults.style.display = visibleCount === 0 ? "block" : "none";
+        // Handle the "No Results" state
+        if (noResults) {
+            noResults.style.display = (visibleCount === 0 && input !== "") ? "block" : "none";
+        }
     }
-
 </script>
