@@ -771,4 +771,95 @@
         background: #ffe4e6;
         border-color: #fda4af;
     }
+
+    /* --- Responsive Logic --- */
+
+    /* For Tablets (Screens smaller than 1024px) */
+    @media (max-width: 1024px) {
+        .app-shell {
+            flex-direction: column;
+            /* Stack sidebar on top of content */
+            padding: 0 1rem;
+        }
+
+        .sidebar {
+            width: 100%;
+            padding: 1.5rem 0;
+        }
+
+        .main-content {
+            padding: 1.5rem 0;
+        }
+
+        .nav-section {
+            border-radius: 12px;
+        }
+    }
+
+    /* For Mobile Phones (Screens smaller than 768px) */
+    @media (max-width: 768px) {
+        .site-header {
+            padding: 0.8rem 1rem;
+        }
+
+        .header-container {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .community-switcher {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .content-card {
+            padding: 1.5rem;
+            /* Reduce padding so text isn't cramped */
+            border-radius: 12px;
+        }
+
+        .community-grid {
+            grid-template-columns: 1fr;
+            /* Single column of cards */
+            gap: 1rem;
+        }
+
+        .footer-inner {
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+        }
+
+        .edit-btn-container {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .btn-edit-action {
+            padding: 0.6rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        /* Form specific adjustments */
+        .form-actions {
+            flex-direction: column;
+            max-width: 100%;
+        }
+
+        .btn-submit-main,
+        .btn-cancel {
+            width: 100% !important;
+        }
+    }
+
+    /* For very small devices */
+    @media (max-width: 480px) {
+        .logo {
+            font-size: 1.2rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+        }
+    }
 </style>
