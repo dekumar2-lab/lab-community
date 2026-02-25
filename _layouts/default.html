@@ -52,15 +52,24 @@
                     <a href="{{ site.baseurl }}/general/daily-updates.html" class="nav-item {% if page.url contains 'daily-updates' %}active{% endif %}">
                         <i class="fa-solid fa-sun"></i> Daily Updates & Jokes
                     </a>
-                    
+
                     {% assign global_pages = site.pages | where_exp: "item", "item.condo == nil" %}
                     {% for p in global_pages %}
-                        {% if p.title and p.url != "/" and p.layout != "broadcast" and p.title != "Submit" and p.url != "/general/daily-updates.html" %}
+                        {% if p.title and p.url != "/" and p.url != "/submit.html" and p.url != "/broadcast.html" and p.url != "/general/daily-updates.html" %}
                         <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}">
                             <i class="fa-solid fa-earth-americas"></i> {{ p.title }}
                         </a>
                         {% endif %}
                     {% endfor %}
+
+                    <div class="sidebar-footer-action">
+                        <a href="{{ site.baseurl }}/broadcast.html" class="nav-item secondary">
+                            <i class="fa-solid fa-bullhorn"></i> Send Community Broadcast
+                        </a>
+                        <a href="{{ site.baseurl }}/submit.html" class="nav-item secondary">
+                            <i class="fa-solid fa-circle-plus"></i> Contribute to ResiHub
+                        </a>
+                    </div>
                 </div>
 
                 {% if page.condo %}
