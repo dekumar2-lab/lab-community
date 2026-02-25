@@ -72,8 +72,14 @@
                         {% endif %}
                     {% endfor %}
 
-                    <div class="sidebar-footer-action" style="margin-top: 10px;">
-                        <a href="{{ site.baseurl }}/submit.html?condo=General" class="btn-global-post">
+                    <div class="sidebar-footer-action" style="margin-top: 15px; border-top: 1px solid var(--border); padding-top: 15px;">
+                        <a href="{{ site.baseurl }}/broadcast.html" class="nav-item secondary">
+                            <i class="fa-solid fa-bullhorn"></i> Send Community Broadcast
+                        </a>
+                        <a href="{{ site.baseurl }}/submit.html" class="nav-item secondary">
+                            <i class="fa-solid fa-circle-plus"></i> Contribute to ResiHub
+                        </a>
+                        <a href="{{ site.baseurl }}/submit.html?condo=General" class="btn-global-post" style="margin-top: 10px;">
                             <i class="fa-solid fa-earth-americas"></i> Post to Global
                         </a>
                     </div>
@@ -168,7 +174,7 @@
                     </a>
                 </div>
                 {% endif %}
-                <div class="wiki-render">
+                <div class=\"wiki-render\">
                     {{ content }}
                 </div>
             </article>
