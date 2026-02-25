@@ -1,57 +1,81 @@
 ---
 layout: default
-title: Community Dashboard
+title: Home
 ---
 
-<section class="dashboard-controls" style="max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem;">
-    <div class="stats-bar" style="display: flex; gap: 2rem; font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-        {% assign condos = site.pages | map: 'condo' | uniq | compact %}
-        <span><strong>{{ condos.size }}</strong> Active Districts</span>
-        <span><strong>{{ site.pages.size }}</strong> Knowledge Pages</span>
-    </div>
-    
-    <div class="search-wrapper" style="position: relative; width: 100%; max-width: 600px;">
-        <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
-        <input type="text" id="communitySearch" placeholder="Find a community by name..." onkeyup="filterHubs()" 
-               style="width: 100%; padding: 1rem 1rem 1rem 3.5rem; border: 2px solid var(--border); border-radius: 14px; font-size: 1rem; box-shadow: var(--shadow);">
-    </div>
-</section>
+<div class="home-watermark-wrapper">
+    <div style="text-align: center; padding: 4rem 0;">
+        <h1 style="font-size: 3rem; margin-bottom: 0.75rem; letter-spacing: -2px; font-weight: 800;">The Hub Collective
+        </h1>
+        <p
+            style="color: var(--text-muted); font-size: 1.15rem; max-width: 650px; margin: 0 auto 4rem auto; line-height: 1.6;">
+            The unified intelligence layer for modern districts. Select a community hub to access local documentation or
+            broadcast a dispatch.
+        </p>
 
-<div class="community-grid" id="hubGrid" style="max-width: 1100px; margin: 0 auto; padding: 0 1.5rem;">
-    {% for c in condos %}
-    <div class="hub-card" data-name="{{ c | downcase }}">
-        <a href="{{ site.baseurl }}/content/{{ c | slugify }}/" style="text-decoration: none; color: inherit;">
-            <div class="hub-card-inner">
-                <p style="text-transform: uppercase; font-size: 0.65rem; letter-spacing: 1px; color: var(--primary); margin-bottom: 0.5rem;">District Hub</p>
-                <h3 style="margin: 0; font-size: 1.1rem;">{{ c }}</h3>
+        <section class="dashboard-controls" style="max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem;">
+            <div class="stats-bar"
+                style="display: flex; gap: 2rem; font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+                {% assign condos = site.pages | map: 'condo' | uniq | compact %}
+                <span><strong>{{ condos.size }}</strong> Active Districts</span>
+                <span><strong>{{ site.pages.size }}</strong> Knowledge Pages</span>
             </div>
-        </a>
-    </div>
-    {% endfor %}
-    
-    <div id="noResults" style="display: none; grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--text-muted);">
-        <i class="fa-solid fa-magnifying-glass-blur" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.2;"></i>
-        <p>No districts match your search.</p>
+
+            <div class="search-wrapper" style="position: relative; width: 100%; max-width: 600px;">
+                <i class="fa-solid fa-magnifying-glass"
+                    style="position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                <input type="text" id="communitySearch" placeholder="Find a community by name..." onkeyup="filterHubs()"
+                    style="width: 100%; padding: 1rem 1rem 1rem 3.5rem; border: 2px solid var(--border); border-radius: 14px; font-size: 1rem; box-shadow: var(--shadow);">
+            </div>
+        </section>
+
+        <div class="community-grid">
+            {% assign condos = site.pages | map: 'condo' | uniq | compact %}
+            {% for building in condos %}
+            {% assign alerts = site.pages | where: "layout", "broadcast" | where: "condo", building %}
+
+            <a href="{{ site.baseurl }}/content/{{ building | slugify }}/" class="hub-card">
+                {% if alerts.size > 0 %}
+                <div
+                    style="position: absolute; top: 12px; right: 12px; background: #ef4444; color: white; font-size: 0.65rem; padding: 3px 7px; border-radius: 6px; font-weight: 800; border: 2px solid white;">
+                    <i class="fa-solid fa-bell"></i> {{ alerts.size }}
+                </div>
+                {% endif %}
+                <div style="font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.9;">🏢</div>
+                <h3 style="font-weight: 700;">{{ building }}</h3>
+                <p>Enter Collective →</p>
+            </a>
+            {% endfor %}
+
+            <a href="{{ site.baseurl }}/submit.html?mode=new" class="hub-card"
+                style="border: 2px dashed var(--border); background: transparent; box-shadow: none;">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-muted); opacity: 0.5;">+</div>
+                <h3 style="color: var(--text-muted);">New Hub</h3>
+                <p style="color: var(--text-muted);">Register Community</p>
+            </a>
+        </div>
     </div>
 </div>
 
 <script>
-function filterHubs() {
-    const input = document.getElementById('communitySearch').value.toLowerCase();
-    const cards = document.getElementsByClassName('hub-card');
-    const noResults = document.getElementById('noResults');
-    let visibleCount = 0;
+    function filterHubs() {
+        const input = document.getElementById('communitySearch').value.toLowerCase();
+        const cards = document.getElementsByClassName('hub-card');
+        const noResults = document.getElementById('noResults');
+        let visibleCount = 0;
 
-    for (let card of cards) {
-        const name = card.getAttribute('data-name');
-        if (name.includes(input)) {
-            card.style.display = "block";
-            visibleCount++;
-        } else {
-            card.style.display = "none";
+        for (let card of cards) {
+            const name = card.getAttribute('data-name');
+            if (name.includes(input)) {
+                card.style.display = "block";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
         }
+
+        // Show empty state if nothing matches
+        noResults.style.display = visibleCount === 0 ? "block" : "none";
     }
 
-    noResults.style.display = visibleCount === 0 ? "block" : "none";
-}
 </script>
