@@ -73,7 +73,13 @@
 
                 {% if current_condo %}
                 <div class="nav-section">
-                    <small>{{ current_condo | upcase | replace: '-', ' ' }}</small>
+                    <small>
+                        {% if page.url contains 'submit.html' or page.url contains 'broadcast.html' %}
+                            CONTRIBUTION MODE
+                        {% else %}
+                            {{ current_condo | upcase | replace: '-', ' ' }}
+                        {% endif %}
+                    </small>
 
                     {% assign condo_pages = site.pages | where: "condo", current_condo %}
 
