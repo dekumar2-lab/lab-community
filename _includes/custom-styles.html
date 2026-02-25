@@ -419,14 +419,41 @@
         padding-left: 1.5rem;
     }
 
-    .community-switcher {
-        max-width: 180px;
-        padding: 0.5rem;
-        font-size: 0.85rem;
-        border: 1.5px solid var(--border);
-        border-radius: 8px;
-        background: #fdfdfd;
-    }
+    .header-actions {
+    display: flex;
+    align-items: center; /* Vertically centers the dropdown with the button */
+    gap: 16px;
+}
+
+.community-switcher {
+    appearance: none; /* Removes default browser styling */
+    background-color: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 36px 8px 12px;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #1e293b;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    transition: all 0.2s;
+    min-width: 180px;
+}
+
+.community-switcher:hover {
+    border-color: var(--primary);
+    background-color: white;
+}
+
+.community-switcher:focus {
+    outline: none;
+    ring: 2px solid var(--primary-light);
+    border-color: var(--primary);
+}
 
     /* Fixes alignment of the "Create Hub" button text */
     .btn-primary-header {
