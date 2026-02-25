@@ -18,6 +18,21 @@
         min-height: 100vh;
     }
 
+    body::before {
+    content: "\f1bb"; /* Font Awesome Tree Icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60rem;
+    color: var(--primary);
+    opacity: 0.02; /* Almost invisible, very elegant */
+    pointer-events: none;
+    z-index: -1;
+}
+
     h1,
     h2,
     h3,
