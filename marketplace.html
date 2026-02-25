@@ -1,0 +1,29 @@
+---
+layout: default
+title: Community Marketplace
+---
+
+<div class="marketplace-header">
+    <h2>{{ page.condo }} Marketplace</h2>
+    <p>Post items for sale, resale, or local advertisements.</p>
+    <a href="{{ site.baseurl }}/submit.html?condo={{ page.condo | slugify }}&type=ad" class="btn-primary">
+        <i class="fa-solid fa-plus"></i> Post an Ad
+    </a>
+</div>
+
+<div class="ad-grid">
+    {% assign local_ads = site.pages | where: "type", "ad" | where: "condo", page.condo %}
+    {% for ad in local_ads %}
+    <div class="ad-card">
+        <div class="ad-image">
+            <i class="fa-solid fa-tag"></i>
+        </div>
+        <div class="ad-content">
+            <h3>{{ ad.title }}</h3>
+            <span class="price">{{ ad.price }}</span>
+            <p>{{ ad.description | truncate: 100 }}</p>
+            <a href="{{ site.baseurl }}{{ ad.url }}" class="view-details">View Details</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>

@@ -60,7 +60,7 @@
                 <div class="nav-section">
                     <small>GLOBAL COLLECTIVE</small>
                     <a href="{{ site.baseurl }}/general/daily-updates.html" class="nav-item {% if page.url contains 'daily-updates' %}active{% endif %}">
-                        <i class="fa-solid fa-sun"></i> Daily Updates & Jokes
+                        <i class="fa-solid fa-sun"></i> Daily Updates
                     </a>
 
                     {% assign global_pages = site.pages | where_exp: "item", "item.condo == nil" %}
@@ -82,6 +82,9 @@
                         <!-- <a href="{{ site.baseurl }}/submit.html?condo=General" class="btn-global-post" style="margin-top: 10px;">
                             <i class="fa-solid fa-earth-americas"></i> Post to Global
                         </a> -->
+                        <a href="{{ site.baseurl }}/marketplace.html?condo={{ current_condo | slugify }}" class="nav-item">
+                            <i class="fa-solid fa-shop"></i> Sale & Resale
+                        </a>
                     </div>
                 </div>
 
@@ -106,19 +109,19 @@
                             {% endif %}
                         {% endfor %}
 
-                        {% for p in condo_pages %}
+                        <!-- {% for p in condo_pages %}
                             {% if p.title == "Essential Intelligence" %}
                             <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}">
                                 <i class="fa-solid fa-shield-halved"></i> Essential Intelligence
                             </a>
                             {% endif %}
-                        {% endfor %}
+                        {% endfor %} -->
 
                         <div class="nav-divider"></div>
 
                         {% assign sorted_others = condo_pages %}
                         {% for p in sorted_others %}
-                            {% unless p.url contains '/index' or p.title == "Essential Intelligence" or p.layout == "broadcast" %}
+                            {% unless p.url contains '/index' or p.layout == "broadcast" %}
                             <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item secondary {% if page.url == p.url %}active{% endif %}">
                                 <i class="fa-solid fa-file-lines"></i> {{ p.title }}
                             </a>
