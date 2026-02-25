@@ -16,7 +16,7 @@
 <body>
     {% assign current_condo = page.condo %}
     {% if current_condo == nil %}
-        {% assign current_condo = page.url | split: 'condo=' | last | split: '&' | first %}
+    {% assign current_condo = page.url | split: 'condo=' | last | split: '&' | first %}
     {% endif %}
 
     <header class="site-header">
@@ -30,11 +30,13 @@
                     <option value="#">Switch Community...</option>
                     {% assign condos = site.pages | map: 'condo' | uniq | compact %}
                     {% for c in condos %}
-                    <option value="{{ site.baseurl }}/content/{{ c | slugify }}/" {% if c == current_condo %}selected{% endif %}>{{ c }}</option>
+                    <option value="{{ site.baseurl }}/content/{{ c | slugify }}/" {% if c==current_condo %}selected{%
+                        endif %}>{{ c }}</option>
                     {% endfor %}
                 </select>
                 {% endif %}
-                <a href="{{ site.baseurl }}/submit.html" class="btn-primary-header"><i class="fa-solid fa-plus"></i> Create Hub</a>
+                <a href="{{ site.baseurl }}/submit.html" class="btn-primary-header"><i class="fa-solid fa-plus"></i>
+                    Create Hub</a>
             </div>
         </div>
     </header>
@@ -45,22 +47,26 @@
                 <div class="nav-section">
                     <small>DASHBOARD</small>
                     <a href="{{ site.baseurl }}/" class="nav-item"><i class="fa-solid fa-grip"></i> Overview</a>
-                    <a href="{{ site.baseurl }}/submit.html?mode=new" class="nav-item"><i class="fa-solid fa-plus"></i> New District</a>
+                    <a href="{{ site.baseurl }}/submit.html?mode=new" class="nav-item"><i class="fa-solid fa-plus"></i>
+                        New District</a>
                 </div>
 
                 <div class="nav-section">
                     <small>GLOBAL COLLECTIVE</small>
-                    <a href="{{ site.baseurl }}/general/daily-updates.html" class="nav-item {% if page.url contains 'daily-updates' %}active{% endif %}">
+                    <a href="{{ site.baseurl }}/general/daily-updates.html"
+                        class="nav-item {% if page.url contains 'daily-updates' %}active{% endif %}">
                         <i class="fa-solid fa-sun"></i> Daily Updates & Jokes
                     </a>
 
                     {% assign global_pages = site.pages | where_exp: "item", "item.condo == nil" %}
                     {% for p in global_pages %}
-                        {% if p.title and p.url != "/" and p.url != "/submit.html" and p.url != "/broadcast.html" and p.url != "/general/daily-updates.html" %}
-                        <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}">
-                            <i class="fa-solid fa-earth-americas"></i> {{ p.title }}
-                        </a>
-                        {% endif %}
+                    {% if p.title and p.url != "/" and p.url != "/submit.html" and p.url != "/broadcast.html" and p.url
+                    != "/general/daily-updates.html" %}
+                    <a href="{{ site.baseurl }}{{ p.url }}"
+                        class="nav-item {% if page.url == p.url %}active{% endif %}">
+                        <i class="fa-solid fa-earth-americas"></i> {{ p.title }}
+                    </a>
+                    {% endif %}
                     {% endfor %}
 
                     <a href="{{ site.baseurl }}/broadcast.html" class="nav-item secondary">
@@ -75,49 +81,55 @@
                 <div class="nav-section">
                     <small>
                         {% if page.url contains 'submit.html' or page.url contains 'broadcast.html' %}
-                            CONTRIBUTION MODE
+                        {{ current_condo | replace: '-', ' ' | upcase }} CONTRIBUTION MODE
                         {% else %}
-                            {{ current_condo | upcase | replace: '-', ' ' }}
+                        {{ current_condo | upcase | replace: '-', ' ' }}
                         {% endif %}
                     </small>
 
                     {% assign condo_pages = site.pages | where: "condo", current_condo %}
 
                     {% for p in condo_pages %}
-                        {% if p.url contains '/index' %}
-                        <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}">
-                            <i class="fa-solid fa-house"></i> District Overview
-                        </a>
-                        {% endif %}
+                    {% if p.url contains '/index' %}
+                    <a href="{{ site.baseurl }}{{ p.url }}"
+                        class="nav-item {% if page.url == p.url %}active{% endif %}">
+                        <i class="fa-solid fa-house"></i> District Overview
+                    </a>
+                    {% endif %}
                     {% endfor %}
 
                     {% for p in condo_pages %}
-                        {% if p.title == "Essential Intelligence" %}
-                        <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}">
-                            <i class="fa-solid fa-shield-halved"></i> Essential Intelligence
-                        </a>
-                        {% endif %}
+                    {% if p.title == "Essential Intelligence" %}
+                    <a href="{{ site.baseurl }}{{ p.url }}"
+                        class="nav-item {% if page.url == p.url %}active{% endif %}">
+                        <i class="fa-solid fa-shield-halved"></i> Essential Intelligence
+                    </a>
+                    {% endif %}
                     {% endfor %}
 
                     <div class="nav-divider"></div>
 
                     {% assign sorted_others = condo_pages | sort: "title" %}
                     {% for p in sorted_others %}
-                        {% unless p.url contains '/index' or p.title == "Essential Intelligence" or p.layout == "broadcast" %}
-                        <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item secondary {% if page.url == p.url %}active{% endif %}">
-                            <i class="fa-solid fa-file-lines"></i> {{ p.title }}
-                        </a>
-                        {% endunless %}
+                    {% unless p.url contains '/index' or p.title == "Essential Intelligence" or p.layout == "broadcast"
+                    %}
+                    <a href="{{ site.baseurl }}{{ p.url }}"
+                        class="nav-item secondary {% if page.url == p.url %}active{% endif %}">
+                        <i class="fa-solid fa-file-lines"></i> {{ p.title }}
+                    </a>
+                    {% endunless %}
                     {% endfor %}
 
                     <div class="sidebar-footer-action">
                         <!-- <a href="{{ site.baseurl }}/submit.html?condo=General" class="btn-create-wiki">
                             <i class="fa-solid fa-plus"></i> Post to Global
                         </a> -->
-                        <a href="{{ site.baseurl }}/submit.html?condo={{ current_condo | slugify }}" class="btn-create-wiki">
+                        <a href="{{ site.baseurl }}/submit.html?condo={{ current_condo | slugify }}"
+                            class="btn-create-wiki {% if page.url contains 'submit.html' %}active-btn{% endif %}">
                             <i class="fa-solid fa-plus-circle"></i> Create Wiki Page
                         </a>
-                        <a href="{{ site.baseurl }}/broadcast.html?condo={{ current_condo | slugify }}" class="btn-broadcast-sidebar">
+                        <a href="{{ site.baseurl }}/broadcast.html?condo={{ current_condo | slugify }}"
+                            class="btn-broadcast-sidebar {% if page.url contains 'broadcast.html' %}active-btn{% endif %}">
                             <i class="fa-solid fa-bullhorn"></i> Send Broadcast
                         </a>
                     </div>
@@ -128,33 +140,35 @@
 
         <main class="main-content">
             {% if current_condo %}
-                {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", current_condo | sort: 'date' | reverse %}
-                {% if active_alerts.size > 0 %}
-                <div class="alert-collapsible-wrapper">
-                    <div class="alert-strip-header" onclick="toggleAlertFeed()">
-                        <div class="strip-left">
-                            <span class="live-indicator"></span>
-                            <span><strong>Live Notice:</strong> {{ active_alerts.first.title }}</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-down" id="chevron-icon"></i>
+            {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", current_condo | sort:
+            'date' | reverse %}
+            {% if active_alerts.size > 0 %}
+            <div class="alert-collapsible-wrapper">
+                <div class="alert-strip-header" onclick="toggleAlertFeed()">
+                    <div class="strip-left">
+                        <span class="live-indicator"></span>
+                        <span><strong>Live Notice:</strong> {{ active_alerts.first.title }}</span>
                     </div>
-                    <div id="alert-drawer" class="alert-drawer-body">
-                        {% for alert in active_alerts %}
-                        <div class="drawer-item">
-                            <small>{{ alert.date | date: "%B %d, %Y" }}</small>
-                            <h4>{{ alert.title }}</h4>
-                            <div class="drawer-text">{{ alert.content | markdownify }}</div>
-                        </div>
-                        {% endfor %}
-                    </div>
+                    <i class="fa-solid fa-chevron-down" id="chevron-icon"></i>
                 </div>
-                {% endif %}
+                <div id="alert-drawer" class="alert-drawer-body">
+                    {% for alert in active_alerts %}
+                    <div class="drawer-item">
+                        <small>{{ alert.date | date: "%B %d, %Y" }}</small>
+                        <h4>{{ alert.title }}</h4>
+                        <div class="drawer-text">{{ alert.content | markdownify }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
             {% endif %}
 
             <article class="content-card">
                 {% if current_condo %}
                 <div class="edit-btn-container">
-                    <a href="{{ site.baseurl }}/submit.html?edit=true&condo={{ current_condo | url_encode }}&title={{ page.title | url_encode }}" class="btn-edit-action">
+                    <a href="{{ site.baseurl }}/submit.html?edit=true&condo={{ current_condo | url_encode }}&title={{ page.title | url_encode }}"
+                        class="btn-edit-action">
                         <i class="fa-regular fa-pen-to-square"></i> Edit
                     </a>
                 </div>
