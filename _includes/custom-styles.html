@@ -12,7 +12,7 @@
     }
 
     body {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         margin: 0;
         display: flex;
         flex-direction: column;
@@ -22,7 +22,6 @@
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        /* Keeps the image still while you scroll */
         background-repeat: no-repeat;
     }
 
@@ -38,11 +37,7 @@
                 rgba(248, 250, 252, 0.9) 0%,
                 rgba(248, 250, 252, 0.7) 100%);
         z-index: -1;
-        /* Sits behind your content */
     }
-
-    /* Adjust your main shell to ensure it looks good over the background */
-
 
     h1,
     h2,
@@ -54,12 +49,16 @@
 
     /* Header Styling */
     .site-header {
-        background: var(--white);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--border);
         padding: 0.8rem 2rem;
         position: sticky;
         top: 0;
         z-index: 1000;
+        height: 64px;
+        display: flex;
+        align-items: center;
     }
 
     .header-container {
@@ -69,6 +68,12 @@
         justify-content: space-between;
         align-items: center;
     }
+
+     .header-actions {
+        display: flex;
+        align-items: center; /* Vertically centers the dropdown with the button */
+        gap: 12px;
+      }
 
     .logo {
         font-size: 1.5rem;
@@ -421,11 +426,7 @@
         padding-left: 1.5rem;
     }
 
-    .header-actions {
-    display: flex;
-    align-items: center; /* Vertically centers the dropdown with the button */
-    gap: 16px;
-}
+   
 
 .community-switcher {
     appearance: none; /* Removes default browser styling */
