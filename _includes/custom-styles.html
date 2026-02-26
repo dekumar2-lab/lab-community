@@ -582,11 +582,23 @@
     /* Overriding previous full-width setting */
   }
 
-  .btn-submit-main:hover {
-    /* box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.1), 0 8px 10px -6px rgba(37, 99, 235, 0.1);
-    background: linear-gradient(to bottom right, #ffffff, #f0f7ff); */
+.btn-submit-main:hover {
+    /* Slightly brightens the purple to show interaction */
+    filter: brightness(1.1);
+    
+    /* Lifts the button slightly for a tactile feel */
     transform: translateY(-2px);
-  }
+    
+    /* Intensifies the shadow to create a "floating" effect */
+    box-shadow: 0 10px 20px -5px rgba(147, 51, 234, 0.4);
+}
+
+.btn-submit-main:active {
+    /* Pushes the button "down" when clicked */
+    transform: translateY(0);
+    filter: brightness(0.95);
+    box-shadow: 0 4px 6px -1px rgba(147, 51, 234, 0.2);
+}
 
   .home-hero-section {
     background: radial-gradient(at 0% 0%, hsla(221, 83%, 93%, 1) 0, transparent 50%),
