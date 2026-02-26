@@ -89,13 +89,18 @@
   }
 
   .btn-primary-header {
-    background: var(--primary);
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.85rem;
+    background: var(--glossy-pink) !important;
+        color: white !important;
+        height: 38px;
+        padding: 0 1.2rem;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 12px rgba(219, 39, 119, 0.2);
+        white-space: nowrap;
   }
 
 
@@ -805,20 +810,21 @@
 
   /* Professional Create Wiki Button */
   .btn-create-wiki {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: white;
-    color: var(--primary);
-    border: 2px solid var(--primary-light);
-    padding: 0.75rem;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.85rem;
-    transition: all 0.2s ease;
-    background: var(--glossy-pink) !important;
+     display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        max-width: 220px;
+        padding: 12px 0;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.85rem;
+        background: var(--glossy-pink) !important;
+        color: white !important;
+        box-shadow: 0 4px 12px rgba(219, 39, 119, 0.2);
+        transition: 0.3s ease;
   }
 
   .btn-create-wiki:hover {
