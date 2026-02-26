@@ -121,7 +121,7 @@
                     <small>GLOBAL COLLECTIVE</small>
                     <a href="{{ site.baseurl }}/general/daily-updates.html"
                         class="nav-item {% if page.url contains 'daily-updates' %}active{% endif %}">
-                        <i class="fa-solid fa-sun"></i> Daily Updates & Jokes
+                        <i class="fa-solid fa-sun"></i> Daily Updates
                     </a>
 
                     {% assign global_pages = site.pages | where_exp: "item", "item.condo == nil" %}
@@ -186,7 +186,7 @@
                     </a>
                 </div>
                 {% endif %}
-                <div class=\"wiki-render\">
+                <div class="wiki-render">
                     {{ content }}
                 </div>
             </article>
