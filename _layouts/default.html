@@ -75,16 +75,6 @@
     {% include footer.html %}
 
     <script>
-        const urgencySelect = document.getElementById('urgency');
-        const formPreview = document.getElementById('broadcastForm');
-
-        urgencySelect.addEventListener('change', function () {
-            // Remove old urgency classes
-            formPreview.classList.remove('preview-low', 'preview-medium', 'preview-high', 'preview-critical');
-            // Add new one
-            formPreview.classList.add('preview-' + this.value);
-        });
-
         document.addEventListener('DOMContentLoaded', function () {
             const themeToggle = document.getElementById('themeToggle');
             const body = document.body;
@@ -106,6 +96,16 @@
                     localStorage.setItem('resiHubTheme', 'purple');
                 }
             });
+        });
+
+        const urgencySelect = document.getElementById('urgency');
+        const formPreview = document.getElementById('broadcastForm');
+
+        urgencySelect.addEventListener('change', function () {
+            // Remove old urgency classes
+            formPreview.classList.remove('preview-low', 'preview-medium', 'preview-high', 'preview-critical');
+            // Add new one
+            formPreview.classList.add('preview-' + this.value);
         });
 
         function toggleAlertFeed() {
