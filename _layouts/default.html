@@ -12,6 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% include custom-styles.html %}
     {% include header.html %}
+    {% include sidebar.html}
+    {% include footer.html}
 </head>
 
 <body>
@@ -28,107 +30,7 @@
     
 
     <div class="app-shell">
-        <aside class="sidebar">
-            <nav class="sidebar-nav">
-                <div class="nav-section">
-                    <small>DASHBOARD</small>
-                    <a href="{{ site.baseurl }}/" class="nav-item {% if page.url == '/' %}active{% endif %}">
-                        <i class="fa-solid fa-grip"></i> Overview
-                    </a>
-                    <a href="{{ site.baseurl }}/submit.html?mode=new" class="nav-item">
-                        <i class="fa-solid fa-plus"></i> New District
-                    </a>
-                    <a href="{{ site.baseurl }}/general/daily-updates.html"
-                        class="nav-item {% if page.url contains 'daily-updates' %}active{% endif %}">
-                        <i class="fa-solid fa-sun"></i> Daily Updates
-                    </a>
-                </div>
-
-                {% if current_condo and current_condo != "General" and page.url != "/" %}
-                <div class="nav-section">
-                    <small>
-                        {% if page.url contains 'submit.html' or page.url contains 'broadcast.html' %}
-                        {{ current_condo | upcase }} CONTRIBUTION
-                        {% else %}
-                        {{ current_condo | upcase }}
-                        {% endif %}
-                    </small>
-
-                    {% assign condo_pages = site.pages | where: "condo", current_condo %}
-
-                    {% unless page.url contains 'submit.html' or page.url contains 'broadcast.html' %}
-                    {% for p in condo_pages %}
-                    {% if p.url contains '/index' %}
-                    <a href="{{ site.baseurl }}{{ p.url }}"
-                        class="nav-item {% if page.url == p.url %}active{% endif %}">
-                        <i class="fa-solid fa-house"></i> District Overview
-                    </a>
-                    {% endif %}
-                    {% endfor %}
-
-                    {% for p in condo_pages %}
-                    {% if p.title == "Essential Intelligence" %}
-                    <a href="{{ site.baseurl }}{{ p.url }}"
-                        class="nav-item {% if page.url == p.url %}active{% endif %}">
-                        <i class="fa-solid fa-shield-halved"></i> Essential Intelligence
-                    </a>
-                    {% endif %}
-                    {% endfor %}
-
-                    <div class="nav-divider"></div>
-
-                    {% assign sorted_others = condo_pages %}
-                    {% for p in sorted_others %}
-                    {% unless p.url contains '/index' or p.title == "Essential Intelligence" or p.layout == "broadcast"
-                    %}
-                    <a href="{{ site.baseurl }}{{ p.url }}"
-                        class="nav-item secondary {% if page.url == p.url %}active{% endif %}">
-                        <i class="fa-solid fa-file-lines"></i> {{ p.title }}
-                    </a>
-                    {% endunless %}
-                    {% endfor %}
-                    {% endunless %}
-
-                    <div class="sidebar-footer-action">
-                        <a href="{{ site.baseurl }}/submit.html?condo={{ current_condo | slugify }}"
-                            class="btn-create-wiki {% if page.url contains 'submit.html' %}active-btn{% endif %}">
-                            <i class="fa-solid fa-plus-circle"></i> Create Wiki Page
-                        </a>
-                        <a href="{{ site.baseurl }}/broadcast.html?condo={{ current_condo | slugify }}"
-                            class="btn-broadcast-sidebar {% if page.url contains 'broadcast.html' %}active-btn{% endif %}">
-                            <i class="fa-solid fa-bullhorn"></i> Send Broadcast
-                        </a>
-                    </div>
-                </div>
-                {% endif %}
-
-                <div class="nav-section">
-                    <small>GLOBAL COLLECTIVE</small>
-                    {% assign global_pages = site.pages | where_exp: "item", "item.condo == nil" %}
-                    {% for p in global_pages %}
-                    {% if p.title and p.url != "/" and p.url != "/submit.html" and p.url != "/broadcast.html" and p.url
-                    != "/general/daily-updates.html" %}
-                    <a href="{{ site.baseurl }}{{ p.url }}"
-                        class="nav-item {% if page.url == p.url %}active{% endif %}">
-                        <i class="fa-solid fa-earth-americas"></i> {{ p.title }}
-                    </a>
-                    {% endif %}
-                    {% endfor %}
-
-                    <div class="sidebar-footer-action">
-                        <a href="{{ site.baseurl }}/broadcast.html" class="nav-item secondary">
-                            <i class="fa-solid fa-bullhorn"></i> Send Community Broadcast
-                        </a>
-                        <a href="{{ site.baseurl }}/submit.html" class="nav-item secondary">
-                            <i class="fa-solid fa-circle-plus"></i> Contribute to ResiHub
-                        </a>
-                        <!-- <a href="{{ site.baseurl }}/submit.html?condo=General" class="btn-global-post" style="margin-top: 10px;">
-                            <i class="fa-solid fa-earth-americas"></i> Post to Global
-                        </a> -->
-                    </div>
-                </div>
-            </nav>
-        </aside>
+        
 
         <main class="main-content">
             {% if current_condo %}
@@ -172,21 +74,7 @@
         </main>
     </div>
 
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="footer-logo">
-                <i class="fa-solid fa-city"></i> Resi<span>Hub</span>
-            </div>
-            <div class="footer-links">
-                <a href="{{ site.baseurl }}/">Dashboard</a>
-                <a href="{{ site.baseurl }}/submit.html">Contribute</a>
-                <a href="#">Privacy</a>
-            </div>
-            <div class="footer-copyright">
-                &copy; {{ "now" | date: "%Y" }} Intelligence Layer v1.0
-            </div>
-        </div>
-    </footer>
+    
 
     <script>
         function toggleAlertFeed() {
