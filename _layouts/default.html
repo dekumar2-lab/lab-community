@@ -38,8 +38,13 @@
                 </div>
                 <div id="alert-drawer" class="alert-drawer-body">
                     {% for alert in active_alerts %}
-                    <div class="drawer-item">
-                        <small>{{ alert.date | date: "%B %d, %Y" }}</small>
+                    <div class="drawer-item urgency-{{ alert.urgency | default: 'medium' }}">
+                        <div class="drawer-header">
+                            <small>{{ alert.date | date: "%B %d, %Y" }}</small>
+                            {% if alert.urgency == 'critical' %}
+                                <span class="badge-critical"><i class="fa-solid fa-triangle-exclamation"></i> IMMEDIATE</span>
+                            {% endif %}
+                        </div>
                         <h4>{{ alert.title }}</h4>
                         <div class="drawer-text">{{ alert.content | markdownify }}</div>
                     </div>
@@ -69,6 +74,16 @@
     {% include footer.html %}
 
     <script>
+        const urgencySelect = document.getElementById('urgency');
+        const formPreview = document.getElementById('broadcastForm');
+
+        urgencySelect.addEventListener('change', function() {
+            // Remove old urgency classes
+            formPreview.classList.remove('preview-low', 'preview-medium', 'preview-high', 'preview-critical');
+            // Add new one
+            formPreview.classList.add('preview-' + this.value);
+        });
+
         function toggleAlertFeed() {
             const drawer = document.getElementById('alert-drawer');
             const icon = document.getElementById('chevron-icon');

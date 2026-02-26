@@ -338,11 +338,34 @@
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
+    border-left: 5px solid transparent;
+    transition: transform 0.2s ease;
   }
 
-  .urgency-high {
-    border-left: 4px solid #ef4444;
-    background: #fff1f2;
+  /* Urgency Level Colors */
+  .urgency-low { 
+      border-left-color: #94a3b8; /* Slate */
+      background: rgba(248, 250, 252, 0.6); 
+  }
+
+  .urgency-medium { 
+      border-left-color: #3b82f6; /* Blue */
+      background: rgba(239, 246, 255, 0.6); 
+  }
+
+  .urgency-high { 
+      border-left-color: #f59e0b; /* Amber */
+      background: rgba(FFFBEB, 0.6); 
+  }
+
+  .urgency-critical { 
+      border-left-color: #ef4444; /* Red */
+      background: rgba(254, 242, 242, 0.8);
+      animation: pulse-border 2s infinite;
+  }
+
+  @keyframes pulse-border {
+      50% { border-left-color: #b91c1c; }
   }
 
   @keyframes pulse {
