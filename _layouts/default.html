@@ -1,22 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% include head.html %}
 </head>
+
 <body>
     {% assign current_condo = page.condo %}
-    {% include header.html %}
-    
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    {% if current_condo == nil or current_condo == "" %}
+    {% assign raw_condo = page.url | split: 'condo=' | last | split: '&' | first %}
+    {% if raw_condo contains '/' or raw_condo == page.url %}
+    {% assign current_condo = nil %}
+    {% else %}
+    {% assign current_condo = raw_condo | replace: '-', ' ' %}
+    {% endif %}
+    {% endif %}
 
+    <!-- Header.html -->
+    {% include header.html %}
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="app-shell">
         {% include sidebar.html %}
 
         <main class="main-content">
+            {% if current_condo %}
+            {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", current_condo | sort:
+            'date' | reverse %}
+            {% if active_alerts.size > 0 %}
+            <div class="alert-collapsible-wrapper">
+                <div class="alert-strip-header" onclick="toggleAlertFeed()">
+                    <div class="strip-left">
+                        <span class="live-indicator"></span>
+                        <span><strong>Live Notice:</strong> {{ active_alerts.first.title }}</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down" id="chevron-icon"></i>
+                </div>
+                <div id="alert-drawer" class="alert-drawer-body">
+                    {% for alert in active_alerts %}
+                    <div class="drawer-item">
+                        <small>{{ alert.date | date: "%B %d, %Y" }}</small>
+                        <h4>{{ alert.title }}</h4>
+                        <div class="drawer-text">{{ alert.content | markdownify }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% endif %}
+
             <article class="content-card">
-                {% if current_condo and page.url != "/submit.html" %}
+                {% if current_condo and page.url != "/submit.html" and page.url != "/broadcast.html" %}
                 <div class="edit-btn-container">
-                    <a href="{{ site.baseurl }}/submit.html?edit=true&condo={{ current_condo | url_encode }}&title={{ page.title | url_encode }}" class="btn-edit-action">
+                    <a href="{{ site.baseurl }}/submit.html?edit=true&condo={{ current_condo | url_encode }}&title={{ page.title | url_encode }}"
+                        class="btn-edit-action">
                         <i class="fa-regular fa-pen-to-square"></i> Edit
                     </a>
                 </div>
@@ -28,14 +65,45 @@
         </main>
     </div>
 
+    <!-- Footer.html -->
     {% include footer.html %}
 
     <script>
-        // Toggle Logic for Sidebar and Alerts
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('is-open');
-            document.getElementById('sidebarOverlay').classList.toggle('is-active');
+        function toggleAlertFeed() {
+            const drawer = document.getElementById('alert-drawer');
+            const icon = document.getElementById('chevron-icon');
+            if (drawer && icon) {
+                drawer.classList.toggle('is-open');
+                icon.style.transform = drawer.classList.contains('is-open') ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            function toggleMenu() {
+                sidebar.classList.toggle('is-open');
+                overlay.classList.toggle('is-active');
+                // Change icon from bars to X
+                const icon = menuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-xmark');
+            }
+
+            menuToggle.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+
+            // Close menu if a nav link is clicked
+            const navLinks = document.querySelectorAll('.nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (sidebar.classList.contains('is-open')) toggleMenu();
+                });
+            });
         });
     </script>
 </body>
+
 </html>
