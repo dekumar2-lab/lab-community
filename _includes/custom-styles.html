@@ -450,29 +450,40 @@
 @media (max-width: 1024px) {
     .mobile-menu-toggle { display: block; }
 
-    .sidebar {
-        /* Force it to be a fixed overlay on mobile */
+    /* 1. Force the sidebar to be a solid container */
+    aside.sidebar {
+        display: block !important; /* Overrides the 'grid' seen in image_621bfd */
         position: fixed !important;
         top: 0;
-        left: 0; 
+        left: 0;
         width: 280px;
         height: 100vh;
         background: rgba(255, 255, 255, 0.98) !important;
         z-index: 1001;
-        padding: 2rem 1.5rem;
-        
-        /* The Secret Sauce: Move it off-screen by default */
-        transform: translateX(-100%); 
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        
-        /* Reset grid/flex properties that interfere */
-        display: block !important; 
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        overflow-y: auto; /* Allows scrolling if you have many nav items */
     }
 
-    /* This class is added by JavaScript when you click the ☰ icon */
-    .sidebar.is-open {
+    /* 2. Ensure content inside is visible */
+    aside.sidebar.is-open {
         transform: translateX(0);
-        box-shadow: 10px 0 50px rgba(0,0,0,0.15);
+    }
+
+    /* 3. Fix the nav sections (Visible in image_621474) */
+    .sidebar-nav {
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .nav-section {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        margin-bottom: 1rem !important;
+        width: 100%;
     }
 
     .sidebar-overlay.is-active {
