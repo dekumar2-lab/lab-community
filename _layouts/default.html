@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% include custom-styles.html %}
+    {% include header.html %}
 </head>
 
 <body>
@@ -24,27 +25,7 @@
     {% endif %}
     {% endif %}
 
-    <header class="site-header">
-        <div class="header-container">
-            <a href="{{ site.baseurl }}/" class="logo">
-                <i class="fa-solid fa-city"></i> Resi<span>Hub</span>
-            </a>
-            <div class="header-actions">
-                {% if current_condo %}
-                <select class="community-switcher" onchange="location = this.value;">
-                    <option value="#">Switch Community...</option>
-                    {% assign condos = site.pages | map: 'condo' | uniq | compact %}
-                    {% for c in condos %}
-                    <option value="{{ site.baseurl }}/content/{{ c | slugify }}/" {% if c==current_condo %}selected{%
-                        endif %}>{{ c }}</option>
-                    {% endfor %}
-                </select>
-                {% endif %}
-                <a href="{{ site.baseurl }}/submit.html" class="btn-primary-header"><i class="fa-solid fa-plus"></i>
-                    Create Hub</a>
-            </div>
-        </div>
-    </header>
+    
 
     <div class="app-shell">
         <aside class="sidebar">
