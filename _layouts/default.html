@@ -26,6 +26,9 @@
 
     <header class="site-header">
         <div class="header-container">
+            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
             <a href="{{ site.baseurl }}/" class="logo">
                 <i class="fa-solid fa-city"></i> Resi<span>Hub</span>
             </a>
@@ -45,7 +48,7 @@
             </div>
         </div>
     </header>
-
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="app-shell">
         <aside class="sidebar">
             <nav class="sidebar-nav">
@@ -216,6 +219,32 @@
                 icon.style.transform = drawer.classList.contains('is-open') ? 'rotate(180deg)' : 'rotate(0deg)';
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            function toggleMenu() {
+                sidebar.classList.toggle('is-open');
+                overlay.classList.toggle('is-active');
+                // Change icon from bars to X
+                const icon = menuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-xmark');
+            }
+
+            menuToggle.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+
+            // Close menu if a nav link is clicked
+            const navLinks = document.querySelectorAll('.nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (sidebar.classList.contains('is-open')) toggleMenu();
+                });
+            });
+        });
     </script>
 </body>
 

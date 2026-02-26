@@ -427,7 +427,52 @@
     padding-left: 1.5rem;
   }
 
+/* --- MOBILE MENU LOGIC --- */
+.mobile-menu-toggle {
+    display: none; /* Hidden on desktop */
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-main);
+    cursor: pointer;
+    padding: 0.5rem;
+}
 
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    z-index: 998;
+}
+
+@media (max-width: 1024px) {
+    .mobile-menu-toggle { display: block; }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px; /* Hidden off-screen */
+        height: 100vh;
+        width: 280px;
+        z-index: 999;
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(20px);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 20px 0 50px rgba(0,0,0,0.1);
+        overflow-y: auto;
+    }
+
+    /* When the menu is active */
+    .sidebar.is-open {
+        transform: translateX(280px);
+    }
+
+    .sidebar-overlay.is-active {
+        display: block;
+    }
+}
 
   .community-switcher {
     appearance: none;
