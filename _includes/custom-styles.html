@@ -469,17 +469,6 @@
     line-height: 1;
   }
 
-  /* Fixes alignment of the "Dispatch Alert" button in sidebar */
-  .btn-broadcast-sidebar {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-    /* Crucial for width: 100% */
-  }
-
   /* Ensure icons have consistent spacing */
   .btn-primary-header i,
   .btn-broadcast-sidebar i {
@@ -671,8 +660,16 @@
   }
 
   .btn-edit-action:hover {
-    background: #dbeafe;
-    border-color: var(--primary);
+    filter: brightness(1.1); 
+        
+        /* Updates the border to match the deep pink accent */
+        border-color: var(--accent-pink); 
+        
+        /* Intensifies the pink glow shadow */
+        box-shadow: 0 8px 20px rgba(219, 39, 119, 0.4);
+        
+        /* Subtle lift effect */
+        transform: translateY(-2px);
   }
 
   /* Dashboard Control Section */
@@ -801,7 +798,6 @@
     justify-content: center;
     gap: 10px;
     width: 100%;
-
     padding: 12px 0;
     border-radius: 12px;
     text-decoration: none;
@@ -830,12 +826,9 @@
   }
 
   .btn-create-wiki:hover {
-    transform: translateY(-2px);
+    /* transform: translateY(-2px); */
     filter: brightness(1.1);
   }
-
-  /* Dispatch Alert - Kept for contrast */
-
 
   .btn-broadcast-sidebar:hover {
     background: #ffe4e6;
