@@ -38,7 +38,7 @@
                 </div>
                 <div id="alert-drawer" class="alert-drawer-body">
                     {% for alert in active_alerts %}
-                    <div class="drawer-item urgency-{{ alert.urgency | default: 'medium' }}">
+                    <div class="drawer-item urgency-{{ alert.urgency | default: 'low' }}">
                         <div class="drawer-header">
                             <small>{{ alert.date | date: "%B %d, %Y" }}</small>
                             {% if alert.urgency == 'critical' %}
