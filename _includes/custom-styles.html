@@ -427,27 +427,31 @@
     padding-left: 1.5rem;
   }
 
-/* --- MOBILE MENU LOGIC --- */
-.mobile-menu-toggle {
-    display: none; /* Hidden on desktop */
+  /* --- MOBILE MENU LOGIC --- */
+  .mobile-menu-toggle {
+    display: none;
+    /* Hidden on desktop */
     background: transparent;
     border: none;
     font-size: 1.5rem;
     color: var(--text-main);
     cursor: pointer;
     padding: 0.5rem;
-}
+  }
 
-.sidebar-overlay {
+  .sidebar-overlay {
     display: none;
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(4px);
     z-index: 998;
-}
+  }
 
-/* @media (max-width: 1024px) {
+  /* @media (max-width: 1024px) {
     .mobile-menu-toggle { display: block; }
 
     /* 1. Force the sidebar to be a solid container 
@@ -644,23 +648,25 @@
     /* Overriding previous full-width setting */
   }
 
-.btn-submit-main:hover , .btn-primary-header:hover{
+  .btn-submit-main:hover,
+  .btn-primary-header:hover {
     /* Slightly brightens the purple to show interaction */
     filter: brightness(1.1);
-    
+
     /* Lifts the button slightly for a tactile feel */
     transform: translateY(-2px);
-    
+
     /* Intensifies the shadow to create a "floating" effect */
     box-shadow: 0 10px 20px -5px rgba(147, 51, 234, 0.4);
-}
+  }
 
-.btn-submit-main:active,.btn-primary-header:active{
+  .btn-submit-main:active,
+  .btn-primary-header:active {
     /* Pushes the button "down" when clicked */
     transform: translateY(0);
     filter: brightness(0.95);
     box-shadow: 0 4px 6px -1px rgba(147, 51, 234, 0.2);
-}
+  }
 
   .home-hero-section {
     background: radial-gradient(at 0% 0%, hsla(221, 83%, 93%, 1) 0, transparent 50%),
@@ -726,14 +732,38 @@
     gap: 8px;
     padding: 0.5rem 1.2rem;
     background: var(--primary);
-    color: var(--primary);
-    border-radius: 8px;
     text-decoration: none;
     /* font-size: 0.8rem; */
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    background: var(--primary);
+    /* Uses your main brand color */
+    color: white !important;
+    /* White text for contrast */
+    border-radius: 10px;
+    /* Pill shape for a modern FAB look */
+    text-decoration: none;
     font-weight: 700;
-    transition: 0.2s;
+    /* font-size: 0.9rem; */
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+    /* Soft shadow for depth */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid transparent;
   }
+
+  .btn-edit-action span {
+    display: none;
+    /* Hide "Edit" text, keep only icon on small screens */
+  }
+
+  .btn-edit-action {
+    padding: 0.8rem;
+    border-radius: 50%;
+    /* Turn into a circular FAB */
+  }
+
+  c
 
   /* Dashboard Control Section */
   .dashboard-controls {
@@ -810,30 +840,6 @@
     /* 30px from the right */
     z-index: 1000;
     /* Ensures it stays above all other content */
-  }
-
-  .btn-edit-action {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0.8rem 1.5rem;
-    background: var(--primary);
-    /* Uses your main brand color */
-    color: white !important;
-    /* White text for contrast */
-    border-radius: 50px;
-    /* Pill shape for a modern FAB look */
-    text-decoration: none;
-    font-weight: 700;
-    /* font-size: 0.9rem; */
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-    /* Soft shadow for depth */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid transparent;
-  }
-
-  .btn-edit-action i {
-    /* font-size: 1.1rem; */
   }
 
   /* Sidebar Action Buttons Container */
@@ -1006,17 +1012,6 @@
     .edit-btn-container {
       bottom: 20px;
       right: 20px;
-    }
-
-    .btn-edit-action span {
-      display: none;
-      /* Hide "Edit" text, keep only icon on small screens */
-    }
-
-    .btn-edit-action {
-      padding: 0.8rem;
-      border-radius: 50%;
-      /* Turn into a circular FAB */
     }
   }
 
