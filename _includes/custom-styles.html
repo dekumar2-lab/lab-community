@@ -67,6 +67,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 100%;
     }
 
      .header-actions {
@@ -119,8 +120,8 @@
     }
 
     .nav-section {
-        background: var(--white);
-        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.4) !important;
+        backdrop-filter: blur(10px);
         border-radius: 20px;
         /* Exact match to .content-card */
         padding: 1.25rem;
@@ -454,12 +455,14 @@
 
 .community-switcher:focus {
     outline: none;
-    ring: 2px solid var(--primary-light);
+    border: 2px solid var(--primary-light);
     border-color: var(--primary);
 }
 
     /* Fixes alignment of the "Create Hub" button text */
     .btn-primary-header {
+      background: var(--glossy-pink) !important;
+      
         display: inline-flex;
         align-items: center;
         justify-content: center;
