@@ -57,6 +57,10 @@
                     <a href="{{ site.baseurl }}/submit.html?mode=new" class="nav-item">
                         <i class="fa-solid fa-plus"></i> New District
                     </a>
+                    <a href="{{ site.baseurl }}/general/daily-updates.html"
+                        class="nav-item {% if page.url contains 'daily-updates' %}active{% endif %}">
+                        <i class="fa-solid fa-sun"></i> Daily Updates
+                    </a>
                 </div>
 
                 {% if current_condo and current_condo != "General" and page.url != "/" %}
@@ -119,11 +123,6 @@
 
                 <div class="nav-section">
                     <small>GLOBAL COLLECTIVE</small>
-                    <a href="{{ site.baseurl }}/general/daily-updates.html"
-                        class="nav-item {% if page.url contains 'daily-updates' %}active{% endif %}">
-                        <i class="fa-solid fa-sun"></i> Daily Updates
-                    </a>
-
                     {% assign global_pages = site.pages | where_exp: "item", "item.condo == nil" %}
                     {% for p in global_pages %}
                     {% if p.title and p.url != "/" and p.url != "/submit.html" and p.url != "/broadcast.html" and p.url
