@@ -582,7 +582,7 @@
     /* Overriding previous full-width setting */
   }
 
-.btn-submit-main:hover {
+.btn-submit-main:hover , .btn-primary-header:hover,.btn-create-wiki:hover{
     /* Slightly brightens the purple to show interaction */
     filter: brightness(1.1);
     
@@ -593,7 +593,7 @@
     box-shadow: 0 10px 20px -5px rgba(147, 51, 234, 0.4);
 }
 
-.btn-submit-main:active {
+.btn-submit-main:active,.btn-primary-header:active ,.btn-create-wiki:hover{
     /* Pushes the button "down" when clicked */
     transform: translateY(0);
     filter: brightness(0.95);
@@ -816,11 +816,6 @@
     text-decoration: none;
     border: 1px solid #fecaca;
     /* font-size: 0.85rem; */
-  }
-
-  .btn-create-wiki:hover {
-    /* transform: translateY(-2px); */
-    filter: brightness(1.1);
   }
 
   .btn-broadcast-sidebar:hover {
