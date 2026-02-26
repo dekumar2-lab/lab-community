@@ -451,22 +451,19 @@
     .mobile-menu-toggle { display: block; }
 
     .sidebar {
-        position: fixed;
+        position: fixed !important; /* Forces it out of the flex/grid flow */
         top: 0;
-        left: -280px; /* Hidden off-screen */
-        height: 100vh;
+        left: -280px; /* Start hidden */
         width: 280px;
-        z-index: 999;
-        background: rgba(255, 255, 255, 0.95) !important;
-        backdrop-filter: blur(20px);
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 20px 0 50px rgba(0,0,0,0.1);
-        overflow-y: auto;
+        height: 100vh;
+        z-index: 1001; /* Ensure it is above the header */
+        transition: transform 0.3s ease-in-out;
+        visibility: visible; 
     }
 
-    /* When the menu is active */
+    /* This is what the JavaScript should trigger */
     .sidebar.is-open {
-        transform: translateX(280px);
+        transform: translateX(280px); /* Moves it perfectly into view */
     }
 
     .sidebar-overlay.is-active {
