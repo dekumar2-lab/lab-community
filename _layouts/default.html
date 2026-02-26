@@ -42,7 +42,8 @@
                         <div class="drawer-header">
                             <small>{{ alert.date | date: "%B %d, %Y" }}</small>
                             {% if alert.urgency == 'critical' %}
-                                <span class="badge-critical"><i class="fa-solid fa-triangle-exclamation"></i> IMMEDIATE</span>
+                            <span class="badge-critical"><i class="fa-solid fa-triangle-exclamation"></i>
+                                IMMEDIATE</span>
                             {% endif %}
                         </div>
                         <h4>{{ alert.title }}</h4>
@@ -77,11 +78,34 @@
         const urgencySelect = document.getElementById('urgency');
         const formPreview = document.getElementById('broadcastForm');
 
-        urgencySelect.addEventListener('change', function() {
+        urgencySelect.addEventListener('change', function () {
             // Remove old urgency classes
             formPreview.classList.remove('preview-low', 'preview-medium', 'preview-high', 'preview-critical');
             // Add new one
             formPreview.classList.add('preview-' + this.value);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            // 1. Check for saved preference
+            const savedTheme = localStorage.getItem('resiHubTheme');
+            if (savedTheme === 'blue') {
+                body.setAttribute('data-theme', 'blue');
+                themeToggle.value = 'blue';
+            }
+
+            // 2. Listen for changes
+            themeToggle.addEventListener('change', function () {
+                if (this.value === 'blue') {
+                    body.setAttribute('data-theme', 'blue');
+                    localStorage.setItem('resiHubTheme', 'blue');
+                } else {
+                    body.removeAttribute('data-theme');
+                    localStorage.setItem('resiHubTheme', 'purple');
+                }
+            });
         });
 
         function toggleAlertFeed() {
