@@ -140,6 +140,20 @@
     margin-bottom: 1rem;
   }
 
+  .logo:hover i {
+    transform: rotate(-15deg) scale(1.2);
+    color: var(--primary-hover);
+  }
+
+  .logo span {
+      color: var(--primary);
+      transition: color 0.3s ease;
+  }
+
+  .logo:hover span {
+      color: var(--primary-hover);
+  }
+
   /* ================================================================
 4. SITE HEADER
 ================================================================
@@ -266,6 +280,7 @@
     font-weight: 600;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     margin-bottom: 4px;
+    margin-top: 4px;
   }
 
   .nav-item i {
