@@ -49,6 +49,8 @@
     --shadow-hover: 0 12px 40px rgba(37, 99, 235, 0.2);
     --glossy-accent: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
     --bg-overlay: linear-gradient(135deg, rgba(240, 249, 255, 0.95) 0%, rgba(224, 242, 254, 0.85) 100%);
+    --bell-bg: #ef4444; /* Keep red for high contrast even in blue theme */
+    --bell-hover-glow: rgba(239, 68, 68, 0.6);
   }
 
   /* ================================================================
@@ -469,6 +471,32 @@
   .hub-card:hover i {
     transform: scale(1.1);
   }
+
+  /* --- THE FIX: BLUE THEME VISIBILITY --- */
+[data-theme="blue"] .bell-container {
+    border: 2px solid #ffffff; /* Adds a white ring to separate from blue card border */
+    box-shadow: 0 0 15px var(--bell-hover-glow);
+}
+
+.hub-card:hover .bell-container {
+    animation: bell-shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    transform: scale(1.1);
+}
+
+@keyframes bell-shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0) rotate(-5deg); }
+    20%, 80% { transform: translate3d(2px, 0, 0) rotate(5deg); }
+    30%, 50%, 70% { transform: translate3d(-2px, 0, 0) rotate(-5deg); }
+    40%, 60% { transform: translate3d(2px, 0, 0) rotate(5deg); }
+}
+
+.bell-container i {
+    font-size: 16px !important;
+}
+
+[data-theme="blue"] .notification-count {
+    border-color: #ffffff; /* High contrast for blue mode */
+}
 
   .hub-card h3 {
     margin: 0;
