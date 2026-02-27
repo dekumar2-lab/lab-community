@@ -450,27 +450,16 @@
   }
 
   .hub-card {
-    aspect-ratio: 1 / 1;      /* Forces height to match width precisely */
-    width: 100%;             /* Let the grid determine the width */
-    min-width: 200px;
-    
-    /* REFINED PADDING & ALIGNMENT */
-    padding: 1.5rem;          /* Reduced from 2.5rem for a tighter, more professional feel */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;  /* Centers content vertically in the square */
-    gap: 8px;                /* Reduced gap for a more compact layout */
-    
-    background: var(--glass-white);
-    backdrop-filter: blur(12px);
+     background: var(--glass-white);
+    backdrop-filter: blur(15px);
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: 16px;
+    padding: 1rem;
     text-align: center;
     text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    overflow: visible;        /* Keeps bell visible */
+    overflow: hidden;
+    transition: 0.3s;     /* Keeps bell visible */
   }
 
   .hub-card:hover {
