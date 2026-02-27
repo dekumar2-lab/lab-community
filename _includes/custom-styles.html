@@ -450,6 +450,9 @@
   }
 
   .hub-card {
+    aspect-ratio: 1 / 1;      /* Forces height to match width precisely */
+    width: 100%;             /* Let the grid determine the width */
+    min-width: 200px;
     background: var(--glass-white);
     backdrop-filter: blur(12px);
     border: 1px solid var(--border);
@@ -476,7 +479,7 @@
   }
 
   .fa-landmark {
-    font-size: 2.8rem;
+    font-size: 2rem;
     color: var(--primary);
     transition: transform 0.3s ease;
   }
