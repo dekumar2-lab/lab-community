@@ -1043,4 +1043,120 @@
 FINISH
 ================================================================
 */
+
+/* ==========================================================================
+   16. COMPLETE RESPONSIVE ARCHITECTURE
+   ========================================================================== */
+
+/* --- TABLETS & SMALL LAPTOPS (Max 1024px) --- */
+@media (max-width: 1024px) {
+  .app-shell {
+    padding: 0 1rem;
+  }
+
+  .sidebar {
+    width: 220px; /* Slimmer sidebar for tablets */
+    padding: 1.5rem 1rem;
+  }
+
+  .main-content {
+    padding: 2rem; /* Reduced from 3.5rem to save space */
+  }
+
+  .community-grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* --- MOBILE LANDSCAPE & PHABLETS (Max 768px) --- */
+@media (max-width: 768px) {
+  .app-shell {
+    flex-direction: column; /* Stack sidebar on top of content */
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    padding: 1rem;
+    display: flex;
+    overflow-x: auto; /* Horizontal scrolling nav on mobile */
+    gap: 10px;
+  }
+
+  .nav-section {
+    flex: 0 0 auto;
+    margin-bottom: 0;
+    min-width: 200px;
+  }
+
+  .main-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .content-card {
+    padding: 1.5rem; /* Tightened padding for mobile decency */
+  }
+
+  /* Anchored Button Mobile Logic */
+  .btn-edit-action {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0; /* Full-width bar at screen bottom */
+    z-index: 2000;
+    padding: 1.25rem;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+  }
+
+  /* Prevent content overlap with fixed button */
+  body {
+    padding-bottom: 70px;
+  }
+}
+
+/* --- SMALL MOBILE DEVICES (Max 480px) --- */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem; /* Scale down hero text */
+  }
+
+  .community-grid {
+    grid-template-columns: 1fr 1fr; /* Force 2-column square grid */
+    gap: 0.75rem;
+  }
+
+  .hub-card {
+    padding: 0.75rem;
+    border-radius: 16px;
+  }
+
+  .hub-card i {
+    font-size: 1.8rem; /* Smaller icons for small screens */
+  }
+
+  .hub-card h3 {
+    font-size: 0.65rem;
+  }
+
+  /* Bell adjustment for smaller cards */
+  .bell-container {
+    width: 28px;
+    height: 28px;
+    top: -6px;
+    right: -6px;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .community-switcher {
+    padding: 6px 25px 6px 10px;
+    font-size: 0.6rem;
+  }
+}
 </style>
