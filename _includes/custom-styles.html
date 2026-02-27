@@ -622,15 +622,20 @@
 8. FORMS & INPUT STYLES
 ================================================================
 */
+
+  .form-header p{
+    font-size: 0.8rem;
+  }
+
   .form-group {
-    /* margin-bottom: 2rem; */
+    margin-bottom: 2rem;
   }
 
   .form-group label {
     display: block;
     font-weight: 700;
-    margin-bottom: 0.75rem;
-    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
   }
 
   input,
@@ -789,6 +794,9 @@
     border-radius: 12px;
     gap: 8px;
     width: 100%;
+    white-space: nowrap;    /* Prevents word wrap strictly */
+    overflow: hidden;       /* Ensures no text bleed */
+    text-overflow: ellipsis;/* Adds "..." if the container is tiny */
   }
 
   .btn-submit-main {
