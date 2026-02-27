@@ -1081,4 +1081,74 @@ FINISH
     font-size: 2rem;
   }
 }
+
+/* ==========================================================================
+   MOBILE MENU RESTORATION (MAX-WIDTH: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. Reset the App Shell to allow stacking */
+  .app-shell {
+    flex-direction: column; 
+    padding: 0;
+  }
+
+  /* 2. Transform Sidebar into a horizontal navigation bar */
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    padding: 10px;
+    display: flex;          /* Align items in a row */
+    overflow-x: auto;       /* Allow swiping through menu items */
+    white-space: nowrap;    /* Prevent menu items from wrapping */
+    gap: 10px;
+    background: var(--glass-white);
+    border-bottom: 1px solid var(--border);
+    -webkit-overflow-scrolling: touch; /* Smooth swiping on iOS */
+  }
+
+  /* 3. Adjust Navigation Sections for horizontal layout */
+  .nav-section {
+    display: flex;
+    margin-bottom: 0;
+    padding: 5px;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+  }
+
+  /* Hide the small category labels (e.g., "DASHBOARD") to save space */
+  .nav-section small {
+    display: none; 
+  }
+
+  /* 4. Style Nav Items as compact buttons */
+  .nav-item {
+    padding: 8px 15px;
+    margin: 0;
+    font-size: 0.7rem;
+    background: var(--glass-card);
+    border: 1px solid var(--border);
+  }
+
+  /* 5. Ensure Main Content takes full width now sidebar is on top */
+  .main-content {
+    width: 100%;
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  /* 6. Fix the "Create Hub" button which was wrapping in image_3845b3.png */
+  .btn-primary-header {
+    width: 100%;            /* Make it take full width on mobile */
+    position: fixed;        /* Pin it to the bottom */
+    bottom: 0;
+    left: 0;
+    border-radius: 0;       /* Square edges for the bottom bar */
+    z-index: 1000;
+    height: 60px;
+    white-space: nowrap;    /* Prevents word wrap */
+  }
+}
 </style>
