@@ -141,7 +141,7 @@
   }
 
   .logo:hover i {
-    transform: rotate(-15deg) scale(1.2);
+    transform: rotate(-10deg) scale(1.2);
     color: var(--primary-hover);
   }
 
@@ -153,6 +153,70 @@
   .logo:hover span {
       color: var(--primary-hover);
   }
+
+  .bell-container .fa-bell {
+    font-size: 16px !important; /* Forces the icon to stay small */
+    transition: transform 0.3s ease;
+}
+
+/* Theme-specific overrides: When the data-theme is blue, 
+   the bell can adopt a blue-accented shadow or color.
+*/
+[data-theme="blue"] .bell-container {
+    background: var(--primary); /* Uses blue primary from theme */
+    box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+/* ==========================================================================
+   Y. ANIMATIONS & HOVER EFFECTS
+   ========================================================================== */
+
+/* Hovering over the bell container triggers a sophisticated 
+   bell-ringing (shake) animation.
+*/
+.bell-container:hover {
+    transform: translateY(-2px) scale(1.05);
+    filter: brightness(1.1);
+}
+
+.bell-container:hover .fa-bell {
+    animation: bell-ring 0.6s both;
+}
+
+@keyframes bell-ring {
+    0%, 100% { transform: rotate(0); }
+    15% { transform: rotate(20deg); }
+    30% { transform: rotate(-15deg); }
+    45% { transform: rotate(10deg); }
+    60% { transform: rotate(-5deg); }
+    80% { transform: rotate(2deg); }
+}
+
+/* Notification Badge styling for the number displayed 
+   on top of the bell.
+*/
+.notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #ffffff;
+    color: #ef4444;
+    font-size: 9px;
+    font-weight: 800;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ef4444;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+[data-theme="blue"] .notification-badge {
+    color: var(--primary);
+    border-color: var(--primary);
+}
 
   /* ================================================================
 4. SITE HEADER
