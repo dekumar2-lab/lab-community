@@ -453,29 +453,37 @@
     aspect-ratio: 1 / 1;      /* Forces height to match width precisely */
     width: 100%;             /* Let the grid determine the width */
     min-width: 200px;
+    
+    /* REFINED PADDING & ALIGNMENT */
+    padding: 1.5rem;          /* Reduced from 2.5rem for a tighter, more professional feel */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  /* Centers content vertically in the square */
+    gap: 8px;                /* Reduced gap for a more compact layout */
+    
     background: var(--glass-white);
     backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     border-radius: 20px;
-    padding: 2.5rem 1.5rem;
-    /* More vertical breathing room */
     text-align: center;
     text-decoration: none;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    overflow: visible;
-    /* Changed to visible so bell can "float" */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+    overflow: visible;        /* Keeps bell visible */
   }
 
   .hub-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-6px); /* Slightly subtler lift */
     border-color: var(--primary);
-    box-shadow: 0 15px 35px var(--primary-glow);
+    box-shadow: 0 12px 30px var(--primary-glow);
     background: #fff;
+  }
+  
+  /* Ensuring icons and text don't create extra unwanted space */
+  .hub-card i {
+    margin-bottom: 4px;
+    font-size: 2.5rem; /* Standardized size */
   }
 
   .fa-landmark {
@@ -897,7 +905,7 @@
   .search-wrapper {
     position: relative;
     width: 100%;
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
 
   .search-wrapper i {
