@@ -29,8 +29,8 @@ title: Home
 
             <a href="{{ site.baseurl }}/content/{{ building | slugify }}/" class="hub-card" data-name="{{ building | downcase }}">
                 {% if alerts.size > 0 %}
-                <div style="position: absolute; top: 12px; right: 12px; background: #ef4444; color: white; font-size: 0.65rem; padding: 3px 7px; border-radius: 6px; font-weight: 800; border: 2px solid white;">
-                    <i class="fa-solid fa-bell"></i> {{ alerts.size }}
+                <div class="bell-container">
+                    <i class="fa-solid fa-bell"></i><span class="notification-count">{{ alerts.size }}</span>
                 </div>
                 {% endif %}
                 <i class="fa-solid fa-landmark"></i>

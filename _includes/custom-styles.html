@@ -146,56 +146,77 @@
   }
 
   .logo span {
-      color: var(--primary);
-      transition: color 0.3s ease;
+    color: var(--primary);
+    transition: color 0.3s ease;
   }
 
   .logo:hover span {
-      color: var(--primary-hover);
+    color: var(--primary-hover);
   }
 
   .bell-container .fa-bell {
-    font-size: 16px !important; /* Forces the icon to stay small */
+    font-size: 16px !important;
+    /* Forces the icon to stay small */
     transition: transform 0.3s ease;
-}
+  }
 
-/* Theme-specific overrides: When the data-theme is blue, 
+  /* Theme-specific overrides: When the data-theme is blue, 
    the bell can adopt a blue-accented shadow or color.
 */
-[data-theme="blue"] .bell-container {
-    background: var(--primary); /* Uses blue primary from theme */
+  [data-theme="blue"] .bell-container {
+    background: var(--primary);
+    /* Uses blue primary from theme */
     box-shadow: 0 4px 12px var(--primary-glow);
-}
+  }
 
-/* ==========================================================================
+  /* ==========================================================================
    Y. ANIMATIONS & HOVER EFFECTS
    ========================================================================== */
 
-/* Hovering over the bell container triggers a sophisticated 
+  /* Hovering over the bell container triggers a sophisticated 
    bell-ringing (shake) animation.
 */
-.bell-container:hover {
+  .bell-container:hover {
     transform: translateY(-2px) scale(1.05);
     filter: brightness(1.1);
-}
+  }
 
-.bell-container:hover .fa-bell {
+  .bell-container:hover .fa-bell {
     animation: bell-ring 0.6s both;
-}
+  }
 
-@keyframes bell-ring {
-    0%, 100% { transform: rotate(0); }
-    15% { transform: rotate(20deg); }
-    30% { transform: rotate(-15deg); }
-    45% { transform: rotate(10deg); }
-    60% { transform: rotate(-5deg); }
-    80% { transform: rotate(2deg); }
-}
+  @keyframes bell-ring {
 
-/* Notification Badge styling for the number displayed 
+    0%,
+    100% {
+      transform: rotate(0);
+    }
+
+    15% {
+      transform: rotate(20deg);
+    }
+
+    30% {
+      transform: rotate(-15deg);
+    }
+
+    45% {
+      transform: rotate(10deg);
+    }
+
+    60% {
+      transform: rotate(-5deg);
+    }
+
+    80% {
+      transform: rotate(2deg);
+    }
+  }
+
+  /* Notification Badge styling for the number displayed 
    on top of the bell.
 */
-.notification-badge {
+  .notification-badge {
     position: absolute;
     top: -6px;
     right: -6px;
@@ -210,13 +231,13 @@
     align-items: center;
     justify-content: center;
     border: 2px solid #ef4444;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 
-[data-theme="blue"] .notification-badge {
+  [data-theme="blue"] .notification-badge {
     color: var(--primary);
     border-color: var(--primary);
-}
+  }
 
   /* ================================================================
 4. SITE HEADER
@@ -416,12 +437,14 @@
     backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     border-radius: 20px;
-    padding: 2.5rem 1.5rem; /* More vertical breathing room */
+    padding: 2.5rem 1.5rem;
+    /* More vertical breathing room */
     text-align: center;
     text-decoration: none;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    overflow: visible; /* Changed to visible so bell can "float" */
+    overflow: visible;
+    /* Changed to visible so bell can "float" */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -429,9 +452,9 @@
   }
 
   .hub-card i {
-     font-size: 2rem; 
+    font-size: 2rem;
     color: var(--primary);
-    margin-bottom: 12px; 
+    margin-bottom: 12px;
   }
 
   .hub-card:hover {
@@ -441,24 +464,24 @@
     background: #fff;
   }
 
-.hub-card i.fa-building-columns, 
-.hub-card i.fa-university {
+  .hub-card i.fa-building-columns,
+  .hub-card i.fa-university {
     font-size: 2.8rem;
     color: var(--primary);
     margin-bottom: 5px;
     transition: transform 0.3s ease;
-}
+  }
 
-.hub-card:hover i {
+  .hub-card:hover i {
     transform: scale(1.1);
-}
+  }
 
-.hub-card h3 {
+  .hub-card h3 {
     margin: 0;
     font-size: 1.2rem;
     font-weight: 800;
     color: var(--text-main);
-}
+  }
 
   .hub-card p {
     margin: 0;
@@ -466,6 +489,56 @@
     color: var(--primary);
     font-weight: 800;
     /* text-transform: uppercase; */
+  }
+
+  /* --- COMPACT FLOATING BELL --- */
+  .bell-container {
+    position: absolute;
+    top: -12px;
+    /* Floats slightly above the card edge */
+    right: -10px;
+    background: #ef4444;
+    /* Alert Red from your screenshot */
+    width: 32px;
+    /* Compact size */
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .bell-container i {
+    font-size: 14px !important;
+    /* Forces bell to be small */
+  }
+
+  .bell-container:hover {
+    transform: scale(1.1) rotate(10deg);
+  }
+
+  /* Redesigned Notification Count */
+  .notification-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: white;
+    color: #ef4444;
+    font-size: 9px;
+    font-weight: 900;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ef4444;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   /* ================================================================
@@ -510,7 +583,7 @@
 ================================================================
 */
 
- /* Sidebar Action Buttons Container */
+  /* Sidebar Action Buttons Container */
   .sidebar-footer-action {
     /* margin-top: 1.5rem;
     padding-top: 1.5rem; */
@@ -541,8 +614,8 @@
     padding: 0.75rem;
   }
 
-  .btn-broadcast-sidebar{
-        margin-top: 1rem;
+  .btn-broadcast-sidebar {
+    margin-top: 1rem;
   }
 
   .drawer-item {
@@ -559,11 +632,11 @@
     background: rgba(255, 255, 255, 0.8);
     transform: scale(1.01);
     z-index: 2;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   }
 
-  .drawer-header{
-   display: flex;
+  .drawer-header {
+    display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
@@ -574,13 +647,13 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-}
+  }
 
-  .drawer-text{
+  .drawer-text {
     padding: 1rem;
   }
 
-  .drawer-text h1{
+  .drawer-text h1 {
     font-size: 1rem;
   }
 
@@ -589,17 +662,18 @@
     font-size: 1.1rem;
     color: var(--text-main);
     font-weight: 800;
-}
+  }
 
-.drawer-text {
+  .drawer-text {
     font-size: 0.95rem;
     color: var(--text-muted);
     line-height: 1.6;
-}
+  }
 
-/* Architectural Watermark for Drawer */
-#alert-drawer::after {
-    content: "\f0a1"; /* Bullhorn Icon */
+  /* Architectural Watermark for Drawer */
+  #alert-drawer::after {
+    content: "\f0a1";
+    /* Bullhorn Icon */
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
     position: absolute;
@@ -609,9 +683,10 @@
     color: var(--primary);
     opacity: 0.03;
     pointer-events: none;
-}
+  }
 
-  .tets{display: flex;
+  .tets {
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
