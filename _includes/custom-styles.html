@@ -450,16 +450,26 @@
   }
 
   .hub-card {
-     background: var(--glass-white);
+    aspect-ratio: 1 / 1;      /* Forces height to match width precisely */
+    width: 100%;             /* Let the grid determine the width */
+    min-width: 200px;
+    
+    /* REFINED PADDING & ALIGNMENT */
+    padding: 1rem;          /* Reduced from 2.5rem for a tighter, more professional feel */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  /* Centers content vertically in the square */
+    
+    background: var(--glass-white);
     backdrop-filter: blur(15px);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1rem;
+    border-radius: 20px;
     text-align: center;
     text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    overflow: hidden;
-    transition: 0.3s;     /* Keeps bell visible */
+    overflow: visible;        /* Keeps bell visible */
   }
 
   .hub-card:hover {
@@ -473,6 +483,21 @@
   .hub-card i {
     margin-bottom: 4px;
     font-size: 2.5rem; /* Standardized size */
+  }
+
+  .hub-card h3 {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .hub-card p {
+    margin: 0;
+    font-size: 0.7rem;
+    color: var(--primary);
+    font-weight: 800;
+    /* text-transform: uppercase; */
   }
 
   .fa-landmark {
@@ -535,21 +560,6 @@
   [data-theme="blue"] .notification-count {
     border-color: #ffffff;
     /* High contrast for blue mode */
-  }
-
-  .hub-card h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: var(--text-main);
-  }
-
-  .hub-card p {
-    margin: 0;
-    font-size: 0.7rem;
-    color: var(--primary);
-    font-weight: 800;
-    /* text-transform: uppercase; */
   }
 
   /* --- COMPACT FLOATING BELL --- */
