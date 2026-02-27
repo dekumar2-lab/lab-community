@@ -415,16 +415,17 @@
     background: var(--glass-white);
     backdrop-filter: blur(12px);
     border: 1px solid var(--border);
-    border-radius: var(--border-radius-md);
-    padding: 1rem;
+    border-radius: 20px;
+    padding: 2.5rem 1.5rem; /* More vertical breathing room */
     text-align: center;
     text-decoration: none;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    overflow: hidden;
+    overflow: visible; /* Changed to visible so bell can "float" */
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 12px;
   }
 
   .hub-card i {
@@ -434,17 +435,30 @@
   }
 
   .hub-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-8px);
     border-color: var(--primary);
-    box-shadow: 0 10px 15px -3px var(--primary-glow);
+    box-shadow: 0 15px 35px var(--primary-glow);
     background: #fff;
   }
 
-  .hub-card h3 {
-    margin-bottom: 6px;
-    font-size: 0.9rem;
+.hub-card i.fa-building-columns, 
+.hub-card i.fa-university {
+    font-size: 2.8rem;
+    color: var(--primary);
+    margin-bottom: 5px;
+    transition: transform 0.3s ease;
+}
+
+.hub-card:hover i {
+    transform: scale(1.1);
+}
+
+.hub-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
     color: var(--text-main);
-  }
+}
 
   .hub-card p {
     margin: 0;
