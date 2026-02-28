@@ -125,12 +125,12 @@
   }
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 800;
   }
 
   h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
   }
 
@@ -1125,6 +1125,7 @@ FINISH
   /* 4. Style Nav Items as compact buttons */
   .nav-item {
     padding: 8px 15px;
+    max-height: 2rem;
     margin: 0;
     font-size: 0.7rem;
     background: var(--glass-card);
@@ -1148,6 +1149,11 @@ FINISH
     z-index: 1000;
     height: 60px;
     white-space: nowrap;    /* Prevents word wrap */
+  }
+
+  .btn-create-wiki,
+  .btn-broadcast-sidebar {
+    max-height: 2rem;
   }
 }
 </style>
