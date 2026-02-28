@@ -1,21 +1,30 @@
 <header class="site-header">
-        <div class="header-container">
-            <a href="{{ site.baseurl }}/" class="logo">
-                <i class="fa-solid fa-city"></i> Resi<span>Hub</span>
+    <div class="header-container">
+        <!-- <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle Navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button> -->
+
+        <a href="{{ site.baseurl }}/" class="logo">
+            <i class="fa-solid fa-city"></i> Resi<span>Hub</span>
+        </a>
+
+        <div class="header-actions">
+            <select id="themeToggle" class="community-switcher" aria-label="Switch Theme">
+                <option value="purple">Deep Purple</option>
+                <option value="blue">Blue</option>
+            </select>
+            {% if current_condo %}
+            <select class="community-switcher" onchange="location = this.value;">
+                <option value="#">Switch Community...</option>
+                {% assign condos = site.pages | map: 'condo' | uniq | compact %}
+                {% for c in condos %}
+                <option value="{{ site.baseurl }}/content/{{ c | slugify }}/" {% if c == current_condo %}selected{% endif %}>{{ c }}</option>
+                {% endfor %}
+            </select>
+            {% endif %}
+            <a href="{{ site.baseurl }}/submit.html" class="btn-primary-header">
+                <i class="fa-solid fa-plus"></i> Create Hub
             </a>
-            <div class="header-actions">
-                {% if current_condo %}
-                <select class="community-switcher" onchange="location = this.value;">
-                    <option value="#">Switch Community...</option>
-                    {% assign condos = site.pages | map: 'condo' | uniq | compact %}
-                    {% for c in condos %}
-                    <option value="{{ site.baseurl }}/content/{{ c | slugify }}/" {% if c==current_condo %}selected{%
-                        endif %}>{{ c }}</option>
-                    {% endfor %}
-                </select>
-                {% endif %}
-                <a href="{{ site.baseurl }}/submit.html" class="btn-primary-header"><i class="fa-solid fa-plus"></i>
-                    Create Hub</a>
-            </div>
         </div>
-    </header>
+    </div>
+</header>
