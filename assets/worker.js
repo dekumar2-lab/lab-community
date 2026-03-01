@@ -66,7 +66,7 @@ export default {
       const type = formData.get("type") || "wiki";
       const urgency = formData.get("alert_type") || "medium";
 
-      const folder = slugify(condoInput);
+      const folder = slugify(condoInput).toLowerCase;
       const branchName = `contribution-${folder}-${Date.now()}`;
       const repoUrl = `https://api.github.com/repos/${CONFIG.GITHUB_REPO}`;
 
