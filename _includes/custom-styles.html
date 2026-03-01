@@ -461,6 +461,30 @@
     margin: 1rem;
   }
 
+  /* Ensure the container itself isn't forcing bold on children */
+.wiki-render {
+    font-weight: 400; /* Standard weight */
+    line-height: 1.6;
+    color: var(--text-main);
+}
+
+/* Reset any aggressive global strong rules */
+.wiki-render strong {
+    font-weight: 700; /* Standard bold, not 'bolder' */
+}
+
+/* Ensure paragraphs are explicitly normal weight */
+.wiki-render p {
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+/* Headings should stay bold */
+.wiki-render h1, .wiki-render h2, .wiki-render h3 {
+    font-weight: 700;
+    margin-top: 1.5rem;
+}
+
   .hub-card {
     /*aspect-ratio: 1 / 1;*/
     /* Forces height to match width precisely */
