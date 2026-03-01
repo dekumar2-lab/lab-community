@@ -1,0 +1,103 @@
+<!-- Editor panel -->
+<div id="editor-panel" class="editor-drawer">
+    <div class="drawer-inner">
+        <div class="drawer-header">
+            <h2 style="margin:0; font-size: 1.2rem;">Contribute</h2>
+            <button onclick="togglePanel()" class="drawer-close">&times;</button>
+        </div>
+
+        <form id="drawer-form">
+            <div class="hub-context">
+                <small>Active Hub</small>
+                <strong id="target-display">{{ current_condo | default: "General Hub" | upcase }}</strong>
+            </div>
+
+            <div class="field">
+                <label>Resource Title</label>
+                <input type="text" name="title" id="f-title" required placeholder="e.g. Visitor Parking Rules">
+            </div>
+
+            <div class="editor-container-box">
+                <div class="toolbar">
+                    <div class="tools">
+                        <button type="button" onclick="addTag('# ')">H</button>
+                        <button type="button" onclick="addTag('**', '**')">B</button>
+                        <button type="button" onclick="addTag('- ')">•</button>
+                    </div>
+                    <div class="modes">
+                        <button type="button" id="tab-write" class="active" onclick="switchMode('write')">Write</button>
+                        <button type="button" id="tab-preview" onclick="switchMode('preview')">Preview</button>
+                    </div>
+                </div>
+                <textarea name="content" id="f-content" required placeholder="Describe the resource..."></textarea>
+                <div id="f-preview" style="display: none;" class="markdown-preview"></div>
+            </div>
+
+            <div class="drawer-footer">
+                <button type="button" onclick="togglePanel()" class="btn-cancel">Cancel</button>
+                <button type="submit" id="sync-btn" class="btn-sync">Sync to GitHub</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    // 1. Toggle Panel
+    function togglePanel() {
+        document.getElementById('editor-panel').classList.toggle('is-open');
+    }
+
+    function addTag(pre, post = "") {
+        const el = document.getElementById('f-content');
+        const s = el.selectionStart, e = el.selectionEnd;
+        el.value = el.value.substring(0, s) + pre + el.value.substring(s, e) + post + el.value.substring(e);
+        el.focus();
+    }
+
+    function switchMode(mode) {
+        const isPreview = mode === 'preview';
+        const content = document.getElementById('f-content');
+        const preview = document.getElementById('f-preview');
+
+        content.style.display = isPreview ? 'none' : 'block';
+        preview.style.display = isPreview ? 'block' : 'none';
+
+        if (isPreview) {
+            // Check if marked is available before calling it
+            if (typeof marked !== 'undefined') {
+                preview.innerHTML = marked.parse(content.value || "_No content entered yet..._");
+            } else {
+                preview.innerHTML = "<p style='color:red;'>Error: Markdown library still loading. Please wait.</p>";
+            }
+        }
+
+        document.getElementById('tab-write').classList.toggle('active', !isPreview);
+        document.getElementById('tab-preview').classList.toggle('active', isPreview);
+    }
+
+    document.getElementById('drawer-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('sync-btn');
+        const originalText = btn.innerText;
+        btn.innerText = "Syncing..."; btn.disabled = true;
+
+        const fd = new FormData(e.target);
+        fd.append("condo", document.getElementById('target-display').innerText);
+
+        try {
+            const res = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
+                method: 'POST',
+                body: fd
+            });
+            if (res.ok) {
+                alert("Changes successfully synced to GitHub!");
+                location.reload();
+            } else { throw new Error(); }
+        } catch (err) {
+            alert("Error connecting to GitHub. Please try again.");
+            btn.innerText = originalText; btn.disabled = false;
+        }
+    });
+
+</script>
