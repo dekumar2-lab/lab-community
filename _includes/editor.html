@@ -19,17 +19,16 @@
 
             <div class="editor-container-box">
                 <label for="content">Documentation Content (Markdown Supported)</label>
-                <div class="toolbar">
-                    <div class="tools">
+                <div class="tools">
                         <button type="button" onclick="addTag('# ')">H</button>
                         <button type="button" onclick="addTag('*', '*')">B</button>
+                        <button type="button" onclick="addTag('i')">I</button> <button type="button"
+                            onclick="insertFormat('ul')">ul</button> <button type="button"
+                            onclick="insertFormat('ol')">ol</button> <button type="button"
+                            onclick="insertFormat('code')">&lt;/&gt;</button>
+                        <div class="mode-switch"></div>
                         <button type="button" onclick="addTag('- ')">•</button>
                     </div>
-                    <div class="modes">
-                        <button type="button" id="tab-write" class="active" onclick="switchMode('write')">Write</button>
-                        <button type="button" id="tab-preview" onclick="switchMode('preview')">Preview</button>
-                    </div>
-                </div>
                 <textarea name="content" id="f-content" required placeholder="Describe the resource..."></textarea>
                 <div id="f-preview" style="display: none;" class="markdown-preview"></div>
             </div>

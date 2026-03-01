@@ -17,7 +17,7 @@
     {% endif %}
     {% endif %}
 
-     <!-- Header.html -->
+    <!-- Header.html -->
     {% include header.html %}
 
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -64,8 +64,7 @@
                         <i class="fa-regular fa-pen-to-square"></i> Edit
                     </a> -->
 
-                     <a href="#" onclick="prepareEdit()"
-                        class="btn-edit-action">
+                    <a href="#" onclick="prepareEdit()" class="btn-edit-action">
                         <i class="fa-regular fa-pen-to-square"></i> Edit
                     </a>
                 </div>
@@ -82,7 +81,7 @@
     {% include footer.html %}
 
     <script>
-        
+
         document.addEventListener('DOMContentLoaded', function () {
             const themeToggle = document.getElementById('themeToggle');
             const body = document.body;
@@ -157,7 +156,7 @@
             const titleInput = document.getElementById('community-overview');
             const title = document.getElementById('title');
             const contentInput = document.getElementById('f-content');
-            
+
             if (!wikiContainer || !contentInput) return;
 
             // 1. Get the Title (usually the first H1)
@@ -172,86 +171,110 @@
 
             // 3. Clean up the text (Remove extra whitespace caused by the 'everything in <p>' bug)
             let rawText = tempDiv.innerText.trim();
-            
+
             // Inject into the textarea
             contentInput.value = rawText;
 
             // 4. Open the Drawer (ensure your drawer toggle logic is called here)
-            togglePanel(); 
+            togglePanel();
         }
 
         // 1. Toggle Panel
-    function togglePanel() {
-        document.getElementById('editor-panel').classList.toggle('is-open');
-    }
+        function togglePanel() {
+            document.getElementById('editor-panel').classList.toggle('is-open');
+        }
 
-    function addTag(pre, post = "") {
-        const el = document.getElementById('f-content');
-        const s = el.selectionStart, e = el.selectionEnd;
-        el.value = el.value.substring(0, s) + pre + el.value.substring(s, e) + post + el.value.substring(e);
-        el.focus();
-    }
+        function addTag(pre, post = "") {
+            const el = document.getElementById('f-content');
+            const s = el.selectionStart, e = el.selectionEnd;
+            el.value = el.value.substring(0, s) + pre + el.value.substring(s, e) + post + el.value.substring(e);
+            el.focus();
+        }
 
-    function switchMode(mode) {
-        const isPreview = mode === 'preview';
-        const content = document.getElementById('f-content');
-        const preview = document.getElementById('f-preview');
+        function switchMode(mode) {
+            const isPreview = mode === 'preview';
+            const content = document.getElementById('f-content');
+            const preview = document.getElementById('f-preview');
 
-        content.style.display = isPreview ? 'none' : 'block';
-        preview.style.display = isPreview ? 'block' : 'none';
+            content.style.display = isPreview ? 'none' : 'block';
+            preview.style.display = isPreview ? 'block' : 'none';
 
-        if (isPreview) {
-            // Check if marked is available before calling it
-            if (typeof marked !== 'undefined') {
-                preview.innerHTML = marked.parse(content.value || "_No content entered yet..._");
-            } else {
-                preview.innerHTML = "<p style='color:red;'>Error: Markdown library still loading. Please wait.</p>";
+            if (isPreview) {
+                // Check if marked is available before calling it
+                if (typeof marked !== 'undefined') {
+                    preview.innerHTML = marked.parse(content.value || "_No content entered yet..._");
+                } else {
+                    preview.innerHTML = "<p style='color:red;'>Error: Markdown library still loading. Please wait.</p>";
+                }
+            }
+
+            document.getElementById('tab-write').classList.toggle('active', !isPreview);
+            document.getElementById('tab-preview').classList.toggle('active', isPreview);
+        }
+
+        document.getElementById('drawer-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('sync-btn');
+            const originalText = btn.innerText;
+            btn.innerText = "Syncing..."; btn.disabled = true;
+
+            const fd = new FormData(e.target);
+            fd.append("condo", document.getElementById('target-display').innerText);
+
+            try {
+                const res = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
+                    method: 'POST',
+                    body: fd
+                });
+                if (res.ok) {
+                    alert("Changes successfully synced to GitHub!");
+                    location.reload();
+                } else { throw new Error(); }
+            } catch (err) {
+                alert("Error connecting to GitHub. Please try again.");
+                btn.innerText = originalText; btn.disabled = false;
+            }
+        });
+
+        function openContributionDrawer(type) {
+            const drawer = document.getElementById('contribution-drawer'); // Your drawer ID
+            const titleInput = document.getElementById('resource-title');
+            const contentInput = document.getElementById('form-content');
+
+            // Optional: Pre-fill data if editing existing content
+            const currentTitle = document.querySelector('.wiki-render h1')?.innerText || "";
+            if (titleInput) titleInput.value = currentTitle;
+
+            // Show the drawer
+            if (drawer) {
+                drawer.classList.add('open');
             }
         }
 
-        document.getElementById('tab-write').classList.toggle('active', !isPreview);
-        document.getElementById('tab-preview').classList.toggle('active', isPreview);
-    }
+        function insertFormat(type) {
+            const el = document.getElementById('submissionForm');
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const selectedText = el.value.substring(start, end);
+            let before = "", after = "";
 
-    document.getElementById('drawer-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('sync-btn');
-        const originalText = btn.innerText;
-        btn.innerText = "Syncing..."; btn.disabled = true;
+            switch (type) {
+                case 'h': before = "### "; break;
+                case 'b': before = "**"; after = "**"; break;
+                case 'i': before = "*"; after = "*"; break;
+                case 'ul': before = "- "; break;
+                case 'ol': before = "1. "; break;
+                case 'code': before = "```\n"; after = "\n```"; break;
+            }
 
-        const fd = new FormData(e.target);
-        fd.append("condo", document.getElementById('target-display').innerText);
+            const newText = el.value.substring(0, start) + before + selectedText + after + el.value.substring(end);
+            el.value = newText;
 
-        try {
-            const res = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
-                method: 'POST',
-                body: fd
-            });
-            if (res.ok) {
-                alert("Changes successfully synced to GitHub!");
-                location.reload();
-            } else { throw new Error(); }
-        } catch (err) {
-            alert("Error connecting to GitHub. Please try again.");
-            btn.innerText = originalText; btn.disabled = false;
+            // Maintain focus and set cursor position
+            el.focus();
+            const cursorOffset = before.length + selectedText.length + after.length;
+            el.setSelectionRange(start + cursorOffset, start + cursorOffset);
         }
-    });
-
-    function openContributionDrawer(type) {
-    const drawer = document.getElementById('contribution-drawer'); // Your drawer ID
-    const titleInput = document.getElementById('resource-title');
-    const contentInput = document.getElementById('form-content');
-    
-    // Optional: Pre-fill data if editing existing content
-    const currentTitle = document.querySelector('.wiki-render h1')?.innerText || "";
-    if (titleInput) titleInput.value = currentTitle;
-
-    // Show the drawer
-    if (drawer) {
-        drawer.classList.add('open');
-    }
-}
-
     </script>
 </body>
 
