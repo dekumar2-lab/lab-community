@@ -173,7 +173,8 @@
             let rawText = tempDiv.innerText.trim();
 
             const rawMarkdown = wikiContainer.getAttribute('data-raw-md');
-            contentInput.value = rawMarkdown;
+            const titlePattern = new RegExp(`^#\\s+${currentTitle}\\s+`, 'i');
+            contentInput.value = rawMarkdown.replace(titlePattern, '').trim();
 
             // Inject into the textarea
             //contentInput.value = rawText;
