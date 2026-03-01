@@ -342,6 +342,22 @@
             const cursorOffset = before.length + selectedText.length + after.length;
             el.setSelectionRange(start + cursorOffset, start + cursorOffset);
         }
+
+        const navToggle = document.getElementById('navToggle');
+        const closeNav = document.getElementById('closeNav');
+        const sideNav = document.getElementById('sideNav');
+        const navOverlay = document.getElementById('navOverlay');
+
+        function toggleMenu() {
+            sideNav.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+        }
+
+        navToggle.addEventListener('click', toggleMenu);
+        closeNav.addEventListener('click', toggleMenu);
+        navOverlay.addEventListener('click', toggleMenu);
+
+
     </script>
 </body>
 
