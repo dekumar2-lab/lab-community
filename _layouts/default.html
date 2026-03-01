@@ -1,244 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+{% include "head.html" %}
 
-<head>
-    {% include head.html %}
-</head>
+<body class="bg-gray-50 font-sans leading-normal tracking-normal">
+    <div class="flex flex-col md:flex-row">
+        {% include "sidebar.html" %}
 
-<body>
-    {% assign current_condo = page.condo %}
-    {% if current_condo == nil or current_condo == "" %}
-    {% assign raw_condo = page.url | split: 'condo=' | last | split: '&' | first %}
-    {% if raw_condo contains '/' or raw_condo == page.url %}
-    {% assign current_condo = nil %}
-    {% else %}
-    {% assign current_condo = raw_condo | replace: '-', ' ' %}
-    {% endif %}
-    {% endif %}
-
-    <!-- Header.html -->
-    {% include header.html %}
-
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    <div class="app-shell">
-        {% include sidebar.html %}
-
-        <main class="main-content">
-            {% if current_condo %}
-            {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", current_condo | sort:
-            'date' | reverse %}
-            {% if active_alerts.size > 0 %}
-            <div class="alert-collapsible-wrapper">
-                <div class="alert-strip-header" onclick="toggleAlertFeed()">
-                    <div class="strip-left">
-                        <span class="live-indicator"></span>
-                        <span><strong>Live Notice:</strong> {{ active_alerts.first.title }}</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-down" id="chevron-icon"></i>
-                </div>
-                <div id="alert-drawer" class="alert-drawer-body">
-                    {% for alert in active_alerts %}
-                    <div class="drawer-item urgency-{{ alert.urgency | default: 'low' }}">
-                        <div class="drawer-header">
-                            <small>{{ alert.date | date: "%B %d, %Y" }}</small>
-                            {% if alert.urgency == 'critical' %}
-                            <span class="badge-critical"><i class="fa-solid fa-triangle-exclamation"></i>
-                                IMMEDIATE</span>
-                            {% endif %}
-                        </div>
-                        <h4>{{ alert.title }}</h4>
-                        <div class="drawer-text">{{ alert.content | markdownify }}</div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-            {% endif %}
-
-            <article class="content-card">
-                {% if current_condo and page.url != "/submit.html" and page.url != "/broadcast.html" %}
-                <div class="edit-btn-container">
-                    <a href="{{ site.baseurl }}/submit.html?edit=true&condo={{ current_condo | url_encode }}&title={{ page.title | url_encode }}"
-                        class="btn-edit-action">
-                        <i class="fa-regular fa-pen-to-square"></i> Edit
-                    </a>
-                </div>
-                {% endif %}
-                <div class="wiki-render">
-                    {{ content }}
-                </div>
-            </article>
-        </main>
-    </div>
-<div id="editor-panel" class="fixed inset-y-0 right-0 w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-[100] border-l border-gray-200">
-    <div class="h-full flex flex-col p-6">
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-xl font-bold text-gray-800">Contribute to Hub</h2>
-            <button onclick="togglePanel()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+        <div class="flex-1 md:ml-64">
+            {% include "header.html" %}
+            <main class="p-8">
+                {{ content }}
+            </main>
+            {% include "footer.html" %}
         </div>
-
-        <form id="contribution-form" class="space-y-4 flex flex-col h-full">
-            <div class="bg-purple-50 p-3 rounded-lg flex justify-between items-center">
-                <span class="text-xs font-semibold text-purple-700 uppercase">Target Hub</span>
-                <span class="text-sm font-bold text-purple-900" id="current-condo-display">Detecting...</span>
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Title</label>
-                <input type="text" name="title" id="form-title" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 text-sm focus:ring-purple-500">
-            </div>
-
-            <div class="flex space-x-2">
-                <div class="flex-1">
-                    <label class="block text-sm font-medium text-gray-700">Type</label>
-                    <select name="type" id="type-select" onchange="updateUrgencyVisibility()" class="mt-1 block w-full border border-gray-300 rounded-md p-2 text-sm">
-                        <option value="wiki">Wiki Page</option>
-                        <option value="broadcast">Live Notice</option>
-                    </select>
-                </div>
-                <div id="urgency-wrapper" class="flex-1 hidden">
-                    <label class="block text-sm font-medium text-gray-700">Urgency</label>
-                    <select name="alert_type" class="mt-1 block w-full border border-gray-300 rounded-md p-2 text-sm">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="flex-grow">
-                <label class="block text-sm font-medium text-gray-700">Content (Markdown)</label>
-                <textarea name="content" id="form-content" required class="mt-1 block w-full h-64 border border-gray-300 rounded-md p-2 text-sm font-mono focus:ring-purple-500"></textarea>
-            </div>
-
-            <div class="pt-4 flex space-x-3">
-                <button type="button" onclick="togglePanel()" class="flex-1 py-2 border border-gray-300 rounded-md text-sm text-gray-600 hover:bg-gray-50">Cancel</button>
-                <button type="submit" id="submit-btn" class="flex-1 py-2 bg-purple-600 text-white rounded-md text-sm font-bold hover:bg-purple-700 transition-all">Publish to GitHub</button>
-            </div>
-        </form>
     </div>
-</div>
 
-<script>
-    function togglePanel() {
-        const panel = document.getElementById('editor-panel');
-        panel.classList.toggle('translate-x-full');
-        
-        // Auto-detect Hub from URL or UI
-        const pathParts = window.location.pathname.split('/');
-        const hubName = pathParts[pathParts.length - 2] || "General";
-        document.getElementById('current-condo-display').innerText = hubName;
-    }
+    <div id="editor-panel" class="fixed inset-y-0 right-0 w-full max-w-lg bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-[100] border-l border-gray-200">
+        <div class="h-full flex flex-col p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Contribute to Hub</h2>
+                <button onclick="togglePanel()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
 
-    function updateUrgencyVisibility() {
-        const type = document.getElementById('type-select').value;
-        document.getElementById('urgency-wrapper').classList.toggle('hidden', type !== 'broadcast');
-    }
+            <form id="contribution-form" class="space-y-4 flex flex-col h-full">
+                <div class="bg-purple-50 p-3 rounded-lg flex justify-between items-center border border-purple-100">
+                    <span class="text-xs font-semibold text-purple-700 uppercase tracking-wider">Active Community</span>
+                    <span class="text-sm font-bold text-purple-900" id="current-condo-display">Detecting...</span>
+                </div>
 
-    document.getElementById('contribution-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('submit-btn');
-        btn.disabled = true;
-        btn.innerText = "Syncing...";
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="col-span-2">
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Page Title</label>
+                        <input type="text" name="title" id="form-title" required placeholder="e.g., Best Local Cafes" 
+                               class="w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-2 focus:ring-purple-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Entry Type</label>
+                        <select name="type" id="type-select" onchange="updateUrgencyVisibility()" class="w-full border border-gray-300 rounded-md p-2 text-sm bg-white">
+                            <option value="wiki">Wiki Page</option>
+                            <option value="broadcast">Live Notice</option>
+                        </select>
+                    </div>
+                    <div id="urgency-wrapper" class="hidden text-sm">
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Urgency</label>
+                        <select name="alert_type" class="w-full border border-gray-300 rounded-md p-2 text-sm bg-white">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
 
-        const formData = new FormData(e.target);
-        formData.append("condo", document.getElementById('current-condo-display').innerText);
+                <div class="flex-grow flex flex-col">
+                    <div class="flex items-center justify-between border-b pb-2 mb-2">
+                        <div class="flex space-x-1">
+                            <button type="button" onclick="insertFormat('# ', '')" class="p-1.5 hover:bg-gray-100 rounded text-gray-600 font-bold" title="Heading">H</button>
+                            <button type="button" onclick="insertFormat('**', '**')" class="p-1.5 hover:bg-gray-100 rounded text-gray-600 font-bold" title="Bold">B</button>
+                            <button type="button" onclick="insertFormat('- ', '')" class="p-1.5 hover:bg-gray-100 rounded text-gray-600" title="List">•</button>
+                            <button type="button" onclick="insertFormat('[', '](url)')" class="p-1.5 hover:bg-gray-100 rounded text-gray-600" title="Link">🔗</button>
+                        </div>
+                        <div class="flex bg-gray-100 rounded-md p-1 scale-90">
+                            <button type="button" onclick="setMode('write')" id="btn-write" class="px-3 py-1 text-xs font-bold rounded bg-white shadow-sm text-purple-600">Write</button>
+                            <button type="button" onclick="setMode('preview')" id="btn-preview" class="px-3 py-1 text-xs font-bold rounded text-gray-500">Preview</button>
+                        </div>
+                    </div>
 
-        try {
-            // REPLACE WITH YOUR ACTUAL WORKER URL
-            const response = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
-                method: 'POST',
-                body: formData
-            });
+                    <div class="relative flex-grow">
+                        <textarea name="content" id="form-content" required 
+                            class="w-full h-full min-h-[300px] border border-gray-300 rounded-md p-3 text-sm font-mono focus:ring-2 focus:ring-purple-500 outline-none resize-none"
+                            placeholder="Type your content here..."></textarea>
+                        
+                        <div id="form-preview" class="hidden w-full h-full min-h-[300px] border border-gray-100 bg-gray-50 rounded-md p-3 text-sm overflow-y-auto prose prose-purple max-w-none">
+                            </div>
+                    </div>
+                </div>
 
-            const result = await response.json();
-            if (result.success) {
-                alert("Success! Your contribution is pending review.");
-                window.open(result.url, '_blank');
-                togglePanel();
-            } else {
-                throw new Error(result.error);
-            }
-        } catch (err) {
-            alert("Error: " + err.message);
-        } finally {
-            btn.disabled = false;
-            btn.innerText = "Publish to GitHub";
-        }
-    });
-</script>
-    <!-- Footer.html -->
-    {% include footer.html %}
+                <div class="pt-4 border-t flex items-center space-x-3">
+                    <button type="button" onclick="togglePanel()" class="flex-1 py-2 text-sm text-gray-500 font-medium hover:text-gray-700">Cancel</button>
+                    <button type="submit" id="submit-btn" class="flex-[2] py-2.5 bg-purple-600 text-white rounded-lg text-sm font-bold hover:bg-purple-700 shadow-lg shadow-purple-200 transition-all active:scale-95">
+                        Sync to GitHub
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const themeToggle = document.getElementById('themeToggle');
-            const body = document.body;
-
-            // 1. Check for saved preference
-            const savedTheme = localStorage.getItem('resiHubTheme');
-            if (savedTheme === 'blue') {
-                body.setAttribute('data-theme', 'blue');
-                themeToggle.value = 'blue';
-            }
-
-            // 2. Listen for changes
-            themeToggle.addEventListener('change', function () {
-                if (this.value === 'blue') {
-                    body.setAttribute('data-theme', 'blue');
-                    localStorage.setItem('resiHubTheme', 'blue');
-                } else {
-                    body.removeAttribute('data-theme');
-                    localStorage.setItem('resiHubTheme', 'purple');
-                }
-            });
-        });
-
-        const urgencySelect = document.getElementById('urgency');
-        const formPreview = document.getElementById('broadcastForm');
-
-        urgencySelect.addEventListener('change', function () {
-            // Remove old urgency classes
-            formPreview.classList.remove('preview-low', 'preview-medium', 'preview-high', 'preview-critical');
-            // Add new one
-            formPreview.classList.add('preview-' + this.value);
-        });
-
-        function toggleAlertFeed() {
-            const drawer = document.getElementById('alert-drawer');
-            const icon = document.getElementById('chevron-icon');
-            if (drawer && icon) {
-                drawer.classList.toggle('is-open');
-                icon.style.transform = drawer.classList.contains('is-open') ? 'rotate(180deg)' : 'rotate(0deg)';
-            }
+        // 1. Panel Visibility & Context Detection
+        function togglePanel() {
+            const panel = document.getElementById('editor-panel');
+            panel.classList.toggle('translate-x-full');
+            
+            // Auto-detect Hub from URL (e.g., /content/elm-drive/ -> elm-drive)
+            const pathParts = window.location.pathname.split('/').filter(p => p);
+            const hubName = pathParts.length >= 2 ? pathParts[pathParts.length - 2] : "General";
+            document.getElementById('current-condo-display').innerText = hubName.replace(/-/g, ' ').toUpperCase();
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
+        // 2. Formatting & Preview Logic
+        function insertFormat(prefix, suffix) {
+            const el = document.getElementById('form-content');
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            el.value = el.value.substring(0, start) + prefix + el.value.substring(start, end) + suffix + el.value.substring(end);
+            el.focus();
+            el.setSelectionRange(start + prefix.length, end + prefix.length);
+        }
 
-            function toggleMenu() {
-                sidebar.classList.toggle('is-open');
-                overlay.classList.toggle('is-active');
-                // Change icon from bars to X
-                const icon = menuToggle.querySelector('i');
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-xmark');
-            }
+        function setMode(mode) {
+            const editor = document.getElementById('form-content');
+            const preview = document.getElementById('form-preview');
+            const isPreview = mode === 'preview';
+            
+            if(isPreview) preview.innerHTML = marked.parse(editor.value || "_Nothing to preview yet..._");
+            
+            editor.classList.toggle('hidden', isPreview);
+            preview.classList.toggle('hidden', !isPreview);
+            document.getElementById('btn-write').className = isPreview ? "px-3 py-1 text-xs font-bold rounded text-gray-500" : "px-3 py-1 text-xs font-bold rounded bg-white shadow-sm text-purple-600";
+            document.getElementById('btn-preview').className = !isPreview ? "px-3 py-1 text-xs font-bold rounded text-gray-500" : "px-3 py-1 text-xs font-bold rounded bg-white shadow-sm text-purple-600";
+        }
 
-            menuToggle.addEventListener('click', toggleMenu);
-            overlay.addEventListener('click', toggleMenu);
+        function updateUrgencyVisibility() {
+            const type = document.getElementById('type-select').value;
+            document.getElementById('urgency-wrapper').classList.toggle('hidden', type !== 'broadcast');
+        }
 
-            // Close menu if a nav link is clicked
-            const navLinks = document.querySelectorAll('.nav-item');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (sidebar.classList.contains('is-open')) toggleMenu();
+        // 3. Worker Integration
+        document.getElementById('contribution-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const originalText = btn.innerText;
+            
+            btn.disabled = true;
+            btn.innerText = "Connecting to GitHub...";
+
+            const formData = new FormData(e.target);
+            formData.append("condo", document.getElementById('current-condo-display').innerText);
+
+            try {
+                // Ensure this URL matches your Cloudflare Worker URL
+                const response = await fetch('YOUR_WORKER_URL_HERE', {
+                    method: 'POST',
+                    body: formData
                 });
-            });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert("Success! Your contribution is being processed.");
+                    window.location.reload(); // Reload to show potential changes or clear state
+                } else {
+                    throw new Error(result.error || "Failed to submit.");
+                }
+            } catch (err) {
+                alert("Error: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = originalText;
+            }
         });
     </script>
 </body>
-
 </html>
