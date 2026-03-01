@@ -461,28 +461,41 @@
     margin: 1rem;
   }
 
-  /* Ensure the container itself isn't forcing bold on children */
+ /* Container Reset */
 .wiki-render {
-    font-weight: 400; /* Standard weight */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
     line-height: 1.6;
-    color: var(--text-main);
+    word-wrap: break-word;
+    font-weight: 400 !important; /* Forces normal weight for body text */
+    color: #1f2328;
 }
 
-/* Reset any aggressive global strong rules */
+/* Fix the Bolding Issue */
+.wiki-render p, 
+.wiki-render li {
+    font-weight: 400; /* Standard weight */
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
 .wiki-render strong {
-    font-weight: 700; /* Standard bold, not 'bolder' */
+    font-weight: 600; /* Medium-bold for readability */
+    color: #000;
 }
 
-/* Ensure paragraphs are explicitly normal weight */
-.wiki-render p {
-    font-weight: 400;
-    margin-bottom: 1rem;
-}
+/* Proper Heading Scales */
+.wiki-render h1 { font-size: 2em; padding-bottom: 0.3em; border-bottom: 1px solid #d0d7de; margin-bottom: 16px; font-weight: 600; }
+.wiki-render h2 { font-size: 1.5em; padding-bottom: 0.3em; border-bottom: 1px solid #d0d7de; margin-top: 24px; margin-bottom: 16px; font-weight: 600; }
+.wiki-render h3 { font-size: 1.25em; margin-top: 24px; margin-bottom: 16px; font-weight: 600; }
 
-/* Headings should stay bold */
-.wiki-render h1, .wiki-render h2, .wiki-render h3 {
-    font-weight: 700;
-    margin-top: 1.5rem;
+/* Horizontal Rule */
+.wiki-render hr {
+    height: 0.25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: #d0d7de;
+    border: 0;
 }
 
   .hub-card {
