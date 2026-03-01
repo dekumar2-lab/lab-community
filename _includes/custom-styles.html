@@ -1373,11 +1373,24 @@ FINISH
         }
 
         .submit-toolbar {
-          margin-top: 1rem;
+          /* margin-top: 1rem; */
            background: #f8fafc; padding: 6px 10px;  display: flex; justify-content: space-between; align-items: center; 
            border-radius: 6px 6px 0 0;
             flex-shrink: 0;
            /* border-bottom: 1px solid #cbd5e1; */
+        }
+        
+        /* Specifically target the Markdown render area */
+        .wiki-render em, 
+        .wiki-render i {
+            font-style: italic !important;
+            font-weight: normal !important; /* Force un-bolding if everything is currently bold */
+            color: #24292f;
+        }
+
+        .wiki-render strong, 
+        .wiki-render b {
+            font-weight: 600 !important; /* GitHub-style semi-bold */
         }
 
         .toolbar { background: #f8fafc; padding: 6px 10px; border-bottom: 1px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; }

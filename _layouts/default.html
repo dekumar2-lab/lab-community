@@ -188,11 +188,74 @@
             document.getElementById('editor-panel').classList.toggle('is-open');
         }
 
-        function addTag(pre, post = "") {
-            const el = document.getElementById('f-content');
-            const s = el.selectionStart, e = el.selectionEnd;
-            el.value = el.value.substring(0, s) + pre + el.value.substring(s, e) + post + el.value.substring(e);
+        function insertFormat(type) {
+            const el = document.getElementById('f-content'); // Matches your textarea ID
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const selectedText = el.value.substring(start, end);
+            
+            let before = "";
+            let after = "";
+            let isPrefix = false;
+
+            switch(type) {
+                case 'h': // Heading
+                    before = "### ";
+                    isPrefix = true;
+                    break;
+                case 'b': // Bold
+                    before = "**";
+                    after = "**";
+                    break;
+                case 'i': // Italic
+                    before = "_";
+                    after = "_";
+                    break;
+                case 'ul': // Unordered List
+                    before = "- ";
+                    isPrefix = true;
+                    break;
+                case 'ol': // Ordered List
+                    before = "1. ";
+                    isPrefix = true;
+                    break;
+                case 'code': // Code Block
+                    before = "```\n";
+                    after = "\n```";
+                    break;
+                default:
+                    return;
+            }
+
+            // Logical construction of the new text
+            let newText;
+            if (isPrefix) {
+                // For headings/lists, we ensure they start on a new line
+                const needsNewline = start !== 0 && el.value[start - 1] !== '\n';
+                const prefix = needsNewline ? "\n" + before : before;
+                newText = el.value.substring(0, start) + prefix + selectedText + el.value.substring(end);
+                before = prefix; // Update for cursor calculation
+            } else {
+                // Standard wrapping for bold/italic/code
+                newText = el.value.substring(0, start) + before + selectedText + after + el.value.substring(end);
+            }
+
+            el.value = newText;
+
+            // Reposition cursor for better UX
             el.focus();
+            if (selectedText.length > 0) {
+                // If text was highlighted, put cursor after the 'after' tag
+                const newPos = start + before.length + selectedText.length + after.length;
+                el.setSelectionRange(newPos, newPos);
+            } else {
+                // If no text was highlighted, put cursor between tags (e.g., inside **)
+                const newPos = start + before.length;
+                el.setSelectionRange(newPos, newPos);
+            }
+
+            // Trigger preview update if you have an auto-renderer
+            if (typeof updatePreview === "function") updatePreview();
         }
 
         function switchMode(mode) {
