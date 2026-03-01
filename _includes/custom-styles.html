@@ -452,7 +452,7 @@
     margin-top: 3rem;
   }
 
-  .community-overview h1, 
+  .community-overview h1,
   .wiki-render h1 {
     margin-bottom: 2rem;
   }
@@ -462,42 +462,65 @@
     margin: 1rem;
   }
 
- /* Container Reset */
-.wiki-render {
+  /* Container Reset */
+  .wiki-render {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.6;
     word-wrap: break-word;
-    font-weight: 400 !important; /* Forces normal weight for body text */
+    font-weight: 400 !important;
+    /* Forces normal weight for body text */
     color: #1f2328;
-}
+  }
 
-/* Fix the Bolding Issue */
-.wiki-render p, 
-.wiki-render li {
-    font-weight: 400; /* Standard weight */
+  /* Fix the Bolding Issue */
+  .wiki-render p,
+  .wiki-render li {
+    font-weight: 400;
+    /* Standard weight */
     margin-top: 0;
     margin-bottom: 16px;
-}
+  }
 
-.wiki-render strong {
-    font-weight: 600; /* Medium-bold for readability */
+  .wiki-render strong {
+    font-weight: 600;
+    /* Medium-bold for readability */
     color: #000;
-}
+  }
 
-/* Proper Heading Scales */
-.wiki-render h1 { font-size: 2em; padding-bottom: 0.3em; border-bottom: 1px solid #d0d7de; margin-bottom: 16px; font-weight: 600; }
-.wiki-render h2 { font-size: 1.5em; padding-bottom: 0.3em; border-bottom: 1px solid #d0d7de; margin-top: 24px; margin-bottom: 16px; font-weight: 600; }
-.wiki-render h3 { font-size: 1.25em; margin-top: 24px; margin-bottom: 16px; font-weight: 600; }
+  /* Proper Heading Scales */
+  .wiki-render h1 {
+    font-size: 2em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #d0d7de;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
 
-/* Horizontal Rule */
-.wiki-render hr {
+  .wiki-render h2 {
+    font-size: 1.5em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #d0d7de;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .wiki-render h3 {
+    font-size: 1.25em;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  /* Horizontal Rule */
+  .wiki-render hr {
     height: 0.25em;
     padding: 0;
     margin: 24px 0;
     background-color: #d0d7de;
     border: 0;
-}
+  }
 
   .hub-card {
     /*aspect-ratio: 1 / 1;*/
@@ -908,7 +931,7 @@
     flex: 1;
   }
 
-  #submissionForm{
+  #submissionForm {
     margin-top: 2rem;
   }
 
@@ -1107,165 +1130,35 @@
     }
   }
 
-  /* ================================================================
-FINISH
-================================================================
-*/
-
-  /* ================================================================
-   CORRECTED MEDIA QUERIES
-   ================================================================ */
-
-  /* TABLETS & PHABLETS */
-  @media (max-width: 1024px) {
-    .sidebar {
-      display: none;
-      /* Hide sidebar on smaller screens to give content room */
-    }
-
-    .main-content {
-      padding: 1.5rem;
-      max-width: 100%;
-      /* Take full width on mobile */
-    }
-  }
-
-  /* MOBILE (iPhone/Android) */
-  @media (max-width: 480px) {
-    .header-container {
-      padding: 0 1rem;
-      flex-wrap: wrap;
-      /* Allow header items to shift if needed */
-    }
-
-    .community-grid {
-      grid-template-columns: 1fr 1fr;
-      /* 2-column square grid is more "decent" on mobile */
-      gap: 12px;
-    }
-
-    .hub-card {
-      padding: 1rem;
-      border-radius: 16px;
-    }
-
-    .hub-card i {
-      font-size: 2rem;
-    }
-  }
-
-  /* ==========================================================================
-   MOBILE MENU RESTORATION (MAX-WIDTH: 768px)
-   ========================================================================== */
-  @media (max-width: 768px) {
-
-    /* 1. Reset the App Shell to allow stacking */
-    .app-shell {
-      flex-direction: column;
-      padding: 0;
-    }
-
-    /* 2. Transform Sidebar into a horizontal navigation bar */
-    .sidebar {
-      width: 100%;
-      height: auto;
-      position: relative;
-      top: 0;
-      padding: 10px;
-      display: flex;
-      /* Align items in a row */
-      overflow-x: auto;
-      /* Allow swiping through menu items */
-      white-space: nowrap;
-      /* Prevent menu items from wrapping */
-      gap: 10px;
-      background: var(--glass-white);
-      border-bottom: 1px solid var(--border);
-      -webkit-overflow-scrolling: touch;
-      /* Smooth swiping on iOS */
-    }
-
-    /* 3. Adjust Navigation Sections for horizontal layout */
-    .nav-section {
-      display: flex;
-      margin-bottom: 0;
-      padding: 5px;
-      background: transparent;
-      box-shadow: none;
-      border: none;
-    }
-
-    /* Hide the small category labels (e.g., "DASHBOARD") to save space */
-    .nav-section small {
-      display: none;
-    }
-
-    /* 4. Style Nav Items as compact buttons */
-    .nav-item {
-      padding: 8px 15px;
-      max-height: 2rem;
-      margin: 0;
-      font-size: 0.7rem;
-      background: var(--glass-card);
-      border: 1px solid var(--border);
-    }
-
-    /* 5. Ensure Main Content takes full width now sidebar is on top */
-    .main-content {
-      width: 100%;
-      padding: 15px;
-      max-width: 100%;
-    }
-
-    /* 6. Fix the "Create Hub" button which was wrapping in image_3845b3.png */
-    .btn-primary-header {
-      width: 100%;
-      /* Make it take full width on mobile */
-      position: fixed;
-      /* Pin it to the bottom */
-      bottom: 0;
-      left: 0;
-      border-radius: 0;
-      /* Square edges for the bottom bar */
-      z-index: 1000;
-      height: 60px;
-      white-space: nowrap;
-      /* Prevents word wrap */
-    }
-
-    .btn-create-wiki,
-    .btn-broadcast-sidebar {
-      max-height: 2rem;
-    }
-  }
-
   .editor-drawer {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     width: 100%;
-    max-width: 750px;
+    max-width: 1000px;
     background: #fff;
-    z-index: 9999;
+    z-index: 10000;
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
     transform: translateX(100%);
     transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
     border-left: 1px solid #e2e8f0;
-    /* Prevent the whole drawer from scrolling */
-    overflow: hidden;
+  }
+
+  .editor-drawer.is-open {
+    transform: translateX(0);
   }
 
   .drawer-inner {
     height: 100vh;
-    /* Exactly viewport height */
     height: 100dvh;
-    /* Dynamic viewport height for mobile browsers */
+    /* dvh fixes mobile height */
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
     box-sizing: border-box;
-    /* Ensures padding doesn't add to height */
   }
 
   #drawer-form {
@@ -1275,150 +1168,212 @@ FINISH
     min-height: 0;
   }
 
-  .editor-area {
-    flex: 1;
-    /* This is the magic: it grows/shrinks to fit space */
-    display: flex;
-    flex-direction: column;
-    min-height: 150px;
-    /* Minimum space for the textarea on tiny screens */
-    border: 1px solid #cbd5e1;
+  .hub-context {
+    background: #f5f3ff;
+    padding: 10px;
     border-radius: 6px;
     margin-bottom: 12px;
+    border: 1px solid #ddd6fe;
+  }
+
+  .hub-context small {
+    display: block;
+    font-size: 10px;
+    color: #7c3aed;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .field {
+    margin-bottom: 12px;
+    flex-shrink: 0;
+  }
+
+  .field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .field input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  /* THE FLEXIBLE BOX */
+  .editor-container-box {
+    flex: 1;
+    /* Stretch to fill all available space */
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
     overflow: hidden;
+  }
+
+  .editor-container-box label,
+  .editor-container-box .tools {
+    padding: 10px 5px;
+    font-weight: 500;
+  }
+
+  .submit-editor-container-box {
+    /*flex: 1;*/
+    /* Stretch to fill all available space */
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .submit-editor-container-box>textarea {
+    border-radius: 0 0 14px;
+  }
+
+  .submit-toolbar {
+    /* margin-top: 1rem; */
+    background: #f8fafc;
+    padding: 6px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px 6px 0 0;
+    flex-shrink: 0;
+    /* border-bottom: 1px solid #cbd5e1; */
+  }
+
+  /* Specifically target the Markdown render area */
+  .wiki-render em,
+  .wiki-render i {
+    font-style: italic !important;
+    font-weight: normal !important;
+    /* Force un-bolding if everything is currently bold */
+    color: #24292f;
+  }
+
+  .wiki-render strong,
+  .wiki-render b {
+    font-weight: 600 !important;
+    /* GitHub-style semi-bold */
+  }
+
+  .toolbar {
+    background: #f8fafc;
+    padding: 6px 10px;
+    border-bottom: 1px solid #cbd5e1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tools button {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    padding: 2px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    margin-right: 4px;
+  }
+
+  .modes {
+    display: flex;
+    background: #e2e8f0;
+    padding: 2px;
+    border-radius: 4px;
+  }
+
+  .modes button {
+    border: none;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    background: transparent;
+    color: #64748b;
+  }
+
+  .modes button.active {
+    background: #fff;
+    color: var(--primary);
+    ;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 
   #f-content,
   .markdown-preview {
     flex: 1;
-    width: 100%;
     padding: 12px;
     border: none;
     outline: none;
     font-size: 14px;
-    resize: none;
+    line-height: 1.6;
     overflow-y: auto;
   }
 
+  .markdown-preview {
+    background: #fafafa;
+    flex: 1;
+    /* Tells the textarea to stretch to the bottom of the container */
+    width: 100%;
+    resize: vertical;
+    /* Allows the user to manually drag-resize if they want */
+    min-height: 200px;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 0 0 6px 6px;
+    /* Rounds only bottom corners to match toolbar */
+    outline: none;
+    font-family: inherit;
+    line-height: 1.6;
+  }
+
   .drawer-footer {
-    margin-top: auto;
-    /* Pushes to bottom */
     padding-top: 15px;
-    border-top: 1px solid #f1f5f9;
+    margin-top: auto;
     display: flex;
     gap: 10px;
+    flex-shrink: 0;
     padding-bottom: env(safe-area-inset-bottom);
-    /* Fix for iPhone notches */
   }
 
-  /* Adjustments for very small screens */
-  @media (max-height: 600px) {
-    .hub-context {
-      display: none;
-    }
-
-    /* Hide non-essential info to save space */
-    .drawer-header h2 {
-      font-size: 16px;
-    }
-
-    .field {
-      margin-bottom: 8px;
-    }
+  .btn-sync {
+    flex: 1;
+    background: var(--primary);
+    ;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
   }
 
-  .editor-drawer {
-            position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 1000px;
-            background: #fff; z-index: 10000; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-            transform: translateX(100%); transition: transform 0.3s ease;
-            display: flex; flex-direction: column; border-left: 1px solid #e2e8f0;
-        }
-        .editor-drawer.is-open { transform: translateX(0); }
+  .btn-cancel {
+    flex: 1;
+    background: var(--primary-light);
+    ;
+    color: #475569;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+  }
 
-        .drawer-inner { 
-            height: 100vh; height: 100dvh; /* dvh fixes mobile height */
-            padding: 20px; display: flex; flex-direction: column; box-sizing: border-box; 
-        }
-
-        #drawer-form { display: flex; flex-direction: column; height: 100%; min-height: 0; }
-
-        .hub-context { background: #f5f3ff; padding: 10px; border-radius: 6px; margin-bottom: 12px; border: 1px solid #ddd6fe; }
-        .hub-context small { display: block; font-size: 10px; color: #7c3aed; font-weight: 800; text-transform: uppercase; }
-
-        .field { margin-bottom: 12px; flex-shrink: 0; }
-        .field label { display: block; font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 4px; }
-        .field input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; }
-
-        /* THE FLEXIBLE BOX */
-        .editor-container-box { 
-            flex: 1; /* Stretch to fill all available space */
-            display: flex; flex-direction: column; 
-            min-height: 200px; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden;
-        }
-
-        .editor-container-box label , 
-        .editor-container-box .tools{
-              padding: 10px 5px;
-              font-weight: 500;
-        }
-
-        .submit-editor-container-box { 
-            /*flex: 1;*/ /* Stretch to fill all available space */
-            display: flex; flex-direction: column; 
-            min-height: 200px;  border-radius: 6px; overflow: hidden; flex: 1;
-        }
-
-        .submit-editor-container-box>textarea {
-          border-radius: 0 0 14px;
-        }
-
-        .submit-toolbar {
-          /* margin-top: 1rem; */
-           background: #f8fafc; padding: 6px 10px;  display: flex; justify-content: space-between; align-items: center; 
-           border-radius: 6px 6px 0 0;
-            flex-shrink: 0;
-           /* border-bottom: 1px solid #cbd5e1; */
-        }
-        
-        /* Specifically target the Markdown render area */
-        .wiki-render em, 
-        .wiki-render i {
-            font-style: italic !important;
-            font-weight: normal !important; /* Force un-bolding if everything is currently bold */
-            color: #24292f;
-        }
-
-        .wiki-render strong, 
-        .wiki-render b {
-            font-weight: 600 !important; /* GitHub-style semi-bold */
-        }
-
-        .toolbar { background: #f8fafc; padding: 6px 10px; border-bottom: 1px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; }
-        .tools button { background: #fff; border: 1px solid #cbd5e1; padding: 2px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; margin-right: 4px; }
-        
-        .modes { display: flex; background: #e2e8f0; padding: 2px; border-radius: 4px; }
-        .modes button { border: none; padding: 4px 10px; font-size: 10px; font-weight: bold; cursor: pointer; border-radius: 3px; background: transparent; color: #64748b; }
-        .modes button.active { background: #fff; color: var(--primary);; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-
-        #f-content, .markdown-preview { flex: 1; padding: 12px; border: none; outline: none; font-size: 14px; line-height: 1.6; overflow-y: auto; }
-        .markdown-preview { background: #fafafa; 
-        flex: 1;          /* Tells the textarea to stretch to the bottom of the container */
-        width: 100%;
-        resize: vertical; /* Allows the user to manually drag-resize if they want */
-        min-height: 200px; 
-        padding: 15px;
-        border: 1px solid var(--border);
-        border-radius: 0 0 6px 6px; /* Rounds only bottom corners to match toolbar */
-        outline: none;
-        font-family: inherit;
-        line-height: 1.6;
-        }
-
-        .drawer-footer { 
-            padding-top: 15px; margin-top: auto; 
-            display: flex; gap: 10px; flex-shrink: 0; 
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-        .btn-sync { flex: 1; background: var(--primary);; color: #fff; border: none; padding: 14px; border-radius: 8px; font-weight: 700; cursor: pointer; }
-        .btn-cancel { flex: 1; background: var(--primary-light);; color: #475569; border: none; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+  /* ================================================================
+  FINISH
+  ================================================================
+  */
 </style>
