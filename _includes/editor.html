@@ -8,16 +8,17 @@
 
         <form id="drawer-form">
             <div class="hub-context">
-                <small>Active Hub</small>
+                <label for="condo">Community / Building Hub</label>
                 <strong id="target-display">{{ current_condo | default: "General Hub" | upcase }}</strong>
             </div>
 
             <div class="field">
-                <label>Resource Title</label>
-                <input type="text" name="title" id="f-title" required placeholder="e.g. Visitor Parking Rules">
+                <label for="title">Resource Title</label>
+                <input type="text" id="title" name="title" placeholder="e.g., Waste Management Guide" required>
             </div>
 
             <div class="editor-container-box">
+                <label for="content">Documentation Content (Markdown Supported)</label>
                 <div class="toolbar">
                     <div class="tools">
                         <button type="button" onclick="addTag('# ')">H</button>
