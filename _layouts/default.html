@@ -343,20 +343,24 @@
             el.setSelectionRange(start + cursorOffset, start + cursorOffset);
         }
 
-        const navToggle = document.getElementById('navToggle');
-        const closeNav = document.getElementById('closeNav');
-        const sideNav = document.getElementById('sideNav');
-        const navOverlay = document.getElementById('navOverlay');
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.getElementById('navToggle');
+            const navOverlay = document.getElementById('navOverlay');
+            const sidebar = document.querySelector('.sidebar-nav'); // Adjust selector if your sidebar has a different class
 
-        function toggleMenu() {
-            sideNav.classList.toggle('active');
-            navOverlay.classList.toggle('active');
-        }
+            function toggleMenu() {
+                sidebar.classList.toggle('active');
+                navOverlay.classList.toggle('active');
+            }
 
-        navToggle.addEventListener('click', toggleMenu);
-        closeNav.addEventListener('click', toggleMenu);
-        navOverlay.addEventListener('click', toggleMenu);
+            if (navToggle) {
+                navToggle.addEventListener('click', toggleMenu);
+            }
 
+            if (navOverlay) {
+                navOverlay.addEventListener('click', toggleMenu); // Closes when clicking the dimmed background
+            }
+        });
 
     </script>
 </body>
