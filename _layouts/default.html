@@ -269,7 +269,7 @@
             if (isPreview) {
                 // Check if marked is available before calling it
                 if (typeof marked !== 'undefined') {
-                    preview.innerHTML = marked.parse(content.value || "_No content entered yet..._");
+                    preview.innerHTML = marked.parse(content.value || "No content entered yet...");
                 } else {
                     preview.innerHTML = "<p style='color:red;'>Error: Markdown library still loading. Please wait.</p>";
                 }
