@@ -5,6 +5,7 @@ const CONFIG = {
   DEFAULT_BRANCH: "master",
   CONTENT_ROOT: "content",
   USER_AGENT: "Cloudflare-Worker-GitHub-Manager",
+  GITHUB_REPO: "dekumar2-lab/lab-community",
   CORS_HEADERS: {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -52,7 +53,7 @@ export default {
 
     try {
       // Validate Environment
-      if (!env.GH_TOKEN || !env.GITHUB_REPO) {
+      if (!env.GH_TOKEN || !CONFIG.GITHUB_REPO) {
         throw new Error(
           "Missing required environment variables: GH_TOKEN or GITHUB_REPO",
         );
@@ -67,7 +68,7 @@ export default {
 
       const folder = slugify(condoInput);
       const branchName = `contribution-${folder}-${Date.now()}`;
-      const repoUrl = `https://api.github.com/repos/${env.GITHUB_REPO}`;
+      const repoUrl = `https://api.github.com/repos/${CONFIG.GITHUB_REPO}`;
 
       const headers = {
         Authorization: `token ${env.GH_TOKEN}`,
@@ -106,7 +107,7 @@ export default {
           {
             path: indexPath,
             content: createMarkdown(
-              "District Overview",
+              "Community Overview",
               condoInput,
               content,
               "wiki",
@@ -115,7 +116,7 @@ export default {
           {
             path: `${CONFIG.CONTENT_ROOT}/${folder}/intelligence.md`,
             content: createMarkdown(
-              "Essential Intelligence",
+              "Community Essentials",
               condoInput,
               "Emergency contacts.",
               "wiki",
@@ -145,7 +146,7 @@ export default {
         const path =
           type === "broadcast"
             ? `${CONFIG.CONTENT_ROOT}/${folder}/broadcasts/${folder}-${fileSlug}-${Date.now()}.md`
-            : fileSlug === "district-overview"
+            : fileSlug === "community-overview"
               ? indexPath
               : `${CONFIG.CONTENT_ROOT}/${folder}/${fileSlug}.md`;
 
