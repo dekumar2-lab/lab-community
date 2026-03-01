@@ -1305,10 +1305,22 @@ FINISH
         .field input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; }
 
         /* THE FLEXIBLE BOX */
-        .editor-container-box { 
+        .editor-container-box, .submit-editor-container-box { 
             flex: 1; /* Stretch to fill all available space */
             display: flex; flex-direction: column; 
             min-height: 200px; border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden;
+        }
+
+        .submit-editor-container-box { 
+            flex: 1; /* Stretch to fill all available space */
+            display: flex; flex-direction: column; 
+            min-height: 200px;  border-radius: 6px; overflow: hidden;
+        }
+
+        .submit-toolbar {
+           background: #f8fafc; padding: 6px 10px; border-bottom: 1px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; 
+
+           
         }
 
         .toolbar { background: #f8fafc; padding: 6px 10px; border-bottom: 1px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; }
