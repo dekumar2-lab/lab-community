@@ -64,7 +64,7 @@
                         <i class="fa-regular fa-pen-to-square"></i> Edit
                     </a> -->
 
-                     <a href="#" onclick="prepareEdit(current_condo,page.title)"
+                     <a href="#" onclick="prepareEdit(page.title)"
                         class="btn-edit-action">
                         <i class="fa-regular fa-pen-to-square"></i> Edit
                     </a>
@@ -152,7 +152,7 @@
         });
 
 
-        function prepareEdit(condo,pageTitle) {
+        function prepareEdit(pageTitle) {
             const wikiContainer = document.querySelector('.wiki-render');
             const titleInput = pageTitle;
             const contentInput = document.getElementById('f-content');
