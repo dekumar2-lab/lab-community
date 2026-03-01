@@ -14,7 +14,7 @@ title: Home
             <div class="stats-bar">
                 {% assign condos = site.pages | map: 'condo' | uniq | compact %}
                 <span><strong>{{ condos.size }}</strong> Active Districts</span>
-                <span><strong>{{ site.pages.size | minus: 5 }}</strong> Knowledge Pages</span>
+                <span><strong>{{ site.pages.size | where_exp: "item", "item.path contains 'content/'" }}</strong> Knowledge Pages</span>
             </div>
 
             <div class="search-wrapper">
