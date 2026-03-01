@@ -59,7 +59,12 @@
             <article class="content-card">
                 {% if current_condo and page.url != "/submit.html" and page.url != "/broadcast.html" %}
                 <div class="edit-btn-container">
-                    <a href="{{ site.baseurl }}/submit.html?edit=true&condo={{ current_condo | url_encode }}&title={{ page.title | url_encode }}"
+                    <!-- <a href="{{ site.baseurl }}/submit.html?edit=true&condo={{ current_condo | url_encode }}&title={{ page.title | url_encode }}"
+                        class="btn-edit-action">    
+                        <i class="fa-regular fa-pen-to-square"></i> Edit
+                    </a> -->
+
+                     <a href="#" onclick="prepareEdit(current_condo,page.title)"
                         class="btn-edit-action">
                         <i class="fa-regular fa-pen-to-square"></i> Edit
                     </a>
@@ -77,6 +82,7 @@
     {% include footer.html %}
 
     <script>
+        
         document.addEventListener('DOMContentLoaded', function () {
             const themeToggle = document.getElementById('themeToggle');
             const body = document.body;
@@ -145,6 +151,34 @@
             });
         });
 
+
+        function prepareEdit(condo,pageTitle) {
+            const wikiContainer = document.querySelector('.wiki-render');
+            const titleInput = pageTitle;
+            const contentInput = document.getElementById('f-content');
+            
+            if (!wikiContainer || !contentInput) return;
+
+            // 1. Get the Title (usually the first H1)
+            const currentTitle = wikiContainer.querySelector('h1')?.innerText || "";
+            titleInput.value = currentTitle;
+
+            // 2. Get the Body Content
+            // We clone it to remove the H1 so we don't double up on titles
+            const tempDiv = wikiContainer.cloneNode(true);
+            const h1ToRemove = tempDiv.querySelector('h1');
+            if (h1ToRemove) h1ToRemove.remove();
+
+            // 3. Clean up the text (Remove extra whitespace caused by the 'everything in <p>' bug)
+            let rawText = tempDiv.innerText.trim();
+            
+            // Inject into the textarea
+            contentInput.value = rawText;
+
+            // 4. Open the Drawer (ensure your drawer toggle logic is called here)
+            togglePanel(); 
+        }
+
         // 1. Toggle Panel
     function togglePanel() {
         document.getElementById('editor-panel').classList.toggle('is-open');
@@ -201,7 +235,22 @@
             btn.innerText = originalText; btn.disabled = false;
         }
     });
+
+    function openContributionDrawer(type) {
+    const drawer = document.getElementById('contribution-drawer'); // Your drawer ID
+    const titleInput = document.getElementById('resource-title');
+    const contentInput = document.getElementById('form-content');
     
+    // Optional: Pre-fill data if editing existing content
+    const currentTitle = document.querySelector('.wiki-render h1')?.innerText || "";
+    if (titleInput) titleInput.value = currentTitle;
+
+    // Show the drawer
+    if (drawer) {
+        drawer.classList.add('open');
+    }
+}
+
     </script>
 </body>
 

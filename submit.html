@@ -28,6 +28,7 @@ title: Contribute to ResiHub
                     <div class="tools">
                         <button type="button" onclick="addTag('# ')">H</button>
                         <button type="button" onclick="addTag('*', '*')">B</button>
+                        <button type="button" onclick="addTag('i')">I</button> <button type="button" onclick="insertFormat('ul')">ul</button> <button type="button" onclick="insertFormat('ol')">ol</button> <button type="button" onclick="insertFormat('code')">&lt;/&gt;</button> <div class="mode-switch"></div>
                         <button type="button" onclick="addTag('- ')">•</button>
                     </div>
                     <div class="modes">
@@ -126,4 +127,30 @@ title: Contribute to ResiHub
             console.error(err);
         }
     };
+
+    function insertFormat(type) {
+    const el = document.getElementById('form-content');
+    const start = el.selectionStart;
+    const end = el.selectionEnd;
+    const selectedText = el.value.substring(start, end);
+    let before = "", after = "";
+
+    switch(type) {
+        case 'h': before = "### "; break;
+        case 'b': before = "**"; after = "**"; break;
+        case 'i': before = "*"; after = "*"; break;
+        case 'ul': before = "- "; break;
+        case 'ol': before = "1. "; break;
+        case 'code': before = "```\n"; after = "\n```"; break;
+    }
+
+    const newText = el.value.substring(0, start) + before + selectedText + after + el.value.substring(end);
+    el.value = newText;
+    
+    // Maintain focus and set cursor position
+    el.focus();
+    const cursorOffset = before.length + selectedText.length + after.length;
+    el.setSelectionRange(start + cursorOffset, start + cursorOffset);
+}
+
 </script>
