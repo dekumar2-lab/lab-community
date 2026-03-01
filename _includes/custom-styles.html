@@ -948,6 +948,9 @@
   #submissionForm textarea {
     background: #fff !important;
     border-radius: 0 0 14px !important;
+    width: 100% !important;
+    min-height: 250px !important;
+    overflow-y: auto;
   }
 
   /* ================================================================
@@ -1225,7 +1228,7 @@
   .editor-container-box {
     flex: 1;
     /* Stretch to fill all available space */
-    display: flex;
+    display: block !important;
     flex-direction: column;
     min-height: 200px;
     border: 1px solid #cbd5e1;
