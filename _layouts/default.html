@@ -3,20 +3,20 @@
 
 <head>
     {% include head.html %}
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
-    {% assign current_condo = page.condo % Susan %}
-    {% if current_condo == nil or current_condo == "" % Susan %}
-        {% assign raw_condo = page.url | split: 'condo=' | last | split: '&' | first %}
-        {% if raw_condo contains '/' or raw_condo == page.url %}
-            {% assign current_condo = nil %}
-        {% else %}
-            {% assign current_condo = raw_condo | replace: '-', ' ' %}
-        {% endif %}
+    {% assign current_condo = page.condo %}
+    {% if current_condo == nil or current_condo == "" %}
+    {% assign raw_condo = page.url | split: 'condo=' | last | split: '&' | first %}
+    {% if raw_condo contains '/' or raw_condo == page.url %}
+    {% assign current_condo = nil %}
+    {% else %}
+    {% assign current_condo = raw_condo | replace: '-', ' ' %}
+    {% endif %}
     {% endif %}
 
+    <!-- Header.html -->
     {% include header.html %}
 
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -25,37 +25,52 @@
 
         <main class="main-content">
             {% if current_condo %}
-                {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", current_condo | sort: 'date' | reverse %}
-                {% if active_alerts.size > 0 %}
-                <div class="alert-collapsible-wrapper">
-                    <div class="alert-strip-header" onclick="toggleAlertFeed()">
-                        <div class="strip-left">
-                            <span class="live-indicator"></span>
-                            <span><strong>Live Notice:</strong> {{ active_alerts[0].title }}</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-down" id="chevron-icon"></i>
+            {% assign active_alerts = site.pages | where: "layout", "broadcast" | where: "condo", current_condo | sort:
+            'date' | reverse %}
+            {% if active_alerts.size > 0 %}
+            <div class="alert-collapsible-wrapper">
+                <div class="alert-strip-header" onclick="toggleAlertFeed()">
+                    <div class="strip-left">
+                        <span class="live-indicator"></span>
+                        <span><strong>Live Notice:</strong> {{ active_alerts.first.title }}</span>
                     </div>
-                    <div class="alert-drawer" id="alert-drawer">
-                        {% for alert in active_alerts %}
-                        <div class="alert-item urgency-{{ alert.urgency | default: 'medium' }}">
-                            <div class="alert-meta">
-                                <span class="urgency-badge">{{ alert.urgency | upcase }}</span>
-                                <span class="alert-date">{{ alert.date | date: "%b %d, %H:%M" }}</span>
-                            </div>
-                            <h4>{{ alert.title }}</h4>
-                            <div class="alert-body">{{ alert.content | markdownify }}</div>
-                        </div>
-                        {% endfor %}
-                    </div>
+                    <i class="fa-solid fa-chevron-down" id="chevron-icon"></i>
                 </div>
-                {% endif %}
+                <div id="alert-drawer" class="alert-drawer-body">
+                    {% for alert in active_alerts %}
+                    <div class="drawer-item urgency-{{ alert.urgency | default: 'low' }}">
+                        <div class="drawer-header">
+                            <small>{{ alert.date | date: "%B %d, %Y" }}</small>
+                            {% if alert.urgency == 'critical' %}
+                            <span class="badge-critical"><i class="fa-solid fa-triangle-exclamation"></i>
+                                IMMEDIATE</span>
+                            {% endif %}
+                        </div>
+                        <h4>{{ alert.title }}</h4>
+                        <div class="drawer-text">{{ alert.content | markdownify }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
             {% endif %}
 
-            {{ content }}
+            <article class="content-card">
+                {% if current_condo and page.url != "/submit.html" and page.url != "/broadcast.html" %}
+                <div class="edit-btn-container">
+                    <a href="{{ site.baseurl }}/submit.html?edit=true&condo={{ current_condo | url_encode }}&title={{ page.title | url_encode }}"
+                        class="btn-edit-action">
+                        <i class="fa-regular fa-pen-to-square"></i> Edit
+                    </a>
+                </div>
+                {% endif %}
+                <div class="wiki-render">
+                    {{ content }}
+                </div>
+            </article>
         </main>
     </div>
-
-    <div id="editor-panel" class="editor-slide-over">
+<div id="editor-panel" class="editor-slide-over">
         <div class="editor-container">
             <div class="editor-header">
                 <h2>Community Contribution</h2>
@@ -115,43 +130,81 @@
             </form>
         </div>
     </div>
-
-    <style>
-        .editor-slide-over {
-            position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 500px;
-            background: white; z-index: 1000; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-            transform: translateX(100%); transition: transform 0.3s ease; border-l: 1px solid var(--border);
-        }
-        .editor-slide-over.is-open { transform: translateX(0); }
-        .editor-container { display: flex; flex-direction: column; h-full; padding: 25px; height: 100%; }
-        .editor-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .close-btn { font-size: 2rem; color: var(--text-muted); cursor: pointer; background: none; border: none; }
-        
-        .hub-badge { background: var(--primary-light); padding: 10px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--primary-glow); }
-        .hub-badge small { display: block; color: var(--primary); font-weight: 700; font-size: 0.65rem; text-transform: uppercase; }
-        
-        .input-group { margin-bottom: 15px; flex: 1; }
-        .input-group label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 5px; }
-        .input-group input, .input-group select, .input-group textarea { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem; }
-        
-        .flex-row { display: flex; gap: 15px; }
-        .hidden { display: none !important; }
-
-        .toolbar { display: flex; justify-content: space-between; background: #f8fafc; padding: 8px; border: 1px solid #e2e8f0; border-bottom: none; border-radius: 6px 6px 0 0; }
-        .format-tools button, .mode-toggle button { padding: 4px 10px; font-size: 0.8rem; border-radius: 4px; cursor: pointer; border: 1px solid transparent; }
-        .mode-toggle { background: #e2e8f0; border-radius: 6px; padding: 2px; }
-        .mode-toggle button.active { background: white; color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-
-        #form-content, #form-preview { height: 350px; border-radius: 0 0 6px 6px; overflow-y: auto; }
-        #form-preview { background: #fcfcfc; padding: 15px; border: 1px solid #e2e8f0; }
-
-        .form-actions { display: flex; gap: 10px; margin-top: auto; padding-top: 20px; }
-        .btn-primary { flex: 2; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
-        .btn-secondary { flex: 1; background: #f1f5f9; color: var(--text-muted); border: none; padding: 12px; border-radius: 8px; cursor: pointer; }
-    </style>
+    <!-- Footer.html -->
+    {% include footer.html %}
 
     <script>
-        // 1. Toggle Panel
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            // 1. Check for saved preference
+            const savedTheme = localStorage.getItem('resiHubTheme');
+            if (savedTheme === 'blue') {
+                body.setAttribute('data-theme', 'blue');
+                themeToggle.value = 'blue';
+            }
+
+            // 2. Listen for changes
+            themeToggle.addEventListener('change', function () {
+                if (this.value === 'blue') {
+                    body.setAttribute('data-theme', 'blue');
+                    localStorage.setItem('resiHubTheme', 'blue');
+                } else {
+                    body.removeAttribute('data-theme');
+                    localStorage.setItem('resiHubTheme', 'purple');
+                }
+            });
+        });
+
+        const urgencySelect = document.getElementById('urgency');
+        const formPreview = document.getElementById('broadcastForm');
+
+        urgencySelect.addEventListener('change', function () {
+            // Remove old urgency classes
+            formPreview.classList.remove('preview-low', 'preview-medium', 'preview-high', 'preview-critical');
+            // Add new one
+            formPreview.classList.add('preview-' + this.value);
+        });
+
+        function toggleAlertFeed() {
+            const drawer = document.getElementById('alert-drawer');
+            const icon = document.getElementById('chevron-icon');
+            if (drawer && icon) {
+                drawer.classList.toggle('is-open');
+                icon.style.transform = drawer.classList.contains('is-open') ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            function toggleMenu() {
+                sidebar.classList.toggle('is-open');
+                overlay.classList.toggle('is-active');
+                // Change icon from bars to X
+                const icon = menuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-xmark');
+            }
+
+            menuToggle.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+
+            // Close menu if a nav link is clicked
+            const navLinks = document.querySelectorAll('.nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (sidebar.classList.contains('is-open')) toggleMenu();
+                });
+            });
+        });
+
+
+        //Editor panel
+// 1. Toggle Panel
         function togglePanel() {
             document.getElementById('editor-panel').classList.toggle('is-open');
         }
@@ -184,64 +237,8 @@
                 btnP.classList.remove('active');
             }
         }
-
-        function updateUrgencyVisibility() {
-            const type = document.getElementById('type-select').value;
-            document.getElementById('urgency-wrapper').classList.toggle('hidden', type !== 'broadcast');
-        }
-
-        // 3. GitHub Sync (Your Worker URL)
-        document.getElementById('contribution-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            btn.innerText = "Synchronizing...";
-            btn.disabled = true;
-
-            const formData = new FormData(e.target);
-            formData.append("condo", document.getElementById('current-condo-display').innerText);
-
-            try {
-                const response = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    const res = await response.json();
-                    alert("Success! Pull Request Created.");
-                    window.location.reload();
-                } else {
-                    throw new Error("Sync failed");
-                }
-            } catch (err) {
-                alert("Error: " + err.message);
-                btn.innerText = "Retry Sync";
-                btn.disabled = false;
-            }
-        });
-
-        // Keep your existing Drawer/Menu logic
-        function toggleAlertFeed() {
-            const drawer = document.getElementById('alert-drawer');
-            const icon = document.getElementById('chevron-icon');
-            if (drawer && icon) {
-                drawer.classList.toggle('is-open');
-                icon.style.transform = drawer.classList.contains('is-open') ? 'rotate(180deg)' : 'rotate(0deg)';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-
-            if (menuToggle) {
-                menuToggle.addEventListener('click', () => {
-                    sidebar.classList.toggle('is-open');
-                    overlay.classList.toggle('is-active');
-                });
-            }
-        });
+        
     </script>
 </body>
+
 </html>

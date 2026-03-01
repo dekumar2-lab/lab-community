@@ -451,26 +451,30 @@
     margin-top: 3rem;
   }
 
-  .community-overview h1{
+  .community-overview h1 {
     margin-bottom: 2rem;
   }
 
-  .community-overview p{
+  .community-overview p {
     margin: 1rem;
   }
 
   .hub-card {
-    /*aspect-ratio: 1 / 1;*/      /* Forces height to match width precisely */
-    width: 100%;             /* Let the grid determine the width */
+    /*aspect-ratio: 1 / 1;*/
+    /* Forces height to match width precisely */
+    width: 100%;
+    /* Let the grid determine the width */
     min-width: 200px;
-    
+
     /* REFINED PADDING & ALIGNMENT */
-    padding: 1rem;          /* Reduced from 2.5rem for a tighter, more professional feel */
+    padding: 1rem;
+    /* Reduced from 2.5rem for a tighter, more professional feel */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;  /* Centers content vertically in the square */
-    
+    justify-content: center;
+    /* Centers content vertically in the square */
+
     background: var(--glass-white);
     backdrop-filter: blur(15px);
     border: 1px solid var(--border);
@@ -479,20 +483,23 @@
     text-decoration: none;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    overflow: visible;        /* Keeps bell visible */
+    overflow: visible;
+    /* Keeps bell visible */
   }
 
   .hub-card:hover {
-    transform: translateY(-6px); /* Slightly subtler lift */
+    transform: translateY(-6px);
+    /* Slightly subtler lift */
     border-color: var(--primary);
     box-shadow: 0 12px 30px var(--primary-glow);
     background: #fff;
   }
-  
+
   /* Ensuring icons and text don't create extra unwanted space */
   .hub-card i {
     margin-bottom: 4px;
-    font-size: 2.5rem; /* Standardized size */
+    font-size: 2.5rem;
+    /* Standardized size */
   }
 
   .hub-card h3 {
@@ -516,10 +523,10 @@
     transition: transform 0.3s ease;
   }
 
-  .hub-card.fa-plus{
-    font-size: 2rem; 
-    margin-bottom: 1rem; 
-    color: var(--primary); 
+  .hub-card.fa-plus {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
     opacity: 0.5;
   }
 
@@ -546,27 +553,28 @@
   }
 
   @keyframes bell-shake {
-  10%,
-  90% {
-    transform: translate3d(-0.5px, 0, 0) rotate(-2deg);
-  }
 
-  20%,
-  80% {
-    transform: translate3d(1px, 0, 0) rotate(2deg);
-  }
+    10%,
+    90% {
+      transform: translate3d(-0.5px, 0, 0) rotate(-2deg);
+    }
 
-  30%,
-  50%,
-  70% {
-    transform: translate3d(-1px, 0, 0) rotate(-2deg);
-  }
+    20%,
+    80% {
+      transform: translate3d(1px, 0, 0) rotate(2deg);
+    }
 
-  40%,
-  60% {
-    transform: translate3d(1px, 0, 0) rotate(2deg);
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-1px, 0, 0) rotate(-2deg);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(1px, 0, 0) rotate(2deg);
+    }
   }
-}
 
   .bell-container i {
     font-size: 16px !important;
@@ -632,7 +640,7 @@
 ================================================================
 */
 
-  .form-header p{
+  .form-header p {
     font-size: 0.8rem;
   }
 
@@ -707,7 +715,8 @@
 
   .btn-edit-action {
     position: absolute;
-    bottom: 24px;         /* Anchored to the bottom corner */
+    bottom: 24px;
+    /* Anchored to the bottom corner */
     right: 24px;
   }
 
@@ -716,7 +725,7 @@
   }
 
   .drawer-item {
-    padding: 1rem 1rem  0rem 1rem;
+    padding: 1rem 1rem 0rem 1rem;
     border-bottom: 1px solid var(--border);
     border-left: 14px solid transparent;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -803,9 +812,12 @@
     border-radius: 12px;
     gap: 8px;
     width: 100%;
-    white-space: nowrap;    /* Prevents word wrap strictly */
-    overflow: hidden;       /* Ensures no text bleed */
-    text-overflow: ellipsis;/* Adds "..." if the container is tiny */
+    white-space: nowrap;
+    /* Prevents word wrap strictly */
+    overflow: hidden;
+    /* Ensures no text bleed */
+    text-overflow: ellipsis;
+    /* Adds "..." if the container is tiny */
   }
 
   .btn-submit-main {
@@ -1048,122 +1060,299 @@
     }
   }
 
+  .editor-slide-over {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    z-index: 1000;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    border: 1px solid var(--border);
+  }
+
+  .editor-slide-over.is-open {
+    transform: translateX(0);
+  }
+
+  .editor-container {
+    display: flex;
+    flex-direction: column;
+    /* h-full; */
+    padding: 25px;
+    height: 100%;
+  }
+
+  .editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .close-btn {
+    font-size: 2rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .hub-badge {
+    background: var(--primary-light);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid var(--primary-glow);
+  }
+
+  .hub-badge small {
+    display: block;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+  }
+
+  .input-group {
+    margin-bottom: 15px;
+    flex: 1;
+  }
+
+  .input-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .input-group input,
+  .input-group select,
+  .input-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+
+  .flex-row {
+    display: flex;
+    gap: 15px;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    background: #f8fafc;
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .format-tools button,
+  .mode-toggle button {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .mode-toggle {
+    background: #e2e8f0;
+    border-radius: 6px;
+    padding: 2px;
+  }
+
+  .mode-toggle button.active {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  #form-content,
+  #form-preview {
+    height: 350px;
+    border-radius: 0 0 6px 6px;
+    overflow-y: auto;
+  }
+
+  #form-preview {
+    background: #fcfcfc;
+    padding: 15px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 20px;
+  }
+
+  .btn-primary {
+    flex: 2;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .btn-secondary {
+    flex: 1;
+    background: #f1f5f9;
+    color: var(--text-muted);
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+
   /* ================================================================
 FINISH
 ================================================================
 */
 
-/* ================================================================
+  /* ================================================================
    CORRECTED MEDIA QUERIES
    ================================================================ */
 
-/* TABLETS & PHABLETS */
-@media (max-width: 1024px) {
-  .sidebar {
-    display: none; /* Hide sidebar on smaller screens to give content room */
-  }
-  
-  .main-content {
-    padding: 1.5rem; 
-    max-width: 100%; /* Take full width on mobile */
-  }
-}
+  /* TABLETS & PHABLETS */
+  @media (max-width: 1024px) {
+    .sidebar {
+      display: none;
+      /* Hide sidebar on smaller screens to give content room */
+    }
 
-/* MOBILE (iPhone/Android) */
-@media (max-width: 480px) {
-  .header-container {
-    padding: 0 1rem;
-    flex-wrap: wrap; /* Allow header items to shift if needed */
+    .main-content {
+      padding: 1.5rem;
+      max-width: 100%;
+      /* Take full width on mobile */
+    }
   }
 
-  .community-grid {
-    grid-template-columns: 1fr 1fr; /* 2-column square grid is more "decent" on mobile */
-    gap: 12px;
+  /* MOBILE (iPhone/Android) */
+  @media (max-width: 480px) {
+    .header-container {
+      padding: 0 1rem;
+      flex-wrap: wrap;
+      /* Allow header items to shift if needed */
+    }
+
+    .community-grid {
+      grid-template-columns: 1fr 1fr;
+      /* 2-column square grid is more "decent" on mobile */
+      gap: 12px;
+    }
+
+    .hub-card {
+      padding: 1rem;
+      border-radius: 16px;
+    }
+
+    .hub-card i {
+      font-size: 2rem;
+    }
   }
 
-  .hub-card {
-    padding: 1rem;
-    border-radius: 16px;
-  }
-
-  .hub-card i {
-    font-size: 2rem;
-  }
-}
-
-/* ==========================================================================
+  /* ==========================================================================
    MOBILE MENU RESTORATION (MAX-WIDTH: 768px)
    ========================================================================== */
-@media (max-width: 768px) {
-  /* 1. Reset the App Shell to allow stacking */
-  .app-shell {
-    flex-direction: column; 
-    padding: 0;
-  }
+  @media (max-width: 768px) {
 
-  /* 2. Transform Sidebar into a horizontal navigation bar */
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    top: 0;
-    padding: 10px;
-    display: flex;          /* Align items in a row */
-    overflow-x: auto;       /* Allow swiping through menu items */
-    white-space: nowrap;    /* Prevent menu items from wrapping */
-    gap: 10px;
-    background: var(--glass-white);
-    border-bottom: 1px solid var(--border);
-    -webkit-overflow-scrolling: touch; /* Smooth swiping on iOS */
-  }
+    /* 1. Reset the App Shell to allow stacking */
+    .app-shell {
+      flex-direction: column;
+      padding: 0;
+    }
 
-  /* 3. Adjust Navigation Sections for horizontal layout */
-  .nav-section {
-    display: flex;
-    margin-bottom: 0;
-    padding: 5px;
-    background: transparent;
-    box-shadow: none;
-    border: none;
-  }
+    /* 2. Transform Sidebar into a horizontal navigation bar */
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+      top: 0;
+      padding: 10px;
+      display: flex;
+      /* Align items in a row */
+      overflow-x: auto;
+      /* Allow swiping through menu items */
+      white-space: nowrap;
+      /* Prevent menu items from wrapping */
+      gap: 10px;
+      background: var(--glass-white);
+      border-bottom: 1px solid var(--border);
+      -webkit-overflow-scrolling: touch;
+      /* Smooth swiping on iOS */
+    }
 
-  /* Hide the small category labels (e.g., "DASHBOARD") to save space */
-  .nav-section small {
-    display: none; 
-  }
+    /* 3. Adjust Navigation Sections for horizontal layout */
+    .nav-section {
+      display: flex;
+      margin-bottom: 0;
+      padding: 5px;
+      background: transparent;
+      box-shadow: none;
+      border: none;
+    }
 
-  /* 4. Style Nav Items as compact buttons */
-  .nav-item {
-    padding: 8px 15px;
-    max-height: 2rem;
-    margin: 0;
-    font-size: 0.7rem;
-    background: var(--glass-card);
-    border: 1px solid var(--border);
-  }
+    /* Hide the small category labels (e.g., "DASHBOARD") to save space */
+    .nav-section small {
+      display: none;
+    }
 
-  /* 5. Ensure Main Content takes full width now sidebar is on top */
-  .main-content {
-    width: 100%;
-    padding: 15px;
-    max-width: 100%;
-  }
+    /* 4. Style Nav Items as compact buttons */
+    .nav-item {
+      padding: 8px 15px;
+      max-height: 2rem;
+      margin: 0;
+      font-size: 0.7rem;
+      background: var(--glass-card);
+      border: 1px solid var(--border);
+    }
 
-  /* 6. Fix the "Create Hub" button which was wrapping in image_3845b3.png */
-  .btn-primary-header {
-    width: 100%;            /* Make it take full width on mobile */
-    position: fixed;        /* Pin it to the bottom */
-    bottom: 0;
-    left: 0;
-    border-radius: 0;       /* Square edges for the bottom bar */
-    z-index: 1000;
-    height: 60px;
-    white-space: nowrap;    /* Prevents word wrap */
-  }
+    /* 5. Ensure Main Content takes full width now sidebar is on top */
+    .main-content {
+      width: 100%;
+      padding: 15px;
+      max-width: 100%;
+    }
 
-  .btn-create-wiki,
-  .btn-broadcast-sidebar {
-    max-height: 2rem;
+    /* 6. Fix the "Create Hub" button which was wrapping in image_3845b3.png */
+    .btn-primary-header {
+      width: 100%;
+      /* Make it take full width on mobile */
+      position: fixed;
+      /* Pin it to the bottom */
+      bottom: 0;
+      left: 0;
+      border-radius: 0;
+      /* Square edges for the bottom bar */
+      z-index: 1000;
+      height: 60px;
+      white-space: nowrap;
+      /* Prevents word wrap */
+    }
+
+    .btn-create-wiki,
+    .btn-broadcast-sidebar {
+      max-height: 2rem;
+    }
   }
-}
 </style>
