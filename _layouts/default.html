@@ -126,31 +126,31 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     const menuToggle = document.getElementById('menuToggle');
+        //     const sidebar = document.querySelector('.sidebar');
+        //     const overlay = document.getElementById('sidebarOverlay');
 
-            function toggleMenu() {
-                sidebar.classList.toggle('is-open');
-                overlay.classList.toggle('is-active');
-                // Change icon from bars to X
-                const icon = menuToggle.querySelector('i');
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-xmark');
-            }
+        //     function toggleMenu() {
+        //         sidebar.classList.toggle('is-open');
+        //         overlay.classList.toggle('is-active');
+        //         // Change icon from bars to X
+        //         const icon = menuToggle.querySelector('i');
+        //         icon.classList.toggle('fa-bars');
+        //         icon.classList.toggle('fa-xmark');
+        //     }
 
-            menuToggle.addEventListener('click', toggleMenu);
-            overlay.addEventListener('click', toggleMenu);
+        //     menuToggle.addEventListener('click', toggleMenu);
+        //     overlay.addEventListener('click', toggleMenu);
 
-            // Close menu if a nav link is clicked
-            const navLinks = document.querySelectorAll('.nav-item');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (sidebar.classList.contains('is-open')) toggleMenu();
-                });
-            });
-        });
+        //     // Close menu if a nav link is clicked
+        //     const navLinks = document.querySelectorAll('.nav-item');
+        //     navLinks.forEach(link => {
+        //         link.addEventListener('click', () => {
+        //             if (sidebar.classList.contains('is-open')) toggleMenu();
+        //         });
+        //     });
+        // });
 
 
         function prepareEdit() {
