@@ -69,7 +69,7 @@
                     </a>
                 </div>
                 {% endif %}
-                <div class="wiki-render">
+                <div class="wiki-render" data-raw-md="{{ page.content | escape }}">
                     {{ content }}
                 </div>
             </article>
@@ -172,8 +172,11 @@
             // 3. Clean up the text (Remove extra whitespace caused by the 'everything in <p>' bug)
             let rawText = tempDiv.innerText.trim();
 
+            const rawMarkdown = wikiContainer.getAttribute('data-raw-md');
+            contentInput.value = rawMarkdown;
+
             // Inject into the textarea
-            contentInput.value = rawText;
+            //contentInput.value = rawText;
 
             // 4. Open the Drawer (ensure your drawer toggle logic is called here)
             togglePanel();
