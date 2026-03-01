@@ -155,13 +155,14 @@
         function prepareEdit() {
             const wikiContainer = document.querySelector('.wiki-render');
             const titleInput = document.getElementById('community-overview');
+            const title = document.getElementById('title');
             const contentInput = document.getElementById('f-content');
             
             if (!wikiContainer || !contentInput) return;
 
             // 1. Get the Title (usually the first H1)
             const currentTitle = wikiContainer.querySelector('h1')?.innerText || "";
-            titleInput.value = currentTitle;
+            title.value = currentTitle;
 
             // 2. Get the Body Content
             // We clone it to remove the H1 so we don't double up on titles
