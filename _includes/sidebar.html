@@ -60,17 +60,15 @@
                     {% endunless %}
 
                     <div class="sidebar-footer-action">
-                        <button onclick="togglePanel()" class="flex items-center w-full px-4 py-2 mt-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                            </svg>
-                            Create Wiki Page Test
-                        </button>
-
-                        <a href="{{ site.baseurl }}/submit.html?condo={{ current_condo | slugify }}"
+                        <a href="#" onclick="togglePanel()"
                             class="btn-create-wiki {% if page.url contains 'submit.html' %}active-btn{% endif %}">
                             <i class="fa-solid fa-plus-circle"></i> Create Wiki Page
                         </a>
+
+                        <!-- <a href="{{ site.baseurl }}/submit.html?condo={{ current_condo | slugify }}"
+                            class="btn-create-wiki {% if page.url contains 'submit.html' %}active-btn{% endif %}">
+                            <i class="fa-solid fa-plus-circle"></i> Create Wiki Page
+                        </a> -->
                         <a href="{{ site.baseurl }}/broadcast.html?condo={{ current_condo | slugify }}"
                             class="btn-broadcast-sidebar {% if page.url contains 'broadcast.html' %}active-btn{% endif %}">
                             <i class="fa-solid fa-bullhorn"></i> Send Broadcast
