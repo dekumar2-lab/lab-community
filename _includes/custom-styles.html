@@ -1060,170 +1060,6 @@
     }
   }
 
-  .editor-slide-over {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    max-width: 500px;
-    background: white;
-    z-index: 1000;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    border: 1px solid var(--border);
-  }
-
-  .editor-slide-over.is-open {
-    transform: translateX(0);
-  }
-
-  .editor-container {
-    display: flex;
-    flex-direction: column;
-    /* h-full; */
-    padding: 25px;
-    height: 100%;
-  }
-
-  .editor-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .close-btn {
-    font-size: 2rem;
-    color: var(--text-muted);
-    cursor: pointer;
-    background: none;
-    border: none;
-  }
-
-  .hub-badge {
-    background: var(--primary-light);
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border: 1px solid var(--primary-glow);
-  }
-
-  .hub-badge small {
-    display: block;
-    color: var(--primary);
-    font-weight: 700;
-    font-size: 0.65rem;
-    text-transform: uppercase;
-  }
-
-  .input-group {
-    margin-bottom: 15px;
-    flex: 1;
-  }
-
-  .input-group label {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-bottom: 5px;
-  }
-
-  .input-group input,
-  .input-group select,
-  .input-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    font-size: 0.9rem;
-  }
-
-  .flex-row {
-    display: flex;
-    gap: 15px;
-  }
-
-  .hidden {
-    display: none !important;
-  }
-
-  .toolbar {
-    display: flex;
-    justify-content: space-between;
-    background: #f8fafc;
-    padding: 8px;
-    border: 1px solid #e2e8f0;
-    border-bottom: none;
-    border-radius: 6px 6px 0 0;
-  }
-
-  .format-tools button,
-  .mode-toggle button {
-    padding: 4px 10px;
-    font-size: 0.8rem;
-    border-radius: 4px;
-    cursor: pointer;
-    border: 1px solid transparent;
-  }
-
-  .mode-toggle {
-    background: #e2e8f0;
-    border-radius: 6px;
-    padding: 2px;
-  }
-
-  .mode-toggle button.active {
-    background: white;
-    color: var(--primary);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  }
-
-  #form-content,
-  #form-preview {
-    height: 350px;
-    border-radius: 0 0 6px 6px;
-    overflow-y: auto;
-  }
-
-  #form-preview {
-    background: #fcfcfc;
-    padding: 15px;
-    border: 1px solid #e2e8f0;
-  }
-
-  .form-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: auto;
-    padding-top: 20px;
-  }
-
-  .btn-primary {
-    flex: 2;
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .btn-secondary {
-    flex: 1;
-    background: #f1f5f9;
-    color: var(--text-muted);
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-
-
   /* ================================================================
 FINISH
 ================================================================
@@ -1353,6 +1189,94 @@ FINISH
     .btn-create-wiki,
     .btn-broadcast-sidebar {
       max-height: 2rem;
+    }
+  }
+
+  .editor-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    z-index: 9999;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    border-left: 1px solid #e2e8f0;
+    /* Prevent the whole drawer from scrolling */
+    overflow: hidden;
+  }
+
+  .drawer-inner {
+    height: 100vh;
+    /* Exactly viewport height */
+    height: 100dvh;
+    /* Dynamic viewport height for mobile browsers */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Ensures padding doesn't add to height */
+  }
+
+  #drawer-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .editor-area {
+    flex: 1;
+    /* This is the magic: it grows/shrinks to fit space */
+    display: flex;
+    flex-direction: column;
+    min-height: 150px;
+    /* Minimum space for the textarea on tiny screens */
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  #f-content,
+  .markdown-preview {
+    flex: 1;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    resize: none;
+    overflow-y: auto;
+  }
+
+  .drawer-footer {
+    margin-top: auto;
+    /* Pushes to bottom */
+    padding-top: 15px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    gap: 10px;
+    padding-bottom: env(safe-area-inset-bottom);
+    /* Fix for iPhone notches */
+  }
+
+  /* Adjustments for very small screens */
+  @media (max-height: 600px) {
+    .hub-context {
+      display: none;
+    }
+
+    /* Hide non-essential info to save space */
+    .drawer-header h2 {
+      font-size: 16px;
+    }
+
+    .field {
+      margin-bottom: 8px;
     }
   }
 </style>
