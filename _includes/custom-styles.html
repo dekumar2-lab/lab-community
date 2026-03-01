@@ -1314,7 +1314,7 @@ FINISH
         .submit-editor-container-box { 
             /*flex: 1;*/ /* Stretch to fill all available space */
             display: flex; flex-direction: column; 
-            min-height: 200px;  border-radius: 6px; overflow: hidden;
+            min-height: 200px;  border-radius: 6px; overflow: hidden; flex: 1;
         }
 
         .submit-editor-container-box>textarea {
@@ -1324,6 +1324,7 @@ FINISH
         .submit-toolbar {
            background: #f8fafc; padding: 6px 10px;  display: flex; justify-content: space-between; align-items: center; 
            border-radius: 6px 6px 0 0;
+            flex-shrink: 0;
            /* border-bottom: 1px solid #cbd5e1; */
         }
 
@@ -1335,7 +1336,18 @@ FINISH
         .modes button.active { background: #fff; color: #7c3aed; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
 
         #f-content, .markdown-preview { flex: 1; padding: 12px; border: none; outline: none; font-size: 14px; line-height: 1.6; overflow-y: auto; }
-        .markdown-preview { background: #fafafa; }
+        .markdown-preview { background: #fafafa; 
+        flex: 1;          /* Tells the textarea to stretch to the bottom of the container */
+        width: 100%;
+        resize: vertical; /* Allows the user to manually drag-resize if they want */
+        min-height: 200px; 
+        padding: 15px;
+        border: 1px solid var(--border);
+        border-radius: 0 0 6px 6px; /* Rounds only bottom corners to match toolbar */
+        outline: none;
+        font-family: inherit;
+        line-height: 1.6;
+        }
 
         .drawer-footer { 
             padding-top: 15px; margin-top: auto; 
