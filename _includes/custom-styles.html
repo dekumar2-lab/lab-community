@@ -1472,4 +1472,26 @@
 .nav-overlay.active {
     display: block;
 }
+
+/* Sidebar default state (Off) */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px; /* Hide it to the left */
+    width: 250px;
+    height: 100%;
+    background: #fff;
+    z-index: 1002; /* Must be higher than overlay */
+    transition: left 0.3s ease-in-out;
+}
+
+/* Sidebar active state (On) */
+.sidebar.active {
+    left: 0; 
+}
+
+/* Overlay visibility toggle */
+#navOverlay.active {
+    display: block !important;
+}
 </style>
