@@ -1525,6 +1525,45 @@
     .community-switcher {
       display: none;
     }
+
+    .mobile-menu-toggle {
+        display: flex !important; /* Force show */
+        align-items: center;
+        justify-content: center;
+        background: var(--primary-light); /* Light purple tint */
+        color: var(--primary);
+        border: none;
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-right: 10px; /* Space between button and logo */
+    }
+
+    .mobile-menu-toggle:active {
+        transform: scale(0.9); /* Visual feedback when tapped */
+        background: var(--primary-glow);
+    }
+
+    .mobile-menu-toggle i {
+        font-size: 1.25rem;
+    }
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        height: 60px;
+        background: #fff; /* Restore background */
+        border-bottom: 1px solid var(--border);
+    }
+
+    /* Ensure the logo doesn't shrink too much */
+    .logo {
+        font-size: 1.1rem !important;
+        white-space: nowrap;
+    }
   }
 
   /* ================================================================
