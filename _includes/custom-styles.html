@@ -324,6 +324,7 @@
     margin: 0 auto;
     position: relative;
     z-index: 1;
+    min-height: 100vh;
   }
 
   .sidebar {
@@ -411,8 +412,11 @@
 */
   .main-content {
     flex: 1;
-    padding: 2.5rem 3.5rem;
+    /* padding: 2.5rem 3.5rem; */
     max-width: 1050px;
+    min-width: 0; /* Prevents flex-items from breaking layout */
+    padding: 2rem;
+    transition: padding 0.3s ease;
   }
 
   .content-card {
@@ -1450,63 +1454,112 @@
 }
 
 /* ================================================================
-   2. TABLET & SMALL DESKTOP (768px and below)
+   2. TABLET & MOBILE BREAKPOINT (768px and Below)
    ================================================================ */
 @media screen and (max-width: 768px) {
-    #navToggle {
-        display: block;
-        background: none;
-        border: none;
-        color: var(--primary);
-        font-size: 1.5rem;
-        cursor: pointer;
-        padding: 10px;
-        z-index: 1001;
+    
+    /* --- Navigation & Shell --- */
+    .main-content {
+        padding: 1rem; /* Tighter padding for mobile */
+        margin-top: 60px; /* Space for fixed header if used */
     }
 
-    /* Transform Sidebar into a Slide-out Drawer */
+    #navToggle {
+        display: block !important;
+        z-index: 2001;
+    }
+
     .sidebar {
         position: fixed !important;
-        top: 0;
-        left: -350px; /* Start hidden */
+        left: -320px;
         width: 300px;
-        height: 100vh;
-        background: #fff;
-        z-index: 2000 !important; /* Higher than overlay */
+        z-index: 2000 !important;
         transition: left 0.3s ease-in-out;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
     }
 
-    /* Toggled State */
     .sidebar.is-open {
         left: 0 !important;
     }
 
-    /* Dimmed Background Overlay */
     .sidebar-overlay {
         position: fixed;
         inset: 0;
+        z-index: 1500;
         background: rgba(0,0,0,0.4);
-        z-index: 1500; /* Between content and sidebar */
-        display: none; /* Controlled by .is-active */
+        display: none;
     }
 
     .sidebar-overlay.is-active {
         display: block !important;
     }
+
+    /* --- Hub Cards Grid (index.html) --- */
+    .community-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+        gap: 1rem !important;
+    }
+
+    /* --- Forms & Submission (submit.html) --- */
+    .submission-container {
+        width: 95% !important;
+        margin: 10px auto !important;
+        padding: 1.5rem !important;
+    }
+
+    .form-actions {
+        flex-direction: column !important; /* Stack Cancel/Submit buttons */
+        width: 100% !important;
+        gap: 10px;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100% !important; /* Full width buttons for easy tapping */
+        justify-content: center;
+    }
+
+    /* --- Stats Bar (index.html) --- */
+    .stats-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        text-align: center;
+    }
 }
 
 /* ================================================================
-   3. IPHONE / SMALL MOBILE (480px and below)
+   3. SMALL MOBILE OPTIMIZATION (480px and Below)
    ================================================================ */
 @media screen and (max-width: 480px) {
+    
+    /* --- Typography Scale --- */
+    h1 { font-size: 1.5rem !important; }
+    h2 { font-size: 1.25rem !important; }
+
+    /* --- Narrower Sidebar --- */
     .sidebar {
-        width: 280px !important; /* Narrower width for smaller screens */
-        left: -280px; /* Adjust hidden position to match new width */
+        width: 280px !important;
+        left: -280px;
     }
 
-    .sidebar.is-open {
-        left: 0 !important;
+    /* --- Header Controls --- */
+    .header-actions {
+        display: none; /* Hide complex actions on tiny screens */
+    }
+
+    /* --- Search Bar --- */
+    .search-wrapper {
+        width: 100% !important;
+    }
+
+    /* --- Editor Toolbar (editor.html / submit.html) --- */
+    .submit-toolbar {
+        overflow-x: auto; /* Allow toolbar to scroll horizontally if icons don't fit */
+        white-space: nowrap;
+        padding-bottom: 5px;
+    }
+
+    .tools button {
+        padding: 8px 12px !important;
     }
 }
   
