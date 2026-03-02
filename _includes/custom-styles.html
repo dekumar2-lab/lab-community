@@ -1453,6 +1453,29 @@
     z-index: 50; /* Normal flow */
 }
 
+/* 3. iPhone Only (max-width: 480px) */
+@media (max-width: 480px) {
+    .sidebar {
+        position: fixed !important;
+        left: -350px;
+        top: 0;
+        width: 280px;
+        height: 100vh;
+        background: #fff;
+        /* 4. CRITICAL: Higher than 1000 to be clickable */
+        z-index: 2000 !important; 
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.is-open {
+        left: 0 !important;
+    }
+
+    .sidebar-overlay.is-active {
+        display: block !important;
+    }
+}
+
 @media (max-width: 768px) {
 
   #navToggle {

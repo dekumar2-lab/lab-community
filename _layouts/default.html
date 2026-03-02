@@ -345,32 +345,41 @@
             el.setSelectionRange(start + cursorOffset, start + cursorOffset);
         }
 
+        
+
         document.addEventListener('DOMContentLoaded', function () {
     const menuToggle = document.getElementById('navToggle');
     const sidebar = document.querySelector('.sidebar');
     const overlay = document.getElementById('sidebarOverlay');
 
     if (menuToggle && sidebar) {
-        function toggleMenu() {
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // Stops the click from bubbling up
             sidebar.classList.toggle('is-open');
             if (overlay) overlay.classList.toggle('is-active');
             
-            // Swap icons between hamburger and X
+            // Toggle Icon
             const icon = menuToggle.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
-        }
-
-        menuToggle.addEventListener('click', toggleMenu);
-        if (overlay) overlay.addEventListener('click', toggleMenu);
-        
-        // Auto-close menu when a link inside is clicked
-        const navLinks = sidebar.querySelectorAll('.nav-item');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (sidebar.classList.contains('is-open')) toggleMenu();
-            });
+            if(icon) {
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-xmark');
+            }
         });
+
+        // Close menu when clicking the overlay
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('is-open');
+                overlay.classList.remove('is-active');
+                
+                // Reset Icon
+                const icon = menuToggle.querySelector('i');
+                if(icon) {
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-xmark');
+                }
+            });
+        }
     }
 });
         
