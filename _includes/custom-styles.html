@@ -1435,7 +1435,46 @@
     display: none;
 }
 
+/* Sidebar Overlay - Default Hidden */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000; /* Lower than sidebar */
+}
+
+/* Sidebar Default (iPad/Desktop) */
+.sidebar {
+    position: sticky;
+    top: 0;
+    width: 350px;
+    height: calc(100vh - 70px);
+    z-index: 50; /* Normal flow */
+}
+
 @media (max-width: 768px) {
+
+  #navToggle {
+        display: block !important; /* Show hamburger */
+    }
+
+    .sidebar {
+        position: fixed !important;
+        left: -350px;
+        top: 0;
+        height: 100vh;
+        z-index: 2000 !important; /* HIGHER than overlay */
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.is-open {
+        left: 0 !important;
+    }
+
+    .sidebar-overlay.is-active {
+        display: block !important;
+    }
     /* 2. Show the Toggle Button */
     #navToggle {
         display: block;
