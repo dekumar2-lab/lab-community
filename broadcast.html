@@ -3,27 +3,27 @@ layout: default
 title: Send Community Broadcast
 ---
 
-<div style="max-width: 650px; margin: 0 auto;">
-    <h1 style="font-size: 1.25rem; margin-bottom: 0.5rem; letter-spacing: -1px;">📢 Send Broadcast</h1>
-    <p style="color: #64748b; margin-bottom: 2.5rem; font-size: 1rem;">Submit an announcement for your community.
+<div>
+    <h1> Send Broadcast</h1>
+    <p>Submit an announcement for your community.
         Approved messages trigger the notification bell.</p>
 
-    <form id="broadcastForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
+    <form id="broadcastForm">
         <input type="hidden" name="type" value="broadcast">
 
         <div class="form-group">
-            <label style="font-weight: 700; display: block; margin-bottom: 0.5rem;">Target Community</label>
+            <label>Target Community</label>
             
             <div id="community-input-wrapper">
                 <input type="text" id="condo" name="condo" placeholder="Select a community..." required
-                    style="width: 100%; padding: 0.8rem; border: 1.5px solid var(--border); border-radius: 10px; background: #f8fafc;">
+                   >
             </div>
         </div>
 
         <div class="form-group">
-            <label style="font-weight: 700; display: block; margin-bottom: 0.5rem;">Urgency Level</label>
+            <label >Urgency Level</label>
             <select name="alert_type"
-                style="width: 100%; padding: 0.8rem; border: 1.5px solid var(--border); border-radius: 10px; background: white;">
+                >
                 <option value="low">Low (Information)</option>
                 <option value="medium" selected>Medium (Notice)</option>
                 <option value="high">High (Urgent)</option>
@@ -32,13 +32,13 @@ title: Send Community Broadcast
         </div>
 
         <div class="form-group">
-            <label style="font-weight: 700; display: block; margin-bottom: 0.5rem;">Subject</label>
+            <label >Subject</label>
             <input type="text" name="title" placeholder="e.g., Scheduled Maintenance" required
                 style="width: 100%; padding: 0.8rem; border: 1.5px solid var(--border); border-radius: 10px;">
         </div>
 
         <div class="form-group">
-            <label style="font-weight: 700; display: block; margin-bottom: 0.5rem;">Announcement Details</label>
+            <label >Announcement Details</label>
             <textarea name="content" rows="6" placeholder="Provide full details of the broadcast..." required
                 style="width: 100%; padding: 0.8rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: inherit;"></textarea>
         </div>
