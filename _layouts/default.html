@@ -345,26 +345,7 @@
             el.setSelectionRange(start + cursorOffset, start + cursorOffset);
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Match the ID from your HTML
-            const menuToggle = document.getElementById('navToggle'); 
-            const sidebar = document.querySelector('.sidebar-nav');
-            const overlay = document.getElementById('sidebarOverlay'); 
-
-            if (menuToggle && sidebar) {
-                menuToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('is-open');
-                    if(overlay) overlay.classList.toggle('is-active');
-                    
-                    // Icon rotation logic from your script
-                    const icon = menuToggle.querySelector('i');
-                    if (icon) {
-                        icon.classList.toggle('fa-bars');
-                        icon.classList.toggle('fa-xmark');
-                    }
-                });
-            }
-        });
+        
 
     </script>
 </body>
