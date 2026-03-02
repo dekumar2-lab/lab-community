@@ -1450,7 +1450,6 @@
     top: 0;
     width: 350px;
     height: calc(100vh - 70px);
-    z-index: 50; /* Normal flow */
 }
 
 /* 3. iPhone Only (max-width: 480px) */
@@ -1487,7 +1486,6 @@
         left: -350px;
         top: 0;
         height: 100vh;
-        z-index: 2000 !important; /* HIGHER than overlay */
         transition: left 0.3s ease;
     }
 
@@ -1517,7 +1515,6 @@
         width: 300px;
         height: 100vh;
         background: #fff;
-        z-index: 1001;
         transition: left 0.3s ease-in-out;
         box-shadow: 2px 0 10px rgba(0,0,0,0.1);
     }
@@ -1533,7 +1530,6 @@
         position: fixed;
         inset: 0;
         background: rgba(0,0,0,0.4);
-        z-index: 1000;
     }
 }
   
