@@ -1430,73 +1430,29 @@
   FINISH
   ================================================================
   */
-/* 1. Hide mobile-only elements on Desktop */
-#navToggle, .sidebar-overlay {
-    display: none;
-}
 
-/* Sidebar Overlay - Default Hidden */
+  /* ================================================================
+   1. DESKTOP & IPAD DEFAULT (Greater than 768px)
+   ================================================================ */
+/* Hide mobile-only elements by default */
+#navToggle, 
 .sidebar-overlay {
     display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1000; /* Lower than sidebar */
 }
 
-/* Sidebar Default (iPad/Desktop) */
 .sidebar {
     position: sticky;
     top: 0;
     width: 350px;
     height: calc(100vh - 70px);
+    z-index: 50;
+    background: transparent; /* Or your preferred desktop bg */
 }
 
-/* 3. iPhone Only (max-width: 480px) */
-@media (max-width: 480px) {
-    .sidebar {
-        position: fixed !important;
-        left: -350px;
-        top: 0;
-        width: 280px;
-        height: 100vh;
-        background: #fff;
-        /* 4. CRITICAL: Higher than 1000 to be clickable */
-        z-index: 2000 !important; 
-        transition: left 0.3s ease;
-    }
-
-    .sidebar.is-open {
-        left: 0 !important;
-    }
-
-    .sidebar-overlay.is-active {
-        display: block !important;
-    }
-}
-
-@media (max-width: 768px) {
-
-  #navToggle {
-        display: block !important; /* Show hamburger */
-    }
-
-    .sidebar {
-        position: fixed !important;
-        left: -350px;
-        top: 0;
-        height: 100vh;
-        transition: left 0.3s ease;
-    }
-
-    .sidebar.is-open {
-        left: 0 !important;
-    }
-
-    .sidebar-overlay.is-active {
-        display: block !important;
-    }
-    /* 2. Show the Toggle Button */
+/* ================================================================
+   2. TABLET & SMALL DESKTOP (768px and below)
+   ================================================================ */
+@media screen and (max-width: 768px) {
     #navToggle {
         display: block;
         background: none;
@@ -1505,31 +1461,52 @@
         font-size: 1.5rem;
         cursor: pointer;
         padding: 10px;
+        z-index: 1001;
     }
 
-    /* 3. Transform Sidebar into a Slide-out Drawer */
+    /* Transform Sidebar into a Slide-out Drawer */
     .sidebar {
-        position: fixed;
+        position: fixed !important;
         top: 0;
-        left: -350px; /* Hidden off-screen */
+        left: -350px; /* Start hidden */
         width: 300px;
         height: 100vh;
         background: #fff;
+        z-index: 2000 !important; /* Higher than overlay */
         transition: left 0.3s ease-in-out;
         box-shadow: 2px 0 10px rgba(0,0,0,0.1);
     }
 
-    /* 4. The "On" state for Mobile */
+    /* Toggled State */
     .sidebar.is-open {
-        left: 0;
+        left: 0 !important;
     }
 
-    /* 5. The Dimmed Background Overlay */
-    .sidebar-overlay.is-active {
-        display: block;
+    /* Dimmed Background Overlay */
+    .sidebar-overlay {
         position: fixed;
         inset: 0;
         background: rgba(0,0,0,0.4);
+        z-index: 1500; /* Between content and sidebar */
+        display: none; /* Controlled by .is-active */
+    }
+
+    .sidebar-overlay.is-active {
+        display: block !important;
+    }
+}
+
+/* ================================================================
+   3. IPHONE / SMALL MOBILE (480px and below)
+   ================================================================ */
+@media screen and (max-width: 480px) {
+    .sidebar {
+        width: 280px !important; /* Narrower width for smaller screens */
+        left: -280px; /* Adjust hidden position to match new width */
+    }
+
+    .sidebar.is-open {
+        left: 0 !important;
     }
 }
   
