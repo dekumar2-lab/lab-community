@@ -345,22 +345,24 @@
             el.setSelectionRange(start + cursorOffset, start + cursorOffset);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const navToggle = document.getElementById('navToggle');
-            const navOverlay = document.getElementById('navOverlay');
-            const sidebar = document.querySelector('.sidebar-nav'); // Adjust selector if your sidebar has a different class
+        document.addEventListener('DOMContentLoaded', function () {
+            // Match the ID from your HTML
+            const menuToggle = document.getElementById('navToggle'); 
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('sidebarOverlay'); 
 
-            function toggleMenu() {
-                sidebar.classList.toggle('active');
-                navOverlay.classList.toggle('active');
-            }
-
-            if (navToggle) {
-                navToggle.addEventListener('click', toggleMenu);
-            }
-
-            if (navOverlay) {
-                navOverlay.addEventListener('click', toggleMenu); // Closes when clicking the dimmed background
+            if (menuToggle && sidebar) {
+                menuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('is-open');
+                    if(overlay) overlay.classList.toggle('is-active');
+                    
+                    // Icon rotation logic from your script
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-bars');
+                        icon.classList.toggle('fa-xmark');
+                    }
+                });
             }
         });
 

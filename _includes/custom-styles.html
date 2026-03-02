@@ -1494,4 +1494,17 @@
 #navOverlay.active {
     display: block !important;
 }
+
+.sidebar {
+        left: -280px; /* Hidden only on small screens */
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.is-open {
+        left: 0 !important; /* Slide in when active */
+    }
+    
+    .nav-toggle {
+        display: block !important; /* Show hamburger only on mobile */
+    }
 </style>
