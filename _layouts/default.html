@@ -345,6 +345,34 @@
             el.setSelectionRange(start + cursorOffset, start + cursorOffset);
         }
 
+        document.addEventListener('DOMContentLoaded', function () {
+    const menuToggle = document.getElementById('navToggle');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    if (menuToggle && sidebar) {
+        function toggleMenu() {
+            sidebar.classList.toggle('is-open');
+            if (overlay) overlay.classList.toggle('is-active');
+            
+            // Swap icons between hamburger and X
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        if (overlay) overlay.addEventListener('click', toggleMenu);
+        
+        // Auto-close menu when a link inside is clicked
+        const navLinks = sidebar.querySelectorAll('.nav-item');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (sidebar.classList.contains('is-open')) toggleMenu();
+            });
+        });
+    }
+});
         
 
     </script>
