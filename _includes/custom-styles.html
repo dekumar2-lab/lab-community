@@ -1438,32 +1438,35 @@
   /* ================================================================
    1. DESKTOP & IPAD DEFAULT (Greater than 768px)
    ================================================================ */
-/* Hide mobile-only elements by default */
-#navToggle, 
-.sidebar-overlay {
-    display: none;
-}
-
-.sidebar {
-    position: sticky;
-    top: 0;
-    width: 350px;
-    height: calc(100vh - 70px);
-    z-index: 50;
-    background: transparent; /* Or your preferred desktop bg */
-}
-
 /* ================================================================
-   2. TABLET & MOBILE BREAKPOINT (768px and Below)
+   1. TABLET & MOBILE VIEW (768px and Below)
    ================================================================ */
 @media screen and (max-width: 768px) {
     
-    /* --- Navigation & Shell --- */
-    .main-content {
-        padding: 1rem; /* Tighter padding for mobile */
-        margin-top: 60px; /* Space for fixed header if used */
+    /* FIX: Ensure Header stays visible with background */
+    .site-header {
+        background: #fff !important;
+        border-bottom: 1px solid var(--border);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
     }
 
+    /* FIX: Hide 'Create Hub' button on mobile */
+    .btn-primary-header {
+        display: none !important;
+    }
+
+    /* FIX: Reduce excessive padding in main content */
+    .main-content {
+        padding: 15px !important; /* Reduced from 2rem */
+        margin-top: 70px !important; /* Push content below fixed header */
+        background: #fafafa; /* Restore background color */
+        min-height: 100vh;
+    }
+
+    /* NAVIGATION: Hamburger & Sidebar drawer */
     #navToggle {
         display: block !important;
         z-index: 2001;
@@ -1473,93 +1476,62 @@
         position: fixed !important;
         left: -320px;
         width: 300px;
-        z-index: 2000 !important;
+        height: 100vh;
+        background: #fff !important; /* Restore Sidebar background */
+        z-index: 2000 !important; 
         transition: left 0.3s ease-in-out;
+        box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+        padding-top: 20px;
     }
 
     .sidebar.is-open {
         left: 0 !important;
     }
 
-    .sidebar-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 1500;
-        background: rgba(0,0,0,0.4);
-        display: none;
-    }
-
-    .sidebar-overlay.is-active {
-        display: block !important;
-    }
-
-    /* --- Hub Cards Grid (index.html) --- */
+    /* GRID: Adjust Hub Cards for smaller screens */
     .community-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
-        gap: 1rem !important;
+        grid-template-columns: 1fr !important; 
+        gap: 12px !important;
+        padding: 5px 0;
     }
 
-    /* --- Forms & Submission (submit.html) --- */
+    /* FORMS: Compact form for mobile */
     .submission-container {
-        width: 95% !important;
-        margin: 10px auto !important;
-        padding: 1.5rem !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 15px !important;
+        border-radius: 0;
+        box-shadow: none;
     }
 
     .form-actions {
-        flex-direction: column !important; /* Stack Cancel/Submit buttons */
+        flex-direction: column !important;
         width: 100% !important;
-        gap: 10px;
-    }
-
-    .btn-primary, .btn-secondary {
-        width: 100% !important; /* Full width buttons for easy tapping */
-        justify-content: center;
-    }
-
-    /* --- Stats Bar (index.html) --- */
-    .stats-bar {
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        text-align: center;
+        padding: 0;
     }
 }
 
 /* ================================================================
-   3. SMALL MOBILE OPTIMIZATION (480px and Below)
+   2. IPHONE OPTIMIZATION (480px and Below)
    ================================================================ */
 @media screen and (max-width: 480px) {
-    
-    /* --- Typography Scale --- */
-    h1 { font-size: 1.5rem !important; }
-    h2 { font-size: 1.25rem !important; }
-
-    /* --- Narrower Sidebar --- */
     .sidebar {
-        width: 280px !important;
+        width: 280px !important; 
         left: -280px;
     }
 
-    /* --- Header Controls --- */
-    .header-actions {
-        display: none; /* Hide complex actions on tiny screens */
+    /* Fix stats bar overlapping on tiny screens */
+    .stats-bar {
+        flex-direction: column;
+        gap: 5px;
+        padding: 10px;
+        background: var(--primary-light);
+        border-radius: 8px;
     }
 
-    /* --- Search Bar --- */
-    .search-wrapper {
-        width: 100% !important;
-    }
-
-    /* --- Editor Toolbar (editor.html / submit.html) --- */
-    .submit-toolbar {
-        overflow-x: auto; /* Allow toolbar to scroll horizontally if icons don't fit */
-        white-space: nowrap;
-        padding-bottom: 5px;
-    }
-
-    .tools button {
-        padding: 8px 12px !important;
+    /* Shrink Header Logo to save space */
+    .logo {
+        font-size: 1.1rem !important;
     }
 }
   
