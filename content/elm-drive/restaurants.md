@@ -1,12 +1,12 @@
 ---
 layout: default
 title: "Restaurants"
-condo: "Elm Drive"
-date: 2026-03-01T14:29:13.373Z
+condo: "ELM DRIVE"
+date: 2026-03-04T03:34:32.280Z
 ---
 
 # Restaurants
 
 
 
-Local eats.
+**Local** eats.
