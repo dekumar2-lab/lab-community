@@ -164,7 +164,7 @@
             if (!wikiContainer || !contentInput) return;
 
             // Get the text from the target-display 
-            const condoName = "{{ current_condo | default: 'General' }}";
+            const condoName = "{{ current_condo | default: 'General Hub' | upcase }}";
             if (condoInput) condoInput.value = condoName;
             
             // 1. Get the Title (usually the first H1)
@@ -294,7 +294,7 @@
             btn.innerText = "Syncing..."; btn.disabled = true;
 
             const fd = new FormData(e.target);
-            fd.append("condo", document.getElementById('target-display').innerText);
+            fd.append("condo", document.getElementById('condo').innerText);
 
             try {
                 const res = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
