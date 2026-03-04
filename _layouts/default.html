@@ -159,9 +159,14 @@
             const titleInput = document.getElementById('community-overview');
             const title = document.getElementById('title');
             const contentInput = document.getElementById('f-content');
+            const condoInput = document.getElementById('condo'); // Target the new field in editor.html
 
             if (!wikiContainer || !contentInput) return;
 
+            // Get the text from the target-display 
+            const condoName = "{{ current_condo | default: 'General' }}";
+            if (condoInput) condoInput.value = condoName;
+            
             // 1. Get the Title (usually the first H1)
             const currentTitle = wikiContainer.querySelector('h1')?.innerText || "";
             title.value = currentTitle;
