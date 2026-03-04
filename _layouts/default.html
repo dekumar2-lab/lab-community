@@ -159,20 +159,7 @@
             const titleInput = document.getElementById('community-overview');
             const title = document.getElementById('title');
             const contentInput = document.getElementById('f-content');
-            const condoInput = document.getElementById('condo'); // Target the new field in editor.html
-
-            if (!wikiContainer || !contentInput) return;
-
-            // Get the text from the target-display 
-            const condoName = "{{ current_condo}}";
-            if (condoInput){ 
-                condoInput.value = condoName;
-                condoInput.setAttribute('readonly', true);
-                condoInput.style.backgroundColor = "rgba(241, 245, 249, 0.5)";
-            } else {
-                condoInput.removeAttribute('readonly');
-                condoInput.style.backgroundColor = "transparent";
-            }
+            
             
             // 1. Get the Title (usually the first H1)
             const currentTitle = wikiContainer.querySelector('h1')?.innerText || "";
@@ -207,6 +194,20 @@
 
         // 1. Toggle Panel
         function togglePanel() {
+            const condoInput = document.getElementById('condo'); // Target the new field in editor.html
+
+            if (!wikiContainer || !contentInput) return;
+
+            // Get the text from the target-display 
+            const condoName = "{{ current_condo}}";
+            if (condoInput){ 
+                condoInput.value = condoName;
+                condoInput.setAttribute('readonly', true);
+                condoInput.style.backgroundColor = "rgba(241, 245, 249, 0.5)";
+            } else {
+                condoInput.removeAttribute('readonly');
+                condoInput.style.backgroundColor = "transparent";
+            }
             document.getElementById('editor-panel').classList.toggle('is-open');
         }
 
