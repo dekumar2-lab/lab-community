@@ -194,20 +194,34 @@
 
         // 1. Toggle Panel
         function togglePanel() {
-            const condoInput = document.getElementById('condo'); // Target the new field in editor.html
+           // 1. Get the condo name from your Jekyll template variable
+        // If we are on the home page, this will likely be an empty string or "index"
+        const currentCondo = "{{ page.condo }}".trim(); 
 
-            if (!wikiContainer || !contentInput) return;
+        const condoInput = document.getElementById('condo');
 
-            // Get the text from the target-display 
-            const condoName = "{{ current_condo}}";
-            if (condoInput){ 
-                condoInput.value = condoName;
+        if (condoInput) {
+            // 2. Check if currentCondo has a valid value (not blank and not a template error)
+            if (currentCondo && currentCondo !== "" && currentCondo !== "nil") {
+                // SCENARIO: Inside a Condo Page -> Pre-fill and Lock
+                condoInput.value = currentCondo;
                 condoInput.setAttribute('readonly', true);
+                
+                // Apply "Decent" professional locked styling
                 condoInput.style.backgroundColor = "rgba(241, 245, 249, 0.5)";
+                condoInput.style.cursor = "not-allowed";
+                condoInput.style.opacity = "0.8";
             } else {
+                // SCENARIO: Global Dashboard -> Allow user to type new Condo Name
+                condoInput.value = ""; 
                 condoInput.removeAttribute('readonly');
+                
+                // Reset to default editable styling
                 condoInput.style.backgroundColor = "transparent";
+                condoInput.style.cursor = "text";
+                condoInput.style.opacity = "1";
             }
+        }
             document.getElementById('editor-panel').classList.toggle('is-open');
         }
 
