@@ -202,7 +202,7 @@
 
         if (condoInput) {
             // 2. Check if currentCondo has a valid value (not blank and not a template error)
-            if (currentCondo && currentCondo !== "" && currentCondo !== "nil") {
+            if (currentCondo && currentCondo !== "") {
                 // SCENARIO: Inside a Condo Page -> Pre-fill and Lock
                 condoInput.value = currentCondo;
                 condoInput.setAttribute('readonly', true);
