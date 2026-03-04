@@ -7,15 +7,21 @@
         </div>
 
         <form id="drawer-form">
-            <div class="hub-context">
-                <!-- <label for="condo">Community / Building Hub</label> -->
+            <!-- <div class="hub-context">
+                <label for="condo">Community / Building Hub</label> 
                 <strong id="target-display">{{ current_condo | default: "General Hub" | upcase }}</strong>
+            </div> -->
+
+            <div class="field">
+                <!-- <label for="condo">Resource Title</label> -->
+                <input type="text" class="hub-context" id="condo" name="condo"
+                    readonly>
             </div>
 
             <div class="field">
                 <label for="title">Resource Title</label>
                 <input type="text" class="hub-context" id="title" name="title"
-                    placeholder="e.g., Waste Management Guide" disabled>
+                    readonly>
             </div>
 
             <div class="editor-container-box">
