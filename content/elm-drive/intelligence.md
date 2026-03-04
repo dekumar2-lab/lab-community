@@ -1,12 +1,12 @@
 ---
 layout: default
 title: "Intelligence"
-condo: "Elm Drive"
-date: 2026-03-01T14:29:13.373Z
+condo: "ELM DRIVE"
+date: 2026-03-04T03:33:28.802Z
 ---
 
 # Intelligence
 
 
 
-Essential info.
+**Essential** info.
