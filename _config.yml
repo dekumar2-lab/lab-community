@@ -1,6 +1,6 @@
 # Site Settings
 title: ResiHub
-baseurl: "" # Leave empty if your site is at the root domain
+baseurl: "/lab-community" # Leave empty if your site is at the root domain
 url: "https://lab-community.pages.dev"
 
 # Force Jekyll to recognize the root as the source
