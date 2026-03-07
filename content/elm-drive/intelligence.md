@@ -1,10 +1,12 @@
 ---
 layout: default
-title: "Essential Intelligence"
+title: "Intelligence"
 condo: "Elm Drive"
-date: 2026-02-28T03:18:21.738Z
+date: 2026-03-01T14:29:13.373Z
 ---
 
-# Essential Intelligence
+# Intelligence
 
-Emergency contacts and utility resources.
+
+
+Essential info.

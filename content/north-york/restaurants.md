@@ -1,10 +1,12 @@
 ---
 layout: default
-title: "Restaurant Favorites"
+title: "Restaurants"
 condo: "North York"
-date: 2026-02-25T02:22:02.789Z
+date: 2026-03-01T14:30:40.279Z
 ---
 
-# Restaurant Favorites
+# Restaurants
 
-Local dining recommendations.
+
+
+Local eats.

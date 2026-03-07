@@ -1,10 +1,12 @@
 ---
 layout: default
-title: "Hub Favorites"
+title: "Movies"
 condo: "Elm Drive"
-date: 2026-02-28T03:18:21.738Z
+date: 2026-03-04T03:38:30.260Z
 ---
 
-# Hub Favorites
+# Movies
 
-Neighbor movie ratings and reviews.
+
+
+**Community** favs.

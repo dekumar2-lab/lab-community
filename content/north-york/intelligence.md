@@ -1,10 +1,12 @@
 ---
 layout: default
-title: "Essential Intelligence"
+title: "Intelligence"
 condo: "North York"
-date: 2026-02-25T02:22:02.789Z
+date: 2026-03-01T14:30:40.279Z
 ---
 
-# Essential Intelligence
+# Intelligence
 
-Emergency contacts and utility resources.
+
+
+Essential info.

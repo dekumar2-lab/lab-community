@@ -1,134 +1,215 @@
+/**
+ * Configuration Constants
+ */
+const CONFIG = {
+  DEFAULT_BRANCH: "master",
+  CONTENT_ROOT: "content",
+  USER_AGENT: "Cloudflare-Worker-GitHub-Manager",
+  GITHUB_REPO: "dekumar2-lab/lab-community",
+  CORS_HEADERS: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Content-Type": "application/json",
+  },
+};
+
+/**
+ * Utility: Create URL-friendly slugs
+ */
+const slugify = (text) =>
+  text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "");
+
+/**
+ * Utility: Generate Markdown content with Frontmatter
+ */
+const createMarkdown = (title, condo, content, type, urgency) => {
+  const layout = type === "broadcast" ? "broadcast" : "default";
+  const urgencyLine = type === "broadcast" ? `urgency: "${urgency}"\n` : "";
+  const headerPrefix = content.startsWith("# ") ? "" : `# ${title}\n\n`;
+  const date = new Date().toISOString();
+
+  return `---
+layout: ${layout}
+title: "${title}"
+condo: "${condo}"
+${urgencyLine}date: ${date}
+---
+
+${headerPrefix}${content}`;
+};
+
 export default {
   async fetch(request, env) {
-    const GITHUB_REPO = "dekumar2-lab/lab-community";
-
+    // 1. Handle Preflight
     if (request.method === "OPTIONS") {
-      return new Response(null, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type"
-        }
-      });
+      return new Response(null, { headers: CONFIG.CORS_HEADERS });
     }
 
     try {
+      // Validate Environment
+      if (!env.GH_TOKEN || !CONFIG.GITHUB_REPO) {
+        throw new Error(
+          "Missing required environment variables: GH_TOKEN or GITHUB_REPO",
+        );
+      }
+
       const formData = await request.formData();
-      let condoInput = (formData.get("condo") || "Unknown").trim();
+      const condoInput = (formData.get("condo") || "Unknown").trim();
       const title = (formData.get("title") || "New Topic").trim();
       const content = formData.get("content") || "";
       const type = formData.get("type") || "wiki";
-      // Capture the Urgency Level (defaults to 'medium' if not provided)
       const urgency = formData.get("alert_type") || "medium";
 
-      const folder = condoInput.toLowerCase().replace(/\s+/g, '-');
+      const folder = slugify(condoInput).toLowerCase;
       const branchName = `contribution-${folder}-${Date.now()}`;
+      const repoUrl = `https://api.github.com/repos/${CONFIG.GITHUB_REPO}`;
+
       const headers = {
-        "Authorization": `token ${env.GH_TOKEN}`,
-        "User-Agent": "Cloudflare-Worker",
-        "Accept": "application/vnd.github.v3+json"
+        Authorization: `token ${env.GH_TOKEN}`,
+        "User-Agent": CONFIG.USER_AGENT,
+        Accept: "application/vnd.github.v3+json",
       };
 
-      // Helper updated to include layout switching and urgency levels
-      const createMD = (t, co, c, tpe, urg) => {
-        const layout = tpe === "broadcast" ? "broadcast" : "default";
-        const urgencyLine = tpe === "broadcast" ? `urgency: "${urg}"\n` : "";
-        const headerPrefix = c.startsWith('# ') ? '' : `# ${t}\n\n`;
-
-        return `---\nlayout: ${layout}\ntitle: "${t}"\ncondo: "${co}"\n${urgencyLine}date: ${new Date().toISOString()}\n---\n\n${headerPrefix}${c}`;
-      };
-
-      // Check if this is a new community initialization
-      const indexPath = `content/${folder}/index.md`;
-      const indexCheck = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${indexPath}`, { headers });
+      // 2. Check for Community Existence
+      const indexPath = `${CONFIG.CONTENT_ROOT}/${folder}/index.md`;
+      const indexCheck = await fetch(`${repoUrl}/contents/${indexPath}`, {
+        headers,
+      });
       const isNewCommunity = indexCheck.status !== 200;
 
-      // 1. Get Master SHA and Create Branch
-      const masterRef = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/git/ref/heads/master`, { headers });
+      // 3. Create Branch
+      const masterRef = await fetch(
+        `${repoUrl}/git/ref/heads/${CONFIG.DEFAULT_BRANCH}`,
+        { headers },
+      );
       const masterData = await masterRef.json();
-      await fetch(`https://api.github.com/repos/${GITHUB_REPO}/git/refs`, {
-        method: "POST", headers,
-        body: JSON.stringify({ ref: `refs/heads/${branchName}`, sha: masterData.object.sha })
+
+      const createBranchRes = await fetch(`${repoUrl}/git/refs`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          ref: `refs/heads/${branchName}`,
+          sha: masterData.object.sha,
+        }),
       });
+      if (!createBranchRes.ok) throw new Error("Failed to create git branch");
 
+      // 4. Prepare File Manifest
       let filesToCommit = [];
-
       if (isNewCommunity) {
-        // Initialize new community folders
-        filesToCommit.push({ path: indexPath, content: createMD("District Overview", condoInput, content, "wiki") });
-        filesToCommit.push({ path: `content/${folder}/intelligence.md`, content: createMD("Essential Intelligence", condoInput, "Emergency contacts and utility resources.", "wiki") });
-        filesToCommit.push({ path: `content/${folder}/movies.md`, content: createMD("Hub Favorites", condoInput, "Neighbor movie ratings and reviews.", "wiki") });
-        filesToCommit.push({ path: `content/${folder}/restaurants.md`, content: createMD("Restaurant Favorites", condoInput, "Local dining recommendations.", "wiki") });
+        filesToCommit = [
+          {
+            path: indexPath,
+            content: createMarkdown(
+              "Community Overview",
+              condoInput,
+              content,
+              "wiki",
+            ),
+          },
+          {
+            path: `${CONFIG.CONTENT_ROOT}/${folder}/intelligence.md`,
+            content: createMarkdown(
+              "Community Essentials",
+              condoInput,
+              "Emergency contacts.",
+              "wiki",
+            ),
+          },
+          {
+            path: `${CONFIG.CONTENT_ROOT}/${folder}/movies.md`,
+            content: createMarkdown(
+              "Hub Favorites",
+              condoInput,
+              "Neighbor movie ratings.",
+              "wiki",
+            ),
+          },
+          {
+            path: `${CONFIG.CONTENT_ROOT}/${folder}/restaurants.md`,
+            content: createMarkdown(
+              "Restaurant Favorites",
+              condoInput,
+              "Local recommendations.",
+              "wiki",
+            ),
+          },
+        ];
       } else {
-        const fileSlug = title.toLowerCase().replace(/\s+/g, '-');
+        const fileSlug = slugify(title);
+        const path =
+          type === "broadcast"
+            ? `${CONFIG.CONTENT_ROOT}/${folder}/broadcasts/${folder}-${fileSlug}-${Date.now()}.md`
+            : fileSlug === "community-overview"
+              ? indexPath
+              : `${CONFIG.CONTENT_ROOT}/${folder}/${fileSlug}.md`;
 
-        let finalPath;
-        if (type === "broadcast") {
-          // Save broadcasts to dedicated folder with urgency metadata
-          finalPath = `content/${folder}/broadcasts/${folder}-${fileSlug}-${Date.now()}.md`;
-        } else {
-          // Save wiki pages to community-specific folder
-          finalPath = (fileSlug === 'district-overview' || title === 'District Overview') ? indexPath : `content/${folder}/${fileSlug}.md`;
-        }
-
-        filesToCommit.push({ path: finalPath, content: createMD(title, condoInput, content, type, urgency) });
-      }
-
-      // 2. Commit files sequentially
-      for (const file of filesToCommit) {
-        let existingSha = null;
-        const fileCheck = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${file.path}`, { headers });
-        if (fileCheck.ok) {
-          const fileData = await fileCheck.json();
-          existingSha = fileData.sha;
-        }
-
-        await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${file.path}`, {
-          method: "PUT", headers,
-          body: JSON.stringify({
-            message: `Update: ${file.path}`,
-            content: btoa(unescape(encodeURIComponent(file.content))),
-            branch: branchName,
-            sha: existingSha
-          })
+        filesToCommit.push({
+          path,
+          content: createMarkdown(title, condoInput, content, type, urgency),
         });
       }
 
-      // 3. Create Pull Request
-      const prPayload = {
-        title: isNewCommunity ? `Initialize Hub: ${condoInput}` : `Update: ${title} in ${condoInput}`,
-        head: branchName,
-        base: "master",
-        body: `Community Contribution for **${condoInput}**. Type: ${type}${type === 'broadcast' ? ` | Urgency: ${urgency}` : ''}`
-      };
+      // 5. Commit Files
+      for (const file of filesToCommit) {
+        const check = await fetch(`${repoUrl}/contents/${file.path}`, {
+          headers,
+        });
+        const existingSha = check.ok ? (await check.json()).sha : null;
 
-      console.log("Creating Pull Request with payload:", JSON.stringify(prPayload, null, 2));
+        // Base64 encode using modern Web Crypto compatible method
+        const encodedContent = btoa(
+          String.fromCharCode(...new TextEncoder().encode(file.content)),
+        );
 
-      // 3. Create Pull Request
-      const prResponse = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/pulls`, {
-        method: "POST", headers,
+        await fetch(`${repoUrl}/contents/${file.path}`, {
+          method: "PUT",
+          headers,
+          body: JSON.stringify({
+            message: `feat(${folder}): add ${file.path}`,
+            content: encodedContent,
+            branch: branchName,
+            sha: existingSha,
+          }),
+        });
+      }
+
+      // 6. Create Pull Request
+      const prTitle = isNewCommunity
+        ? `Initialize Hub: ${condoInput}`
+        : `Update: ${title} in ${condoInput}`;
+      const prBody = `### Community Contribution\n- **Condo:** ${condoInput}\n- **Type:** ${type}\n${type === "broadcast" ? `- **Urgency:** ${urgency}` : ""}`;
+
+      const prResponse = await fetch(`${repoUrl}/pulls`, {
+        method: "POST",
+        headers,
         body: JSON.stringify({
-          title: isNewCommunity ? `Initialize Hub: ${condoInput}` : `Update: ${title} in ${condoInput}`,
-          head: branchName, base: "master",
-          body: JSON.stringify(prPayload)
-        })
+          title: prTitle,
+          head: branchName,
+          base: CONFIG.DEFAULT_BRANCH,
+          body: prBody,
+        }),
       });
 
       const prResult = await prResponse.json();
-      // LOG: GitHub API Response status and result
-      console.log(`GitHub PR Response Status: ${prResponse.status}`);
-      if (!prResponse.ok) {
-        console.error("GitHub PR Error Detail:", JSON.stringify(prResult, null, 2));
-      } else {
-        console.log("Successfully created PR:", prResult.html_url);
-      }
+      if (!prResponse.ok)
+        throw new Error(prResult.message || "PR Creation Failed");
 
-      return new Response(JSON.stringify({ success: true, url: prResult.html_url }), {
-        status: 200, headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
-      });
-
+      return new Response(
+        JSON.stringify({ success: true, url: prResult.html_url }),
+        { status: 200, headers: CONFIG.CORS_HEADERS },
+      );
     } catch (err) {
-      return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { "Access-Control-Allow-Origin": "*" } });
+      return new Response(
+        JSON.stringify({ success: false, error: err.message }),
+        { status: 500, headers: CONFIG.CORS_HEADERS },
+      );
     }
-  }
+  },
 };

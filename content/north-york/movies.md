@@ -1,10 +1,12 @@
 ---
 layout: default
-title: "Hub Favorites"
+title: "Movies"
 condo: "North York"
-date: 2026-02-25T02:22:02.789Z
+date: 2026-03-01T14:30:40.279Z
 ---
 
-# Hub Favorites
+# Movies
 
-Neighbor movie ratings and reviews.
+
+
+Community favs.

@@ -1,0 +1,50 @@
+<div class="editor-toolbar" >
+    <label for="wiki-image-upload" class="upload-btn"
+        style="cursor: pointer; background: #673ab7; color: white; padding: 5px 15px; border-radius: 4px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;">
+        <i class="fas fa-image"></i> Add Image
+    </label>
+    <input type="file" id="wiki-image-upload" accept="image/*" style="display: none;">
+    <span id="upload-status" style="font-size: 0.8rem; color: #aaa;"></span>
+</div>
+
+<script>
+
+    const uploadInput = document.getElementById('wiki-image-upload');
+    const statusSpan = document.getElementById('upload-status');
+    const editorTextarea = document.getElementById('f-content');
+    const WORKER_URL = 'https://resihub-image-uploader.dekumar-ca.workers.dev';
+
+    uploadInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // 1. Update UI to "Processing"
+        statusSpan.innerText = "Uploading to R2...";
+        const placeholder = `\n![Uploading ${file.name}...]()\n`;
+        editorTextarea.setRangeText(placeholder);
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch(WORKER_URL, {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.url) {
+                // 2. Success: Replace placeholder with the permanent R2 link
+                const finalMarkdown = `\n![${file.name}](${data.url})\n`;
+                editorTextarea.value = editorTextarea.value.replace(placeholder, finalMarkdown);
+                statusSpan.innerText = "Upload complete!";
+                setTimeout(() => { statusSpan.innerText = ""; }, 3000);
+            }
+        } catch (err) {
+            console.error("Upload failed:", err);
+            statusSpan.innerText = "Upload failed!";
+            editorTextarea.value = editorTextarea.value.replace(placeholder, "");
+        }
+    });
+</script>

@@ -1,10 +1,12 @@
 ---
 layout: default
-title: "Restaurant Favorites"
+title: "Restaurants"
 condo: "Elm Drive"
-date: 2026-02-28T03:18:21.738Z
+date: 2026-03-01T14:29:13.373Z
 ---
 
-# Restaurant Favorites
+# Restaurants
 
-Local dining recommendations.
+
+
+Local eats.
