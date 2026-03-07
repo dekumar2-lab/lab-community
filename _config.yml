@@ -1,6 +1,7 @@
 # Settings to fix the subfolder paths
-baseurl: "/lab-community"
-url: "https://dekumar2-lab.github.io"
+# _config.yml
+url: "https://lab-community.pages.dev"
+baseurl: ""
 
 # Ensure Jekyll looks into these folders for your guides
 include: [content, assets]

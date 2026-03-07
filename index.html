@@ -26,8 +26,10 @@ title: Home
         <div class="community-grid" id="hubGrid">
             {% for building in condos %}
             {% assign alerts = site.pages | where: "layout", "broadcast" | where: "condo", building %}
-
-            <a href="{{ site.baseurl }}/content/{{ building | slugify }}/" class="hub-card" data-name="{{ building | downcase }}">
+            
+            {% comment %} Updated to use relative_url filter for consistent pathing {% endcomment %}
+            {% capture community_path %}/content/{{ building | slugify }}/{% endcapture %}
+            <a href="{{ community_path | relative_url }}" class="hub-card" data-name="{{ building | downcase }}">
                 {% if alerts.size > 0 %}
                 <div class="bell-container">
                     <i class="fa-solid fa-bell"></i><span class="notification-count">{{ alerts.size }}</span>
@@ -39,7 +41,8 @@ title: Home
             </a>
             {% endfor %}
 
-            <a href="{{ site.baseurl }}/submit.html?mode=new" class="hub-card static-card"
+            {% comment %} Updated static link for submit.html {% endcomment %}
+            <a href="{{ '/submit.html?mode=new' | relative_url }}" class="hub-card static-card"
                 style="border: 2px dashed var(--border); background: transparent; box-shadow: none;">
                 <i class="fas fa-plus"></i>
                 <h3 style="color: var(--text-muted);">New Hub</h3>
@@ -57,14 +60,12 @@ title: Home
 <script>
     function filterHubs() {
         const input = document.getElementById('communitySearch').value.toLowerCase();
-        const cards = document.querySelectorAll('.hub-card:not(.static-card)'); // Only filter actual community cards
+        const cards = document.querySelectorAll('.hub-card:not(.static-card)'); 
         const noResults = document.getElementById('noResults');
         let visibleCount = 0;
 
         for (let card of cards) {
             const name = card.getAttribute('data-name');
-            
-            // Safety check: only proceed if data-name exists
             if (name && name.includes(input)) {
                 card.style.display = "block";
                 visibleCount++;
@@ -73,7 +74,6 @@ title: Home
             }
         }
 
-        // Handle the "No Results" state
         if (noResults) {
             noResults.style.display = (visibleCount === 0 && input !== "") ? "block" : "none";
         }
