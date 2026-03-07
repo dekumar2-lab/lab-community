@@ -1,10 +1,16 @@
-# Settings to fix the subfolder paths
-# _config.yml
+# Site Settings
+title: ResiHub
+baseurl: "" # Leave empty if your site is at the root domain
 url: "https://lab-community.pages.dev"
-baseurl: ""
 
-# Ensure Jekyll looks into these folders for your guides
-include: [content, assets]
+# Force Jekyll to recognize the root as the source
+source: .
+destination: _site
+layouts_dir: _layouts
+includes_dir: _includes
 
-# Optional: Set a default theme as a fallback
-theme: jekyll-theme-cayman
+# Ensure Jekyll processes these specific folders
+include:
+  - _layouts
+  - _includes
+  - assets
