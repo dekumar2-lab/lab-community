@@ -1,11 +1,11 @@
 source "https://rubygems.org"
 
-# Use a standard Jekyll version compatible with Cloudflare
-gem "jekyll", "~> 4.3.2"
+gem "jekyll", "~> 4.3.4"
+# Add the missing theme here
+gem "jekyll-theme-cayman"
 
 group :jekyll_plugins do
   gem "jekyll-feed"
   gem "jekyll-seo-tag"
   gem "jekyll-sitemap"
-  # Add any other plugins you are using here 
 end
