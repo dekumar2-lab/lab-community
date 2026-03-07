@@ -6,6 +6,7 @@
             <i class="fa-solid fa-bars"></i>
         </button>
 
+        {% comment %} Use relative_url to ensure the link works from any sub-directory {% endcomment %}
         <a href="{{ '/' | relative_url }}" class="logo">
             <i class="fa-solid fa-city"></i> Resi<span>Hub</span>
         </a>
@@ -15,12 +16,13 @@
                 <option value="purple">Deep Purple</option>
                 <option value="blue">Blue</option>
             </select>
-            
+
             {% if current_condo %}
             <select class="community-switcher" onchange="location = this.value;">
                 <option value="#">Switch Community...</option>
                 {% assign condos = site.pages | map: 'condo' | uniq | compact %}
                 {% for c in condos %}
+                {% comment %} Constructing the path safely with filters {% endcomment %}
                 <option value="{{ '/content/' | append: (c | slugify) | append: '/' | relative_url }}" 
                     {% if c == current_condo %}selected{% endif %}>
                     {{ c }}
@@ -28,7 +30,7 @@
                 {% endfor %}
             </select>
             {% endif %}
-            
+
             <a href="{{ '/submit.html' | relative_url }}" class="btn-primary">
                 <i class="fa-solid fa-plus"></i> <span>Contribute</span>
             </a>
