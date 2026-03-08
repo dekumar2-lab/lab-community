@@ -7,9 +7,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-{% comment %} 
-  If you have a main CSS file, link it here using relative_url.
-  Example: <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-{% endcomment %}
+<!-- Automatically generates a timestamp like style.css?v=1710000000 -->
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 
-{% include custom-styles.html %}
+<!-- {% include custom-styles.html %} -->

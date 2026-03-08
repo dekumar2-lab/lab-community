@@ -1,0 +1,2311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home | ResiHub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<!-- Automatically generates a timestamp like style.css?v=1710000000 -->
+<link rel="stylesheet" href="/assets/css/style.css?v=1773000300">
+
+<!-- <!-- ---
+# Front matter is required even if it's empty!
+---
+<style>
+  /* ================================================================
+1. CSS RESET & GLOBAL DEFAULTS
+================================================================
+*/
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :root {
+    /* DEFAULT THEME: DEEP PURPLE */
+    --primary: #9333ea;
+    --primary-hover: #7e22ce;
+    --primary-light: rgba(147, 51, 234, 0.1);
+    --primary-glow: rgba(147, 51, 234, 0.3);
+    --accent-pink: #db2777;
+    --text-main: #1e1b4b;
+    --text-muted: #64748b;
+    --border: rgba(226, 232, 240, 0.4);
+    --glass-white: rgba(255, 255, 255, 0.75);
+    --glass-card: rgba(255, 255, 255, 0.85);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    --shadow-hover: 0 12px 40px rgba(147, 51, 234, 0.15);
+    --glossy-accent: linear-gradient(135deg, #f472b6 0%, #db2777 100%);
+    --bg-overlay: linear-gradient(135deg, rgba(248, 250, 252, 0.92) 0%, rgba(248, 250, 252, 0.8) 100%);
+    --transition-speed: 0.3s;
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
+    --border-radius-sm: 10px;
+  }
+
+  [data-theme="blue"] {
+    /* ALTERNATE THEME: YESTERDAY BLUE */
+    --primary: #3d70df;
+    --primary-hover: #3b65db;
+    --primary-light: rgba(37, 99, 235, 0.1);
+    --primary-glow: rgba(37, 99, 235, 0.3);
+    --accent-pink: #0ea5e9;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --border: rgba(203, 213, 225, 0.5);
+    --glass-white: rgba(255, 255, 255, 0.85);
+    --glass-card: rgba(255, 255, 255, 0.9);
+    --shadow: 0 8px 32px 0 rgba(37, 99, 235, 0.1);
+    --shadow-hover: 0 12px 40px rgba(37, 99, 235, 0.2);
+    --glossy-accent: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+    --bg-overlay: linear-gradient(135deg, rgba(240, 249, 255, 0.95) 0%, rgba(224, 242, 254, 0.85) 100%);
+    --bell-bg: #ef4444;
+    /* Keep red for high contrast even in blue theme */
+    --bell-hover-glow: rgba(239, 68, 68, 0.6);
+  }
+
+  /* ================================================================
+2. CORE LAYOUT
+================================================================
+*/
+  body {
+    /* font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif; */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=2000');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    overflow-x: hidden;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-overlay);
+    z-index: -1;
+    transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Custom Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+  }
+
+  /* ================================================================
+3. TYPOGRAPHY
+================================================================
+*/
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .logo {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  .logo:hover i {
+    transform: rotate(-10deg) scale(1.2);
+    color: var(--primary-hover);
+  }
+
+  .logo span {
+    color: var(--primary);
+    transition: color 0.3s ease;
+  }
+
+  .logo:hover span {
+    color: var(--primary-hover);
+  }
+
+  .stats-bar {
+    display: flex;
+    gap: 2rem;
+    /* font-size: 0.9rem; */
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+
+  .stats-bar strong {
+    color: var(--primary) !important;
+    /* font-size: 1.1rem; */
+  }
+
+  .bell-container .fa-bell {
+    font-size: 16px !important;
+    /* Forces the icon to stay small */
+    transition: transform 0.3s ease;
+  }
+
+  /* Theme-specific overrides: When the data-theme is blue, 
+   the bell can adopt a blue-accented shadow or color.
+*/
+  [data-theme="blue"] .bell-container {
+    background: var(--primary);
+    /* Uses blue primary from theme */
+    box-shadow: 0 4px 12px var(--primary-glow);
+  }
+
+  /* ==========================================================================
+   Y. ANIMATIONS & HOVER EFFECTS
+   ========================================================================== */
+
+  /* Hovering over the bell container triggers a sophisticated 
+   bell-ringing (shake) animation.
+*/
+  .bell-container:hover {
+    transform: translateY(-2px) scale(1.05);
+    filter: brightness(1.1);
+  }
+
+  .bell-container:hover .fa-bell {
+    animation: bell-ring 0.6s both;
+  }
+
+  @keyframes bell-ring {
+
+    0%,
+    100% {
+      transform: rotate(0);
+    }
+
+    15% {
+      transform: rotate(20deg);
+    }
+
+    30% {
+      transform: rotate(-15deg);
+    }
+
+    45% {
+      transform: rotate(10deg);
+    }
+
+    60% {
+      transform: rotate(-5deg);
+    }
+
+    80% {
+      transform: rotate(2deg);
+    }
+  }
+
+  /* Notification Badge styling for the number displayed 
+   on top of the bell.
+*/
+  .notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #ffffff;
+    color: #ef4444;
+    font-size: 9px;
+    font-weight: 800;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ef4444;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  [data-theme="blue"] .notification-badge {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+
+  /* ================================================================
+4. SITE HEADER
+================================================================
+*/
+  .site-header {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    transition: all var(--transition-speed) ease;
+  }
+
+  .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo i {
+    color: var(--primary);
+    font-size: 1.8rem;
+  }
+
+  .logo span {
+    color: var(--primary);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  /* ================================================================
+5. SIDEBAR NAVIGATION
+================================================================
+*/
+  .app-shell {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    min-height: 80vh;
+  }
+
+  .sidebar {
+    width: 350px;
+    padding: 2.5rem 1.5rem;
+    position: sticky;
+    top: 60px;
+    height: calc(90vh - 60px);
+    overflow-y: auto;
+  }
+
+  .nav-section {
+    /* background: var(--glass-white);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); */
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-md);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Architectural Detail Watermark */
+  .nav-section::after {
+    content: "\f1ad";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    bottom: -15px;
+    right: -5px;
+    font-size: 3.5rem;
+    color: var(--primary);
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
+  .nav-section small {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 0.65rem;
+    margin-bottom: 12px;
+    padding-left: 8px;
+    border-left: 4px solid var(--primary);
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.85rem 1rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 4px;
+    margin-top: 4px;
+  }
+
+  .nav-item i {
+    width: 20px;
+    font-size: 1.15rem;
+  }
+
+  .nav-item:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    transform: translateX(5px);
+  }
+
+  .nav-item.active {
+    background: var(--primary);
+    color: #fff !important;
+    box-shadow: 0 8px 16px var(--primary-glow);
+  }
+
+  /* ================================================================
+6. MAIN CONTENT & CARDS
+================================================================
+*/
+  .main-content {
+    flex: 1;
+    /* padding: 2.5rem 3.5rem; */
+    max-width: 1050px;
+    min-width: 0;
+    /* Prevents flex-items from breaking layout */
+    padding: 2rem;
+    transition: padding 0.3s ease;
+  }
+
+  .content-card {
+    /* background: var(--glass-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px); */
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-lg);
+    padding: 3rem;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .content-card::after {
+    content: "\f1ad";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    bottom: -40px;
+    right: -30px;
+    font-size: 12rem;
+    color: var(--primary);
+    opacity: 0.02;
+    transform: rotate(-10deg);
+    pointer-events: none;
+  }
+
+  /* ================================================================
+7. COMMUNITY GRID & HUB CARDS
+================================================================
+*/
+  .community-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .community-overview h1,
+  .wiki-render h1 {
+    margin-bottom: 2rem;
+  }
+
+  .community-overview p,
+  .wiki-render p {
+    margin: 1rem;
+  }
+
+  /* Container Reset */
+  .wiki-render,
+  .wiki-render textarea {
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    word-wrap: break-word;
+    /* font-weight: 700 !important; */
+    /* Forces normal weight for body text */
+    color: #1f2328;
+  }
+
+  .wiki-render {
+    font-size: 14px;
+  }
+
+  /* Fix the Bolding Issue */
+  .wiki-render p,
+  .wiki-render li {
+    font-weight: 400;
+    /* Standard weight */
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+
+  .wiki-render strong {
+    font-weight: 600;
+    /* Medium-bold for readability */
+    color: #000;
+  }
+
+  /* Proper Heading Scales */
+  .wiki-render h1 {
+    font-size: 2em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #d0d7de;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .wiki-render h2 {
+    font-size: 1.5em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #d0d7de;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .wiki-render h3 {
+    font-size: 1.25em;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  /* Horizontal Rule */
+  .wiki-render hr {
+    height: 0.25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: #d0d7de;
+    border: 0;
+  }
+
+  .hub-card {
+    /*aspect-ratio: 1 / 1;*/
+    /* Forces height to match width precisely */
+    width: 100%;
+    /* Let the grid determine the width */
+    min-width: 200px;
+
+    /* REFINED PADDING & ALIGNMENT */
+    padding: 1rem;
+    /* Reduced from 2.5rem for a tighter, more professional feel */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Centers content vertically in the square */
+
+    background: var(--glass-white);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: visible;
+    /* Keeps bell visible */
+  }
+
+  .hub-card:hover {
+    transform: translateY(-6px);
+    /* Slightly subtler lift */
+    border-color: var(--primary);
+    box-shadow: 0 12px 30px var(--primary-glow);
+    background: #fff;
+  }
+
+  /* Ensuring icons and text don't create extra unwanted space */
+  .hub-card i {
+    margin-bottom: 4px;
+    font-size: 2.5rem;
+    /* Standardized size */
+  }
+
+  .hub-card h3 {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .hub-card p {
+    margin: 0;
+    font-size: 0.7rem;
+    /* color: var(--primary); */
+    font-weight: 800;
+    /* text-transform: uppercase; */
+  }
+
+  .fa-landmark {
+    font-size: 2rem;
+    color: var(--primary);
+    transition: transform 0.3s ease;
+  }
+
+  .hub-card.fa-plus {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+    opacity: 0.5;
+  }
+
+  /* .btn-primary-header.fa-plus{
+    color: #fff;
+     margin-bottom: 0; 
+      font-size: 1rem; 
+  } */
+
+  .hub-card:hover i {
+    transform: scale(1.1);
+  }
+
+  /* --- THE FIX: BLUE THEME VISIBILITY --- */
+  [data-theme="blue"] .bell-container {
+    border: 2px solid #ffffff;
+    /* Adds a white ring to separate from blue card border */
+    box-shadow: 0 0 15px var(--bell-hover-glow);
+  }
+
+  .hub-card:hover .bell-container {
+    animation: bell-shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+    transform: scale(1.1);
+  }
+
+  @keyframes bell-shake {
+
+    10%,
+    90% {
+      transform: translate3d(-0.5px, 0, 0) rotate(-2deg);
+    }
+
+    20%,
+    80% {
+      transform: translate3d(1px, 0, 0) rotate(2deg);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-1px, 0, 0) rotate(-2deg);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(1px, 0, 0) rotate(2deg);
+    }
+  }
+
+  .bell-container i {
+    font-size: 16px !important;
+  }
+
+  [data-theme="blue"] .notification-count {
+    border-color: #ffffff;
+    /* High contrast for blue mode */
+  }
+
+  /* --- COMPACT FLOATING BELL --- */
+  .bell-container {
+    position: absolute;
+    top: -12px;
+    /* Floats slightly above the card edge */
+    right: -10px;
+    background: #ef4444;
+    /* Alert Red from your screenshot */
+    width: 32px;
+    /* Compact size */
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .bell-container i {
+    font-size: 14px !important;
+    /* Forces bell to be small */
+  }
+
+  .bell-container:hover {
+    transform: scale(1.1) rotate(10deg);
+  }
+
+  /* Redesigned Notification Count */
+  .notification-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: white;
+    color: #ef4444;
+    font-size: 9px;
+    font-weight: 900;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ef4444;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ================================================================
+8. FORMS & INPUT STYLES
+================================================================
+*/
+
+  .form-header p {
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  .form-group {
+    margin-bottom: 2rem;
+  }
+
+  .form-group label,
+  .submit-editor-container-box {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  input,
+  /* textarea, */
+  select {
+    width: 100%;
+    padding: 1.1rem;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    font-family: inherit;
+    /* font-size: 0.7rem; */
+    background: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 4px var(--primary-light);
+  }
+
+  /* ================================================================
+9. BUTTONS & ACTIONS
+================================================================
+*/
+
+  /* Sidebar Action Buttons Container */
+  .sidebar-footer-action {
+     margin-top: 1.5rem;
+    /*padding-top: 1.5rem; */
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+  }
+
+  .btn-primary-header,
+  .btn-submit-main,
+  .btn-create-wiki,
+  .btn-edit-action,
+  .btn-broadcast-sidebar {
+    background: var(--primary);
+    color: #fff !important;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 12px var(--primary-glow);
+    cursor: pointer;
+    gap: 10px;
+    border-radius: 10px;
+    /* border: 1px solid #fecaca; */
+    padding: 0.75rem;
+  }
+
+  .btn-edit-action {
+    position: absolute;
+    bottom: 24px;
+    /* Anchored to the bottom corner */
+    right: 24px;
+  }
+
+  .btn-broadcast-sidebar {
+    margin-top: 1rem;
+  }
+
+  .drawer-item {
+    padding: 1rem 1rem 0rem 1rem;
+    border-bottom: 1px solid var(--border);
+    border-left: 14px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 1rem;
+  }
+
+  .drawer-item:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.01);
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .drawer-header small {
+    color: var(--text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .drawer-text {
+    padding: 0rem 1rem;
+  }
+
+  .drawer-text h1 {
+    font-size: 1rem;
+  }
+
+  .drawer-item h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    font-weight: 800;
+  }
+
+  .drawer-text {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Architectural Watermark for Drawer */
+  #alert-drawer::after {
+    content: "\f0a1";
+    /* Bullhorn Icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 8rem;
+    color: var(--primary);
+    opacity: 0.03;
+    pointer-events: none;
+  }
+
+  .tets {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    background: #fff1f2;
+    color: #ef4444 !important;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid #fecaca;
+  }
+
+  .btn-primary-header {
+    height: 40px;
+    padding: 0 1.4rem;
+    border-radius: 12px;
+    gap: 8px;
+    width: 100%;
+    white-space: nowrap;
+    /* Prevents word wrap strictly */
+    overflow: hidden;
+    /* Ensures no text bleed */
+    text-overflow: ellipsis;
+    /* Adds "..." if the container is tiny */
+  }
+
+  .btn-submit-main {
+    width: 100%;
+    padding: 1.25rem;
+    border-radius: 16px;
+    /* font-size: 1rem; */
+    gap: 12px;
+  }
+
+  .btn-submit-main:hover,
+  .btn-primary-header:hover,
+  .btn-edit-action:hover,
+  .btn-sync:hover {
+    filter: brightness(1.1);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px var(--primary-glow);
+  }
+
+  .btn-cancel {
+    background: transparent;
+    color: var(--text-muted);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .btn-cancel:hover {
+    background: #f1f5f9;
+    color: var(--text-main);
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 20px;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .form-actions>* {
+    flex: 1;
+  }
+
+  #submissionForm {
+    margin-top: 2rem;
+  }
+
+  #submissionForm .editor-container-box {
+    border: none !important;
+  }
+
+  #submissionForm .markdown-preview {
+    background: #fff !important;
+  }
+
+  #submissionForm textarea #drawer-form textarea {
+    background: #fff !important;
+    border-radius: 0 0 14px !important;
+    width: 100% !important;
+    min-height: 150px !important;
+    overflow-y: auto;
+  }
+
+  /* ================================================================
+10. ALERT & BROADCAST SYSTEM
+================================================================
+*/
+  .alert-collapsible-wrapper {
+    margin-bottom: 2.5rem;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  .alert-strip-header {
+    background: var(--text-main);
+    color: white;
+    padding: 1.1rem 1.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .live-indicator {
+    width: 10px;
+    height: 10px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 12px;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
+    animation: pulse 2s infinite;
+  }
+
+  .alert-drawer-body {
+    display: none;
+    background: transparent;
+    max-height: 350px;
+    overflow-y: auto;
+  }
+
+  .alert-drawer-body.is-open {
+    display: block;
+  }
+
+  .urgency-low {
+    border-left-color: #94a3b8;
+  }
+
+  .urgency-medium {
+    border-left-color: #3b82f6;
+  }
+
+  .urgency-high {
+    border-left-color: #f59e0b;
+  }
+
+  .urgency-critical {
+    border-left-color: #ef4444;
+    animation: critical-bg 2s infinite;
+  }
+
+  @keyframes critical-bg {
+
+    0%,
+    100% {
+      background: #fff;
+    }
+
+    50% {
+      background: rgba(239, 68, 68, 0.05);
+    }
+  }
+
+  /* ================================================================
+11. SEARCH & CONTROLS
+================================================================
+*/
+  .search-wrapper {
+    position: relative;
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .search-wrapper i {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
+
+  #communitySearch {
+    padding: 1rem 1rem 1rem 3.8rem;
+    border: 2px solid var(--border);
+    border-radius: 18px;
+    font-size: 0.7rem;
+  }
+
+  /* ================================================================
+12. THEME SWITCHER SPECIFICS
+================================================================
+*/
+  .community-switcher {
+    appearance: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 40px 10px 16px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+  }
+
+  /* ================================================================
+13. FOOTER
+================================================================
+*/
+  .site-footer {
+    background: var(--glass-white);
+    backdrop-filter: blur(15px);
+    border-top: 1px solid var(--border);
+    padding: 1rem;
+    margin-top: auto;
+  }
+
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-weight: 800;
+    font-size: 1.3rem;
+  }
+
+  .footer-logo span {
+    color: var(--primary);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 35px;
+  }
+
+  .footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: var(--primary);
+  }
+
+  /* ================================================================
+15. UTILITIES & ANIMATIONS
+================================================================
+*/
+  @keyframes pulse {
+
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
+  }
+
+  .fa-spin {
+    animation: fa-spin 1s infinite linear;
+  }
+
+  @keyframes fa-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .editor-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 1000px;
+    background: #fff;
+    z-index: 10000;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #e2e8f0;
+  }
+
+  .editor-drawer.is-open {
+    transform: translateX(0);
+  }
+
+  .drawer-inner {
+    height: 100vh;
+    height: 100dvh;
+    /* dvh fixes mobile height */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  #drawer-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .hub-context {
+    background: #f5f3ff;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd6fe;
+    font-variant: all-small-caps;
+  }
+
+  .hub-context small {
+    display: block;
+    font-size: 10px;
+    color: #7c3aed;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .field {
+    margin-bottom: 12px;
+    flex-shrink: 0;
+  }
+
+  .field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .field input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  /* THE FLEXIBLE BOX */
+  .editor-container-box {
+    flex: 1;
+    /* Stretch to fill all available space */
+    display: block !important;
+    flex-direction: column;
+    min-height: 200px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 10px 0px;
+  }
+
+  .editor-container-box label,
+  .editor-container-box .tools {
+    padding: 10px 5px;
+  }
+
+  .editor-container-box label {
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .submit-editor-container-box {
+    /*flex: 1;*/
+    /* Stretch to fill all available space */
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .submit-editor-container-box>textarea {
+    border-radius: 0 0 14px;
+  }
+
+  .submit-toolbar {
+    margin-top: 1rem;
+    background: #f8fafc;
+    padding: 6px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px 6px 0 0;
+    flex-shrink: 0;
+    /* border-bottom: 1px solid #cbd5e1; */
+  }
+
+  /* Specifically target the Markdown render area */
+  .wiki-render em {
+    font-style: italic !important;
+    font-weight: normal !important;
+    /* Force un-bolding if everything is currently bold */
+    color: #24292f;
+  }
+
+  .wiki-render strong,
+  .wiki-render b {
+    font-weight: 600 !important;
+    /* GitHub-style semi-bold */
+  }
+
+
+
+  .toolbar {
+    background: #f8fafc;
+    padding: 6px 10px;
+    border-bottom: 1px solid #cbd5e1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tools button {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    padding: 2px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    margin-right: 4px;
+  }
+
+  .modes {
+    display: flex;
+    background: #e2e8f0;
+    padding: 2px;
+    border-radius: 4px;
+  }
+
+  .modes button {
+    border: none;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    background: transparent;
+    color: #64748b;
+  }
+
+  .modes button.active {
+    background: #fff;
+    color: var(--primary);
+    ;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  #f-content,
+  .markdown-preview {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    outline: none;
+    /* font-size: 14px; */
+    line-height: 1.6;
+    overflow-y: auto;
+    width: 100%;
+    min-height: 200px;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  .markdown-preview {
+    padding: 0 !important;
+  }
+
+  .submit-editor-container-box .markdown-preview {
+    background: #fafafa !important;
+    border: 1px solid var(--border) !important;
+  }
+
+  .markdown-preview {
+    /*background: #fafafa;*/
+    flex: 1;
+    /* Tells the textarea to stretch to the bottom of the container */
+    width: 100%;
+    resize: vertical;
+    /* Allows the user to manually drag-resize if they want */
+    min-height: 200px;
+    padding: 15px;
+    /*border: 1px solid var(--border);*/
+    border-radius: 0 0 6px 6px;
+    /* Rounds only bottom corners to match toolbar */
+    outline: none;
+    font-family: inherit;
+    line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  .markdown-preview p,
+  .markdown-preview ol {
+    padding: 10px;
+  }
+
+  /* .#-preview{
+  border: 1px solid var(--border);
+  } */
+
+  .drawer-footer {
+    padding-top: 15px;
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .btn-sync {
+    flex: 1;
+    background: var(--primary);
+    ;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .btn-cancel {
+    flex: 1;
+  }
+
+  .drawer-close,
+  .btn-cancel {
+    background: var(--primary-light);
+    color: #475569;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* ================================================================
+  FINISH
+  ================================================================
+  */
+
+  .mobile-menu-toggle{
+    display: none;
+  }
+
+
+ /*
+IMAGE UPLOAD
+ */
+
+  .editor-toolbar{margin-bottom: 10px; display: flex; align-items: center; gap: 10px;}
+  .wiki-image-upload{
+  cursor: pointer; background: #673ab7; color: white; padding: 5px 15px; border-radius: 4px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;}
+  .upload-status{font-size: 0.8rem; color: #aaa;}
+
+
+  /* ================================================================
+   1. DESKTOP & IPAD DEFAULT (Greater than 768px)
+   ================================================================ */
+  /* ================================================================
+   1. TABLET & MOBILE VIEW (768px and Below)
+   ================================================================ */
+  @media screen and (max-width: 768px) {
+
+    /* FIX: Ensure Header stays visible with background */
+    .site-header {
+      background: #fff !important;
+      border-bottom: 1px solid var(--border);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    /* FIX: Hide 'Create Hub' button on mobile */
+    .btn-primary-header {
+      display: none !important;
+    }
+
+    /* FIX: Reduce excessive padding in main content */
+    .main-content {
+      padding: 15px !important;
+      /* Reduced from 2rem */
+      margin-top: 70px !important;
+      /* Push content below fixed header */
+      background: #fafafa;
+      /* Restore background color */
+      min-height: 100vh;
+    }
+
+    .content-card {
+      padding: 10px;
+    }
+
+    /* NAVIGATION: Hamburger & Sidebar drawer */
+    #navToggle {
+      display: block !important;
+      z-index: 2001;
+    }
+
+    .sidebar {
+      position: fixed !important;
+      left: -320px;
+      width: 300px;
+      height: 100vh;
+      background: #fff !important;
+      /* Restore Sidebar background */
+      z-index: 2000 !important;
+      transition: left 0.3s ease-in-out;
+      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+      padding-top: 20px;
+    }
+
+    .sidebar.is-open {
+      left: 0 !important;
+    }
+
+    /* GRID: Adjust Hub Cards for smaller screens */
+    .community-grid {
+      grid-template-columns: 1fr !important;
+      gap: 12px !important;
+      padding: 5px 0;
+    }
+
+    /* FORMS: Compact form for mobile */
+    .submission-container {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 15px !important;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .form-actions {
+      flex-direction: column !important;
+      width: 100% !important;
+      padding: 0;
+    }
+
+    .community-switcher {
+      display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex !important; /* Force show */
+        align-items: center;
+        justify-content: center;
+        background: var(--primary-light); /* Light purple tint */
+        color: var(--primary);
+        border: none;
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-right: 10px; /* Space between button and logo */
+    }
+
+    .mobile-menu-toggle:active {
+        transform: scale(0.9); /* Visual feedback when tapped */
+        background: var(--primary-glow);
+    }
+
+    .mobile-menu-toggle i {
+        font-size: 1.25rem;
+    }
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        height: 60px;
+        background: #fff; /* Restore background */
+        border-bottom: 1px solid var(--border);
+    }
+
+    /* Ensure the logo doesn't shrink too much */
+    .logo {
+        font-size: 1.1rem !important;
+        white-space: nowrap;
+    }
+  }
+
+  /* ================================================================
+   2. IPHONE OPTIMIZATION (480px and Below)
+   ================================================================ */
+  @media screen and (max-width: 480px) {
+    .sidebar {
+      width: 280px !important;
+      left: -280px;
+    }
+
+    .content-card {
+      padding: 10px;
+    }
+
+    /* Fix stats bar overlapping on tiny screens */
+    .stats-bar {
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px;
+      background: var(--primary-light);
+      border-radius: 8px;
+    }
+
+    /* Shrink Header Logo to save space */
+    .logo {
+      font-size: 1.1rem !important;
+    }
+
+    .community-switcher {
+      display: none;
+    }
+  }
+</style> --> -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css?v=">
+</head>
+
+<body>
+    
+    
+
+    <!-- Header.html -->
+    <header class="site-header">
+    <div class="header-container">
+        <button class="mobile-menu-toggle" id="navToggle" aria-label="Toggle Navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        
+        <a href="/" class="logo">
+            <i class="fa-solid fa-city"></i> Resi<span>Hub</span>
+        </a>
+
+        <div class="header-actions">
+            <select id="themeToggle" class="community-switcher" aria-label="Switch Theme">
+                <option value="purple">Deep Purple</option>
+                <option value="blue">Blue</option>
+            </select>
+
+            
+
+            <a href="/submit.html" class="btn-primary-header">
+                <i class="fa-solid fa-plus"></i> <span>Contribute</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+    <div class="app-shell">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <aside class="sidebar">
+    <nav class="sidebar-nav" id="sideNav">
+        <div class="nav-section">
+            <small>DASHBOARD</small>
+            <div class="sidebar-footer-action"></div>
+            <a href="/" class="nav-item active">
+                <i class="fa-solid fa-grip"></i> Overview
+            </a>
+            <!-- <a href="/submit.html?mode=new" class="nav-item">
+                <i class="fa-solid fa-plus"></i> New District
+            </a> -->
+            <a href="/general/daily-updates.html"
+                class="nav-item ">
+                <i class="fa-solid fa-sun"></i> Daily Updates
+            </a>
+        </div>
+
+        
+
+        <div class="nav-section">
+            <small>GLOBAL COLLECTIVE</small>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            <div class="sidebar-footer-action">
+                <a href="/broadcast.html" class="nav-item secondary">
+                    <i class="fa-solid fa-bullhorn"></i> Send Community Broadcast
+                </a>
+                <!-- <a href="/submit.html" class="nav-item secondary">
+                    <i class="fa-solid fa-circle-plus"></i> Contribute to ResiHub
+                </a> -->
+                <a href="#" class="nav-item secondary" onclick="togglePanel()">
+                    <i class="fa-solid fa-circle-plus"></i> Contribute to ResiHub
+                </a>
+                <!-- <a href="/submit.html?condo=General" class="btn-global-post" style="margin-top: 10px;">
+                            <i class="fa-solid fa-earth-americas"></i> Post to Global
+                        </a> -->
+            </div>
+        </div>
+    </nav>
+</aside>
+
+        <main class="main-content">
+            
+
+            <article class="content-card">
+                
+                <div class="wiki-render" data-raw-md="&lt;div class=&quot;home-watermark-wrapper&quot;&gt;
+    &lt;div style=&quot;text-align: center;&quot;&gt;
+        &lt;h1&gt;The Hub Collective&lt;/h1&gt;
+        &lt;p style=&quot;color: var(--text-muted); font-size: 1rem; max-width: 650px; margin: 2rem auto 2rem auto; line-height: 1.6;&quot;&gt;
+            The unified intelligence layer for modern districts. Select a community hub to access local documentation or broadcast a dispatch.
+        &lt;/p&gt;
+
+        &lt;section class=&quot;dashboard-controls&quot;&gt;
+            &lt;div class=&quot;stats-bar&quot;&gt;
+                {% assign condos = site.pages | map: &#39;condo&#39; | uniq | compact %}
+                &lt;span&gt;&lt;strong&gt;{{ condos.size }}&lt;/strong&gt; Active Districts&lt;/span&gt;
+                &lt;span&gt;&lt;strong&gt;{{ site.pages | where_exp: &quot;item&quot;, &quot;item.path contains &#39;content/&#39;&quot; | size }}&lt;/strong&gt; Knowledge Pages&lt;/span&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;search-wrapper&quot;&gt;
+                &lt;i class=&quot;fa-solid fa-magnifying-glass&quot;&gt;&lt;/i&gt;
+                &lt;input type=&quot;text&quot; id=&quot;communitySearch&quot; placeholder=&quot;Find a community by name...&quot; onkeyup=&quot;filterHubs()&quot;&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+
+        &lt;div class=&quot;community-grid&quot; id=&quot;hubGrid&quot;&gt;
+            {% for building in condos %}
+            {% assign alerts = site.pages | where: &quot;layout&quot;, &quot;broadcast&quot; | where: &quot;condo&quot;, building %}
+
+            &lt;a href=&quot;{{ site.baseurl }}/content/{{ building | slugify }}/&quot; class=&quot;hub-card&quot; data-name=&quot;{{ building | downcase }}&quot;&gt;
+                {% if alerts.size &gt; 0 %}
+                &lt;div class=&quot;bell-container&quot;&gt;
+                    &lt;i class=&quot;fa-solid fa-bell&quot;&gt;&lt;/i&gt;&lt;span class=&quot;notification-count&quot;&gt;{{ alerts.size }}&lt;/span&gt;
+                &lt;/div&gt;
+                {% endif %}
+                &lt;i class=&quot;fa-solid fa-landmark&quot;&gt;&lt;/i&gt;
+                &lt;h3 style=&quot;font-weight: 700;&quot;&gt;{{ building }}&lt;/h3&gt;
+                &lt;p&gt;Enter Collective →&lt;/p&gt;
+            &lt;/a&gt;
+            {% endfor %}
+
+            &lt;a href=&quot;{{ site.baseurl }}/submit.html?mode=new&quot; class=&quot;hub-card static-card&quot;
+                style=&quot;border: 2px dashed var(--border); background: transparent; box-shadow: none;&quot;&gt;
+                &lt;i class=&quot;fas fa-plus&quot;&gt;&lt;/i&gt;
+                &lt;h3 style=&quot;color: var(--text-muted);&quot;&gt;New Hub&lt;/h3&gt;
+                &lt;p style=&quot;color: var(--text-muted);&quot;&gt;Register Community&lt;/p&gt;
+            &lt;/a&gt;
+
+            &lt;div id=&quot;noResults&quot; style=&quot;display: none; grid-column: 1 / -1; padding: 3rem; color: var(--text-muted);&quot;&gt;
+                &lt;i class=&quot;fa-solid fa-magnifying-glass&quot; style=&quot;font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;&quot;&gt;&lt;/i&gt;
+                &lt;p&gt;No communities match your search.&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+    function filterHubs() {
+        const input = document.getElementById(&#39;communitySearch&#39;).value.toLowerCase();
+        const cards = document.querySelectorAll(&#39;.hub-card:not(.static-card)&#39;); // Only filter actual community cards
+        const noResults = document.getElementById(&#39;noResults&#39;);
+        let visibleCount = 0;
+
+        for (let card of cards) {
+            const name = card.getAttribute(&#39;data-name&#39;);
+            
+            // Safety check: only proceed if data-name exists
+            if (name &amp;&amp; name.includes(input)) {
+                card.style.display = &quot;block&quot;;
+                visibleCount++;
+            } else {
+                card.style.display = &quot;none&quot;;
+            }
+        }
+
+        // Handle the &quot;No Results&quot; state
+        if (noResults) {
+            noResults.style.display = (visibleCount === 0 &amp;&amp; input !== &quot;&quot;) ? &quot;block&quot; : &quot;none&quot;;
+        }
+    }
+&lt;/script&gt;">
+                    <div class="home-watermark-wrapper">
+    <div style="text-align: center;">
+        <h1>The Hub Collective</h1>
+        <p style="color: var(--text-muted); font-size: 1rem; max-width: 650px; margin: 2rem auto 2rem auto; line-height: 1.6;">
+            The unified intelligence layer for modern districts. Select a community hub to access local documentation or broadcast a dispatch.
+        </p>
+
+        <section class="dashboard-controls">
+            <div class="stats-bar">
+                
+                <span><strong>2</strong> Active Districts</span>
+                <span><strong>10</strong> Knowledge Pages</span>
+            </div>
+
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="communitySearch" placeholder="Find a community by name..." onkeyup="filterHubs()">
+            </div>
+        </section>
+
+        <div class="community-grid" id="hubGrid">
+            
+            
+
+            <a href="/content/elm-drive/" class="hub-card" data-name="elm drive">
+                
+                <div class="bell-container">
+                    <i class="fa-solid fa-bell"></i><span class="notification-count">1</span>
+                </div>
+                
+                <i class="fa-solid fa-landmark"></i>
+                <h3 style="font-weight: 700;">Elm Drive</h3>
+                <p>Enter Collective →</p>
+            </a>
+            
+            
+
+            <a href="/content/north-york/" class="hub-card" data-name="north york">
+                
+                <i class="fa-solid fa-landmark"></i>
+                <h3 style="font-weight: 700;">North York</h3>
+                <p>Enter Collective →</p>
+            </a>
+            
+
+            <a href="/submit.html?mode=new" class="hub-card static-card"
+                style="border: 2px dashed var(--border); background: transparent; box-shadow: none;">
+                <i class="fas fa-plus"></i>
+                <h3 style="color: var(--text-muted);">New Hub</h3>
+                <p style="color: var(--text-muted);">Register Community</p>
+            </a>
+
+            <div id="noResults" style="display: none; grid-column: 1 / -1; padding: 3rem; color: var(--text-muted);">
+                <i class="fa-solid fa-magnifying-glass" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                <p>No communities match your search.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterHubs() {
+        const input = document.getElementById('communitySearch').value.toLowerCase();
+        const cards = document.querySelectorAll('.hub-card:not(.static-card)'); // Only filter actual community cards
+        const noResults = document.getElementById('noResults');
+        let visibleCount = 0;
+
+        for (let card of cards) {
+            const name = card.getAttribute('data-name');
+            
+            // Safety check: only proceed if data-name exists
+            if (name && name.includes(input)) {
+                card.style.display = "block";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        }
+
+        // Handle the "No Results" state
+        if (noResults) {
+            noResults.style.display = (visibleCount === 0 && input !== "") ? "block" : "none";
+        }
+    }
+</script>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <!-- Editor panel -->
+<div id="editor-panel" class="editor-drawer">
+    <div class="drawer-inner">
+        <div class="drawer-header">
+            <h2 style="margin:0; font-size: 1.2rem;">Contribute</h2>
+            <button onclick="togglePanel()" class="drawer-close">&times;</button>
+        </div>
+
+        <form id="drawer-form">
+            <!-- <div class="hub-context">
+                <label for="condo">Community / Building Hub</label> 
+                <strong id="target-display">GENERAL HUB</strong>
+            </div> -->
+
+            <div class="field">
+                <!-- <label for="condo">Resource Title</label> -->
+                <input type="text" class="hub-context" id="condo" name="condo"
+                    >
+            </div>
+
+            <div class="field">
+                <label for="title">Resource Title</label>
+                <input type="text" class="hub-context" id="title" name="title"
+                    >
+            </div>
+
+            <div class="editor-container-box">
+                <label for="content">Documentation Content (Markdown Supported)</label>
+                <div class="submit-toolbar">
+                    <div class="tools">
+                        <button type="button" onclick="addTag('h')">H</button>
+                        <button type="button" onclick="addTag('b')">B</button>
+                        <button type="button" onclick="addTag('i')">I</button> <button type="button"
+                            onclick="addTag('ul')">ul</button> <button type="button" onclick="addTag('ol')">ol</button>
+                        <button type="button" onclick="addTag('code')">&lt;/&gt;</button>
+                        <div class="mode-switch"></div>
+                        <button type="button" onclick="addTag('- ')">•</button>
+                    </div>
+                    <div class="modes">
+                        <button type="button" id="tab-write" class="active" onclick="switchMode('write')">Write</button>
+                        <button type="button" id="tab-preview" onclick="switchMode('preview')">Preview</button>
+                    </div>
+                </div>
+                <textarea name="content" id="f-content" required placeholder="Describe the resource..."></textarea>
+                <div id="f-preview" style="display: none;" class="markdown-preview"></div>
+            </div>
+
+            <div class="drawer-footer">
+                <button type="button" onclick="togglePanel()" class="btn-cancel">Cancel</button>
+                <button type="submit" id="sync-btn" class="btn-sync">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+    <!-- Footer.html -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <i class="fa-solid fa-city"></i> Resi<span>Hub</span>
+            </div>
+            <div class="footer-links">
+                <a href="/">Dashboard</a>
+                <a href="/submit.html">Contribute</a>
+                <a href="#">Privacy</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2026 Intelligence Layer v1.0
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            // 1. Check for saved preference
+            const savedTheme = localStorage.getItem('resiHubTheme');
+            if (savedTheme === 'blue') {
+                body.setAttribute('data-theme', 'blue');
+                themeToggle.value = 'blue';
+            }
+
+            // 2. Listen for changes
+            themeToggle.addEventListener('change', function () {
+                if (this.value === 'blue') {
+                    body.setAttribute('data-theme', 'blue');
+                    localStorage.setItem('resiHubTheme', 'blue');
+                } else {
+                    body.removeAttribute('data-theme');
+                    localStorage.setItem('resiHubTheme', 'purple');
+                }
+            });
+        });
+
+        const urgencySelect = document.getElementById('urgency');
+        const formPreview = document.getElementById('broadcastForm');
+
+        if (urgencySelect != undefined) {
+            urgencySelect.addEventListener('change', function () {
+                // Remove old urgency classes
+                formPreview.classList.remove('preview-low', 'preview-medium', 'preview-high', 'preview-critical');
+                // Add new one
+                formPreview.classList.add('preview-' + this.value);
+            });
+        }
+
+        function toggleAlertFeed() {
+            const drawer = document.getElementById('alert-drawer');
+            const icon = document.getElementById('chevron-icon');
+            if (drawer && icon) {
+                drawer.classList.toggle('is-open');
+                icon.style.transform = drawer.classList.contains('is-open') ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+        }
+
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     const menuToggle = document.getElementById('menuToggle');
+        //     const sidebar = document.querySelector('.sidebar');
+        //     const overlay = document.getElementById('sidebarOverlay');
+
+        //     function toggleMenu() {
+        //         sidebar.classList.toggle('is-open');
+        //         overlay.classList.toggle('is-active');
+        //         // Change icon from bars to X
+        //         const icon = menuToggle.querySelector('i');
+        //         icon.classList.toggle('fa-bars');
+        //         icon.classList.toggle('fa-xmark');
+        //     }
+
+        //     menuToggle.addEventListener('click', toggleMenu);
+        //     overlay.addEventListener('click', toggleMenu);
+
+        //     // Close menu if a nav link is clicked
+        //     const navLinks = document.querySelectorAll('.nav-item');
+        //     navLinks.forEach(link => {
+        //         link.addEventListener('click', () => {
+        //             if (sidebar.classList.contains('is-open')) toggleMenu();
+        //         });
+        //     });
+        // });
+
+
+        function prepareEdit() {
+            const wikiContainer = document.querySelector('.wiki-render');
+            const titleInput = document.getElementById('community-overview');
+            const title = document.getElementById('title');
+            const contentInput = document.getElementById('f-content');
+
+
+            // 1. Get the Title (usually the first H1)
+            const currentTitle = wikiContainer.querySelector('h1')?.innerText || "";
+            if (currentTitle) {
+                title.value = currentTitle;
+                title.setAttribute('readonly', true);
+                title.style.backgroundColor = "rgba(241, 245, 249, 0.5)";
+            } else {
+                title.removeAttribute('readonly');
+                title.style.backgroundColor = "transparent";
+            }
+
+            // 2. Get the Body Content
+            // We clone it to remove the H1 so we don't double up on titles
+            const tempDiv = wikiContainer.cloneNode(true);
+            const h1ToRemove = tempDiv.querySelector('h1');
+            if (h1ToRemove) h1ToRemove.remove();
+
+            // 3. Clean up the text (Remove extra whitespace caused by the 'everything in <p>' bug)
+            let rawText = tempDiv.innerText.trim();
+
+            const rawMarkdown = wikiContainer.getAttribute('data-raw-md');
+            const titlePattern = new RegExp(`^#\\s+${currentTitle}\\s+`, 'i');
+            contentInput.value = rawMarkdown.replace(titlePattern, '').trim();
+
+            // Inject into the textarea
+            //contentInput.value = rawText;
+
+            // 4. Open the Drawer (ensure your drawer toggle logic is called here)
+            togglePanel();
+        }
+
+        // 1. Toggle Panel
+        function togglePanel() {
+            // 1. Get the condo name from your Jekyll template variable
+            // If we are on the home page, this will likely be an empty string or "index"
+            const currentCondo = "".trim();
+
+            const condoInput = document.getElementById('condo');
+
+            if (condoInput) {
+                // 2. Check if currentCondo has a valid value (not blank and not a template error)
+                if (currentCondo && currentCondo !== "") {
+                    // SCENARIO: Inside a Condo Page -> Pre-fill and Lock
+                    condoInput.value = currentCondo;
+                    condoInput.setAttribute('readonly', true);
+
+                    // Apply "Decent" professional locked styling
+                    condoInput.style.backgroundColor = "rgba(241, 245, 249, 0.5)";
+                    condoInput.style.cursor = "not-allowed";
+                    condoInput.style.opacity = "0.8";
+                } else {
+                    // SCENARIO: Global Dashboard -> Allow user to type new Condo Name
+                    condoInput.value = "";
+                    condoInput.removeAttribute('readonly');
+
+                    // Reset to default editable styling
+                    condoInput.style.backgroundColor = "transparent";
+                    condoInput.style.cursor = "text";
+                    condoInput.style.opacity = "1";
+                }
+            }
+            document.getElementById('editor-panel').classList.toggle('is-open');
+        }
+
+        function addTag(type) {
+            const el = document.getElementById('f-content'); // Matches your textarea ID
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const selectedText = el.value.substring(start, end);
+
+            let before = "";
+            let after = "";
+            let isPrefix = false;
+
+            switch (type) {
+                case 'h': // Heading
+                    before = "### ";
+                    isPrefix = true;
+                    break;
+                case 'b': // Bold
+                    before = "**";
+                    after = "**";
+                    break;
+                case 'i': // Italic
+                    before = "_";
+                    after = "_";
+                    break;
+                case 'ul': // Unordered List
+                    before = "- ";
+                    isPrefix = true;
+                    break;
+                case 'ol': // Ordered List
+                    before = "1. ";
+                    isPrefix = true;
+                    break;
+                case 'code': // Code Block
+                    before = "```\n";
+                    after = "\n```";
+                    break;
+                default:
+                    return;
+            }
+
+            // Logical construction of the new text
+            let newText;
+            if (isPrefix) {
+                // For headings/lists, we ensure they start on a new line
+                const needsNewline = start !== 0 && el.value[start - 1] !== '\n';
+                const prefix = needsNewline ? "\n" + before : before;
+                newText = el.value.substring(0, start) + prefix + selectedText + el.value.substring(end);
+                before = prefix; // Update for cursor calculation
+            } else {
+                // Standard wrapping for bold/italic/code
+                newText = el.value.substring(0, start) + before + selectedText + after + el.value.substring(end);
+            }
+
+            el.value = newText;
+
+            // Reposition cursor for better UX
+            el.focus();
+            if (selectedText.length > 0) {
+                // If text was highlighted, put cursor after the 'after' tag
+                const newPos = start + before.length + selectedText.length + after.length;
+                el.setSelectionRange(newPos, newPos);
+            } else {
+                // If no text was highlighted, put cursor between tags (e.g., inside **)
+                const newPos = start + before.length;
+                el.setSelectionRange(newPos, newPos);
+            }
+
+            // Trigger preview update if you have an auto-renderer
+            if (typeof updatePreview === "function") updatePreview();
+        }
+
+        function switchMode(mode) {
+            const isPreview = mode === 'preview';
+            const content = document.getElementById('f-content');
+            const preview = document.getElementById('f-preview');
+
+            content.style.display = isPreview ? 'none' : 'block';
+            preview.style.display = isPreview ? 'block' : 'none';
+
+            if (isPreview) {
+                // Check if marked is available before calling it
+                if (typeof marked !== 'undefined') {
+                    preview.innerHTML = marked.parse(content.value || "No content entered yet...");
+                } else {
+                    preview.innerHTML = "<p style='color:red;'>Error: Markdown library still loading. Please wait.</p>";
+                }
+            }
+
+            document.getElementById('tab-write').classList.toggle('active', !isPreview);
+            document.getElementById('tab-preview').classList.toggle('active', isPreview);
+        }
+
+        document.getElementById('drawer-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('sync-btn');
+            const originalText = btn.innerText;
+            btn.innerText = "Syncing..."; btn.disabled = true;
+
+            const fd = new FormData(e.target);
+            fd.append("condo", document.getElementById('condo').innerText);
+
+            try {
+                const res = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
+                    method: 'POST',
+                    body: fd
+                });
+                if (res.ok) {
+                    alert("Changes successfully synced to GitHub!");
+                    location.reload();
+                } else { throw new Error(); }
+            } catch (err) {
+                alert("Error connecting to GitHub. Please try again.");
+                btn.innerText = originalText; btn.disabled = false;
+            }
+        });
+
+        function openContributionDrawer(type) {
+            const drawer = document.getElementById('contribution-drawer'); // Your drawer ID
+            const titleInput = document.getElementById('resource-title');
+            const contentInput = document.getElementById('form-content');
+
+            // Optional: Pre-fill data if editing existing content
+            const currentTitle = document.querySelector('.wiki-render h1')?.innerText || "";
+            if (titleInput) titleInput.value = currentTitle;
+
+            // Show the drawer
+            if (drawer) {
+                drawer.classList.add('open');
+            }
+        }
+
+        function insertFormat(type) {
+            const el = document.getElementById('submissionForm');
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const selectedText = el.value.substring(start, end);
+            let before = "", after = "";
+
+            switch (type) {
+                case 'h': before = "### "; break;
+                case 'b': before = "**"; after = "**"; break;
+                case 'i': before = "*"; after = "*"; break;
+                case 'ul': before = "- "; break;
+                case 'ol': before = "1. "; break;
+                case 'code': before = "```\n"; after = "\n```"; break;
+            }
+
+            const newText = el.value.substring(0, start) + before + selectedText + after + el.value.substring(end);
+            el.value = newText;
+
+            // Maintain focus and set cursor position
+            el.focus();
+            const cursorOffset = before.length + selectedText.length + after.length;
+            el.setSelectionRange(start + cursorOffset, start + cursorOffset);
+        }
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('navToggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            if (menuToggle && sidebar) {
+                menuToggle.addEventListener('click', function (e) {
+                    e.stopPropagation(); // Stops the click from bubbling up
+                    sidebar.classList.toggle('is-open');
+                    if (overlay) overlay.classList.toggle('is-active');
+
+                    // Toggle Icon
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-bars');
+                        icon.classList.toggle('fa-xmark');
+                    }
+                });
+
+                // Close menu when clicking the overlay
+                if (overlay) {
+                    overlay.addEventListener('click', function () {
+                        sidebar.classList.remove('is-open');
+                        overlay.classList.remove('is-active');
+
+                        // Reset Icon
+                        const icon = menuToggle.querySelector('i');
+                        if (icon) {
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-xmark');
+                        }
+                    });
+                }
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
