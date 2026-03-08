@@ -4,6 +4,7 @@
 <head>
     {% include head.html %}
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
 </head>
 
 <body>
@@ -20,7 +21,6 @@
     <!-- Header.html -->
     {% include header.html %}
 
-    
     <div class="app-shell">
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         {% include sidebar.html %}
@@ -109,7 +109,7 @@
         const urgencySelect = document.getElementById('urgency');
         const formPreview = document.getElementById('broadcastForm');
 
-        if(urgencySelect != undefined){
+        if (urgencySelect != undefined) {
             urgencySelect.addEventListener('change', function () {
                 // Remove old urgency classes
                 formPreview.classList.remove('preview-low', 'preview-medium', 'preview-high', 'preview-critical');
@@ -159,14 +159,14 @@
             const titleInput = document.getElementById('community-overview');
             const title = document.getElementById('title');
             const contentInput = document.getElementById('f-content');
-            
-            
+
+
             // 1. Get the Title (usually the first H1)
             const currentTitle = wikiContainer.querySelector('h1')?.innerText || "";
-            if(currentTitle){
+            if (currentTitle) {
                 title.value = currentTitle;
                 title.setAttribute('readonly', true);
-                    title.style.backgroundColor = "rgba(241, 245, 249, 0.5)";
+                title.style.backgroundColor = "rgba(241, 245, 249, 0.5)";
             } else {
                 title.removeAttribute('readonly');
                 title.style.backgroundColor = "transparent";
@@ -194,34 +194,34 @@
 
         // 1. Toggle Panel
         function togglePanel() {
-           // 1. Get the condo name from your Jekyll template variable
-        // If we are on the home page, this will likely be an empty string or "index"
-        const currentCondo = "{{ page.condo }}".trim(); 
+            // 1. Get the condo name from your Jekyll template variable
+            // If we are on the home page, this will likely be an empty string or "index"
+            const currentCondo = "{{ page.condo }}".trim();
 
-        const condoInput = document.getElementById('condo');
+            const condoInput = document.getElementById('condo');
 
-        if (condoInput) {
-            // 2. Check if currentCondo has a valid value (not blank and not a template error)
-            if (currentCondo && currentCondo !== "") {
-                // SCENARIO: Inside a Condo Page -> Pre-fill and Lock
-                condoInput.value = currentCondo;
-                condoInput.setAttribute('readonly', true);
-                
-                // Apply "Decent" professional locked styling
-                condoInput.style.backgroundColor = "rgba(241, 245, 249, 0.5)";
-                condoInput.style.cursor = "not-allowed";
-                condoInput.style.opacity = "0.8";
-            } else {
-                // SCENARIO: Global Dashboard -> Allow user to type new Condo Name
-                condoInput.value = ""; 
-                condoInput.removeAttribute('readonly');
-                
-                // Reset to default editable styling
-                condoInput.style.backgroundColor = "transparent";
-                condoInput.style.cursor = "text";
-                condoInput.style.opacity = "1";
+            if (condoInput) {
+                // 2. Check if currentCondo has a valid value (not blank and not a template error)
+                if (currentCondo && currentCondo !== "") {
+                    // SCENARIO: Inside a Condo Page -> Pre-fill and Lock
+                    condoInput.value = currentCondo;
+                    condoInput.setAttribute('readonly', true);
+
+                    // Apply "Decent" professional locked styling
+                    condoInput.style.backgroundColor = "rgba(241, 245, 249, 0.5)";
+                    condoInput.style.cursor = "not-allowed";
+                    condoInput.style.opacity = "0.8";
+                } else {
+                    // SCENARIO: Global Dashboard -> Allow user to type new Condo Name
+                    condoInput.value = "";
+                    condoInput.removeAttribute('readonly');
+
+                    // Reset to default editable styling
+                    condoInput.style.backgroundColor = "transparent";
+                    condoInput.style.cursor = "text";
+                    condoInput.style.opacity = "1";
+                }
             }
-        }
             document.getElementById('editor-panel').classList.toggle('is-open');
         }
 
@@ -230,12 +230,12 @@
             const start = el.selectionStart;
             const end = el.selectionEnd;
             const selectedText = el.value.substring(start, end);
-            
+
             let before = "";
             let after = "";
             let isPrefix = false;
 
-            switch(type) {
+            switch (type) {
                 case 'h': // Heading
                     before = "### ";
                     isPrefix = true;
@@ -380,44 +380,44 @@
             el.setSelectionRange(start + cursorOffset, start + cursorOffset);
         }
 
-        
+
 
         document.addEventListener('DOMContentLoaded', function () {
-    const menuToggle = document.getElementById('navToggle');
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.getElementById('sidebarOverlay');
+            const menuToggle = document.getElementById('navToggle');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
 
-    if (menuToggle && sidebar) {
-        menuToggle.addEventListener('click', function(e) {
-            e.stopPropagation(); // Stops the click from bubbling up
-            sidebar.classList.toggle('is-open');
-            if (overlay) overlay.classList.toggle('is-active');
-            
-            // Toggle Icon
-            const icon = menuToggle.querySelector('i');
-            if(icon) {
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-xmark');
+            if (menuToggle && sidebar) {
+                menuToggle.addEventListener('click', function (e) {
+                    e.stopPropagation(); // Stops the click from bubbling up
+                    sidebar.classList.toggle('is-open');
+                    if (overlay) overlay.classList.toggle('is-active');
+
+                    // Toggle Icon
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-bars');
+                        icon.classList.toggle('fa-xmark');
+                    }
+                });
+
+                // Close menu when clicking the overlay
+                if (overlay) {
+                    overlay.addEventListener('click', function () {
+                        sidebar.classList.remove('is-open');
+                        overlay.classList.remove('is-active');
+
+                        // Reset Icon
+                        const icon = menuToggle.querySelector('i');
+                        if (icon) {
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-xmark');
+                        }
+                    });
+                }
             }
         });
 
-        // Close menu when clicking the overlay
-        if (overlay) {
-            overlay.addEventListener('click', function() {
-                sidebar.classList.remove('is-open');
-                overlay.classList.remove('is-active');
-                
-                // Reset Icon
-                const icon = menuToggle.querySelector('i');
-                if(icon) {
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-xmark');
-                }
-            });
-        }
-    }
-});
-        
 
     </script>
 </body>

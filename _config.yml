@@ -1,5 +1,10 @@
+# Site Settings
+title: ResiHub
+#baseurl: "/lab-community" # Leave empty if your site is at the root domain
+#url: "https://lab-community.pages.dev"
+
 # Settings to fix the subfolder paths
-baseurl: "/lab-community"
+baseurl: ""
 url: "https://dekumar2-lab.github.io"
 
 # Ensure Jekyll looks into these folders for your guides
