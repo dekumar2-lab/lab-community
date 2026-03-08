@@ -2,14 +2,14 @@
 layout: default
 title: "Community Overview"
 condo: "North York"
-date: 2026-03-01T14:30:40.279Z
+date: 2026-03-08T23:51:37.361Z
 ---
 
 # Community Overview
 
 
 
-North York is a dynamic former city and now prominent district in Toronto, offering a compelling mix of urban energy and natural beauty. Centred around the intersection of Yonge Street and Sheppard Avenue, this area serves as a major suburban hub north of downtown .
+**North York** is a dynamic former city and now prominent district in Toronto, offering a compelling mix of urban energy and natural beauty. Centred around the intersection of Yonge Street and Sheppard Avenue, this area serves as a major suburban hub north of downtown .
 
 **Earl Bales Park** A true community backyard, this expansive park offers forest trails, a splash pad, and an outdoor amphitheatre hosting summer concerts. It’s a perfect spot for families and nature lovers to enjoy a wide range of outdoor activities without leaving the city .
 
