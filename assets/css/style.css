@@ -59,7 +59,7 @@
 */
   body {
     /* font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif; */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif !important;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -69,12 +69,12 @@
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    font-size: 0.8rem;
-    line-height: 1.6;
-    color: var(--text-main);
+    font-size: 0.8rem !important;
+    line-height: 1.6 !important;
+    color: var(--text-main) !important;
     overflow-x: hidden;
-    letter-spacing: -0.04em;
-    line-height: 1.1;
+    letter-spacing: -0.04em !important;
+    line-height: 1.1 !important;
   }
 
   body::before {
@@ -319,7 +319,7 @@
     display: flex;
     flex: 1;
     width: 100%;
-    max-width: 1440px;
+    max-width: 1280px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
@@ -471,16 +471,16 @@
   .wiki-render textarea {
 
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.8rem  !important;
     line-height: 1.6;
     word-wrap: break-word;
     /* font-weight: 700 !important; */
     /* Forces normal weight for body text */
-    color: #1f2328;
+    color: #1f2328 !important;
   }
 
   .wiki-render {
-    font-size: 14px;
+    font-size: 14px !important;
   }
 
   /* Fix the Bolding Issue */
@@ -548,9 +548,9 @@
     justify-content: center;
     /* Centers content vertically in the square */
 
-    background: var(--glass-white);
+    background: var(--glass-white) !important;
     backdrop-filter: blur(15px);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border) !important;
     border-radius: 20px;
     text-align: center;
     text-decoration: none;
@@ -561,11 +561,11 @@
   }
 
   .hub-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-6px) !important;
     /* Slightly subtler lift */
-    border-color: var(--primary);
-    box-shadow: 0 12px 30px var(--primary-glow);
-    background: #fff;
+    border-color: var(--primary) !important;
+    box-shadow: 0 12px 30px var(--primary-glow) !important;
+    background: #fff !important;
   }
 
   /* Ensuring icons and text don't create extra unwanted space */
@@ -1449,6 +1449,15 @@ IMAGE UPLOAD
   cursor: pointer; background: #673ab7; color: white; padding: 5px 15px; border-radius: 4px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;}
   .upload-status{font-size: 0.8rem; color: #aaa;}
 
+  /* ================================================================
+   MARKETPLACE HTMLS
+   ================================================================ */
+
+  .pro-profile { padding: 20px; /*border: 1px solid #ddd; border-radius: 8px;*/ }
+  .badge.verified { background: #e7f3ff; color: var(--primary);; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+  .category-tag { color: #666; font-style: italic; margin-top: -10px; }
+  .action-zone { margin-top: 20px; padding: 10px; background: #f9f9f9; border-radius: 6px; }
+  .btn-primary { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
 
   /* ================================================================
    1. DESKTOP & IPAD DEFAULT (Greater than 768px)

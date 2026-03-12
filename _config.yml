@@ -1,14 +1,15 @@
 # Site Settings
 title: ResiHub
-#baseurl: "/lab-community" # Leave empty if your site is at the root domain
-#url: "https://lab-community.pages.dev"
-
-# Settings to fix the subfolder paths
 baseurl: ""
 url: "https://dekumar2-lab.github.io"
 
-# Ensure Jekyll looks into these folders for your guides
-include: [content, assets]
+# 1. Define the Marketplace Collection
+collections:
+  pros:
+    output: true
+    permalink: /marketplace/:name/
 
-# Optional: Set a default theme as a fallback
+# 2. Ensure Jekyll includes your content
+include: [content, assets, _pros]
+
 theme: jekyll-theme-cayman

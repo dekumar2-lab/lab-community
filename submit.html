@@ -21,39 +21,20 @@ title: Contribute to ResiHub
                 <label for="title">Resource Title</label>
                 <input type="text" id="title" name="title" placeholder="e.g., Waste Management Guide" required>
             </div>
-
-            <!-- <div class="submit-editor-container-box">
+            <div class="form-group">
+                <label for="image">Service Photo / Menu (Optional)</label>
+                <input type="file" id="image" name="image" accept="image/*" class="file-input">
+                <p class="help-text">JPG, PNG or WebP supported.</p>
+            </div>
+            <div class="editor-container-box">
                 <label for="content">Documentation Content (Markdown Supported)</label>
                 <div class="submit-toolbar">
                     <div class="tools">
                         <button type="button" onclick="addTag('h')">H</button>
                         <button type="button" onclick="addTag('b')">B</button>
                         <button type="button" onclick="addTag('i')">I</button> <button type="button"
-                            onclick="addTag('ul')">ul</button> <button type="button"
-                            onclick="addTag('ol')">ol</button> <button type="button"
-                            onclick="addTag('code')">&lt;/&gt;</button>
-                        <div class="mode-switch"></div>
-                        <button type="button" onclick="addTag('- ')">•</button>
-                    </div>
-                    <div class="modes">
-                        <button type="button" id="tab-write" class="active" onclick="switchMode('write')">Write</button>
-                        <button type="button" id="tab-preview" onclick="switchMode('preview')">Preview</button>
-                    </div>
-                </div>
-                <textarea name="content" id="f-content" required placeholder="Describe the resource..."></textarea>
-                <div id="f-preview" style="display: none;" class="markdown-preview"></div>
-            </div> -->
-
-                        <div class="editor-container-box">
-                <label for="content">Documentation Content (Markdown Supported)</label>
-                <div class="submit-toolbar">
-                    <div class="tools">
-                        <button type="button" onclick="addTag('h')">H</button>
-                        <button type="button" onclick="addTag('b')">B</button>
-                        <button type="button" onclick="addTag('i')">I</button> <button type="button"
-                            onclick="addTag('ul')">ul</button> <button type="button"
-                            onclick="addTag('ol')">ol</button> <button type="button"
-                            onclick="addTag('code')">&lt;/&gt;</button>
+                            onclick="addTag('ul')">ul</button> <button type="button" onclick="addTag('ol')">ol</button>
+                        <button type="button" onclick="addTag('code')">&lt;/&gt;</button>
                         <div class="mode-switch"></div>
                         <button type="button" onclick="addTag('- ')">•</button>
                     </div>
@@ -78,6 +59,16 @@ title: Contribute to ResiHub
 <script>
     window.onload = async () => {
         const urlParams = new URLSearchParams(window.location.search);
+        // Handle Marketplace Mode
+        if (urlParams.get('type') === 'marketplace') {
+            document.getElementById('formTitle').innerText = "Post a Marketplace Ad";
+            document.querySelector('input[name="type"]').value = "marketplace";
+            
+            // Update labels for Marketplace context
+            document.querySelector('label[for="title"]').innerText = "Business or Service Name";
+            document.getElementById('title').placeholder = "e.g., Service Name";
+            document.querySelector('label[for="f-content"]').innerText = "Service Details & Menu";
+        }
 
         // Handle normal creation mode
         if (urlParams.has('condo') && !urlParams.has('edit')) {

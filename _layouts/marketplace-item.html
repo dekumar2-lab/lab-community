@@ -1,0 +1,32 @@
+---
+layout: default
+---
+<div class="marketplace-container">
+  <nav style="margin-bottom: 20px;">
+    <a href="/marketplace" style="text-decoration: none;">← Back to {{ page.target_community }} Marketplace</a>
+  </nav>
+
+  <article class="pro-profile card">
+    <header class="pro-header">
+      <div class="header-main">
+        <h1>{{ page.title }}</h1>
+        {% if page.verified %}
+          <span class="badge verified">✓ Verified Pro</span>
+        {% endif %}
+      </div>
+      <p class="category-tag">{{ page.category }} • {{ page.target_community }}</p>
+    </header>
+
+    <hr>
+
+    <div class="pro-body">
+      {{ content }}
+    </div>
+
+    <section class="action-zone">
+      <h3>Interested in this service?</h3>
+      <p>Community vouches for this provider: <strong>{{ page.vouched_by | default: 0 }}</strong></p>
+      <button class="btn-primary" onclick="alert('Vouching system coming soon!')">Vouch for this Pro</button>
+    </section>
+  </article>
+</div>
