@@ -2,16 +2,14 @@
 layout: default
 title: "Community Overview"
 condo: "Elm Drive"
-date: 2026-03-08T23:51:19.105Z
+date: 2026-02-28T03:18:21.738Z
 ---
 
 # Community Overview
 
+### Elm Drive
 
-
-### Elm Drive 
-
-The **Elm Drive** area is the vibrant heart of Mississauga’s downtown core, defined by modern condos like the Edge Towers. It offers an urban lifestyle with exceptional walkability, placing residents steps from major attractions and essential amenities.
+The Elm Drive area is the vibrant heart of Mississauga’s downtown core, defined by modern condos like the Edge Towers. It offers an urban lifestyle with exceptional walkability, placing residents steps from major attractions and essential amenities.
 
 **Kariya Park** This stunning, Japanese-inspired park is a tranquil oasis in the downtown core. Named after Mississauga’s sister city in Japan, it features serene gardens, a koi pond, a zig-zag boardwalk, and a cascade waterfall. It is famously home to approximately 80 cherry blossom trees that transform the park into a pink wonderland each spring .
 
