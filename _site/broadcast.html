@@ -1660,7 +1660,6 @@ IMAGE UPLOAD
     </div>
 </header>
 
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="app-shell">
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <aside class="sidebar">
@@ -1693,6 +1692,12 @@ IMAGE UPLOAD
             
             
             
+            <a href="/list-service.html" class="nav-item ">
+                <i class="fa-solid fa-earth-americas"></i> List a Service
+            </a>
+            
+            
+            
             
             
             
@@ -1703,20 +1708,14 @@ IMAGE UPLOAD
             
             
 
-            <div class="sidebar-footer-action">
-                <a href="/submit?type=marketplace" class="nav-item secondary">
-                    <i class="fa-solid fa-bullhorn"></i> Running a local service?
-                </a>
-                <a href="/broadcast.html" class="nav-item secondary">
-                    <i class="fa-solid fa-bullhorn"></i> Send Community Broadcast
-                </a>
-                <!-- <a href="/submit.html" class="nav-item secondary">
-                    <i class="fa-solid fa-circle-plus"></i> Contribute to ResiHub
-                </a> -->
-                <a href="#" class="nav-item secondary" onclick="togglePanel()">
-                    <i class="fa-solid fa-circle-plus"></i> Contribute to ResiHub
-                </a>
-                <!-- <a href="/submit.html?condo=General" class="btn-global-post" style="margin-top: 10px;">
+                    <div class="sidebar-footer-action">
+                        <a href="/broadcast.html" class="nav-item secondary">
+                            <i class="fa-solid fa-bullhorn"></i> Send Community Broadcast
+                        </a>
+                        <a href="/submit.html" class="nav-item secondary">
+                            <i class="fa-solid fa-circle-plus"></i> Contribute to ResiHub
+                        </a>
+                        <!-- <a href="/submit.html?condo=General" class="btn-global-post" style="margin-top: 10px;">
                             <i class="fa-solid fa-earth-americas"></i> Post to Global
                         </a> -->
             </div>
@@ -2092,12 +2091,14 @@ IMAGE UPLOAD
         const urgencySelect = document.getElementById('urgency');
         const formPreview = document.getElementById('broadcastForm');
 
-        urgencySelect.addEventListener('change', function () {
-            // Remove old urgency classes
-            formPreview.classList.remove('preview-low', 'preview-medium', 'preview-high', 'preview-critical');
-            // Add new one
-            formPreview.classList.add('preview-' + this.value);
-        });
+        if (urgencySelect != undefined) {
+            urgencySelect.addEventListener('change', function () {
+                // Remove old urgency classes
+                formPreview.classList.remove('preview-low', 'preview-medium', 'preview-high', 'preview-critical');
+                // Add new one
+                formPreview.classList.add('preview-' + this.value);
+            });
+        }
 
         function toggleAlertFeed() {
             const drawer = document.getElementById('alert-drawer');
@@ -2108,31 +2109,297 @@ IMAGE UPLOAD
             }
         }
 
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     const menuToggle = document.getElementById('menuToggle');
+        //     const sidebar = document.querySelector('.sidebar');
+        //     const overlay = document.getElementById('sidebarOverlay');
+
+        //     function toggleMenu() {
+        //         sidebar.classList.toggle('is-open');
+        //         overlay.classList.toggle('is-active');
+        //         // Change icon from bars to X
+        //         const icon = menuToggle.querySelector('i');
+        //         icon.classList.toggle('fa-bars');
+        //         icon.classList.toggle('fa-xmark');
+        //     }
+
+        //     menuToggle.addEventListener('click', toggleMenu);
+        //     overlay.addEventListener('click', toggleMenu);
+
+        //     // Close menu if a nav link is clicked
+        //     const navLinks = document.querySelectorAll('.nav-item');
+        //     navLinks.forEach(link => {
+        //         link.addEventListener('click', () => {
+        //             if (sidebar.classList.contains('is-open')) toggleMenu();
+        //         });
+        //     });
+        // });
+
+
+        function prepareEdit() {
+            const wikiContainer = document.querySelector('.wiki-render');
+            const titleInput = document.getElementById('community-overview');
+            const title = document.getElementById('title');
+            const contentInput = document.getElementById('f-content');
+
+
+            // 1. Get the Title (usually the first H1)
+            const currentTitle = wikiContainer.querySelector('h1')?.innerText || "";
+            if (currentTitle) {
+                title.value = currentTitle;
+                title.setAttribute('readonly', true);
+                title.style.backgroundColor = "rgba(241, 245, 249, 0.5)";
+            } else {
+                title.removeAttribute('readonly');
+                title.style.backgroundColor = "transparent";
+            }
+
+            // 2. Get the Body Content
+            // We clone it to remove the H1 so we don't double up on titles
+            const tempDiv = wikiContainer.cloneNode(true);
+            const h1ToRemove = tempDiv.querySelector('h1');
+            if (h1ToRemove) h1ToRemove.remove();
+
+            // 3. Clean up the text (Remove extra whitespace caused by the 'everything in <p>' bug)
+            let rawText = tempDiv.innerText.trim();
+
+            const rawMarkdown = wikiContainer.getAttribute('data-raw-md');
+            const titlePattern = new RegExp(`^#\\s+${currentTitle}\\s+`, 'i');
+            contentInput.value = rawMarkdown.replace(titlePattern, '').trim();
+
+            // Inject into the textarea
+            //contentInput.value = rawText;
+
+            // 4. Open the Drawer (ensure your drawer toggle logic is called here)
+            togglePanel();
+        }
+
+        // 1. Toggle Panel
+        function togglePanel() {
+            // 1. Get the condo name from your Jekyll template variable
+            // If we are on the home page, this will likely be an empty string or "index"
+            const currentCondo = "".trim();
+
+            const condoInput = document.getElementById('condo');
+
+            if (condoInput) {
+                // 2. Check if currentCondo has a valid value (not blank and not a template error)
+                if (currentCondo && currentCondo !== "") {
+                    // SCENARIO: Inside a Condo Page -> Pre-fill and Lock
+                    condoInput.value = currentCondo;
+                    condoInput.setAttribute('readonly', true);
+
+                    // Apply "Decent" professional locked styling
+                    condoInput.style.backgroundColor = "rgba(241, 245, 249, 0.5)";
+                    condoInput.style.cursor = "not-allowed";
+                    condoInput.style.opacity = "0.8";
+                } else {
+                    // SCENARIO: Global Dashboard -> Allow user to type new Condo Name
+                    condoInput.value = "";
+                    condoInput.removeAttribute('readonly');
+
+                    // Reset to default editable styling
+                    condoInput.style.backgroundColor = "transparent";
+                    condoInput.style.cursor = "text";
+                    condoInput.style.opacity = "1";
+                }
+            }
+            document.getElementById('editor-panel').classList.toggle('is-open');
+        }
+
+        function addTag(type) {
+            const el = document.getElementById('f-content'); // Matches your textarea ID
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const selectedText = el.value.substring(start, end);
+            let before = "";
+            let after = "";
+            let isPrefix = false;
+
+            switch (type) {
+                case 'h': // Heading
+                    before = "### ";
+                    isPrefix = true;
+                    break;
+                case 'b': // Bold
+                    before = "**";
+                    after = "**";
+                    break;
+                case 'i': // Italic
+                    before = "_";
+                    after = "_";
+                    break;
+                case 'ul': // Unordered List
+                    before = "- ";
+                    isPrefix = true;
+                    break;
+                case 'ol': // Ordered List
+                    before = "1. ";
+                    isPrefix = true;
+                    break;
+                case 'code': // Code Block
+                    before = "```\n";
+                    after = "\n```";
+                    break;
+                default:
+                    return;
+            }
+
+            // Logical construction of the new text
+            let newText;
+            if (isPrefix) {
+                // For headings/lists, we ensure they start on a new line
+                const needsNewline = start !== 0 && el.value[start - 1] !== '\n';
+                const prefix = needsNewline ? "\n" + before : before;
+                newText = el.value.substring(0, start) + prefix + selectedText + el.value.substring(end);
+                before = prefix; // Update for cursor calculation
+            } else {
+                // Standard wrapping for bold/italic/code
+                newText = el.value.substring(0, start) + before + selectedText + after + el.value.substring(end);
+            }
+
+            el.value = newText;
+
+            // Reposition cursor for better UX
+            el.focus();
+            if (selectedText.length > 0) {
+                // If text was highlighted, put cursor after the 'after' tag
+                const newPos = start + before.length + selectedText.length + after.length;
+                el.setSelectionRange(newPos, newPos);
+            } else {
+                // If no text was highlighted, put cursor between tags (e.g., inside **)
+                const newPos = start + before.length;
+                el.setSelectionRange(newPos, newPos);
+            }
+
+            // Trigger preview update if you have an auto-renderer
+            if (typeof updatePreview === "function") updatePreview();
+        }
+
+        function switchMode(mode) {
+            const isPreview = mode === 'preview';
+            const content = document.getElementById('f-content');
+            const preview = document.getElementById('f-preview');
+
+            content.style.display = isPreview ? 'none' : 'block';
+            preview.style.display = isPreview ? 'block' : 'none';
+
+            if (isPreview) {
+                // Check if marked is available before calling it
+                if (typeof marked !== 'undefined') {
+                    preview.innerHTML = marked.parse(content.value || "No content entered yet...");
+                } else {
+                    preview.innerHTML = "<p style='color:red;'>Error: Markdown library still loading. Please wait.</p>";
+                }
+            }
+
+            document.getElementById('tab-write').classList.toggle('active', !isPreview);
+            document.getElementById('tab-preview').classList.toggle('active', isPreview);
+        }
+
+        document.getElementById('drawer-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('sync-btn');
+            const originalText = btn.innerText;
+            btn.innerText = "Syncing..."; btn.disabled = true;
+
+            const fd = new FormData(e.target);
+            fd.append("condo", document.getElementById('condo').innerText);
+
+            try {
+                const res = await fetch('https://plain-smoke-2176.dekumar-ca.workers.dev/', {
+                    method: 'POST',
+                    body: fd
+                });
+                if (res.ok) {
+                    alert("Changes successfully synced to GitHub!");
+                    location.reload();
+                } else { throw new Error(); }
+            } catch (err) {
+                alert("Error connecting to GitHub. Please try again.");
+                btn.innerText = originalText; btn.disabled = false;
+            }
+        });
+
+        function openContributionDrawer(type) {
+            const drawer = document.getElementById('contribution-drawer'); // Your drawer ID
+            const titleInput = document.getElementById('resource-title');
+            const contentInput = document.getElementById('form-content');
+
+            // Optional: Pre-fill data if editing existing content
+            const currentTitle = document.querySelector('.wiki-render h1')?.innerText || "";
+            if (titleInput) titleInput.value = currentTitle;
+
+            // Show the drawer
+            if (drawer) {
+                drawer.classList.add('open');
+            }
+        }
+
+        function insertFormat(type) {
+            const el = document.getElementById('submissionForm');
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const selectedText = el.value.substring(start, end);
+            let before = "", after = "";
+
+            switch (type) {
+                case 'h': before = "### "; break;
+                case 'b': before = "**"; after = "**"; break;
+                case 'i': before = "*"; after = "*"; break;
+                case 'ul': before = "- "; break;
+                case 'ol': before = "1. "; break;
+                case 'code': before = "```\n"; after = "\n```"; break;
+            }
+
+            const newText = el.value.substring(0, start) + before + selectedText + after + el.value.substring(end);
+            el.value = newText;
+
+            // Maintain focus and set cursor position
+            el.focus();
+            const cursorOffset = before.length + selectedText.length + after.length;
+            el.setSelectionRange(start + cursorOffset, start + cursorOffset);
+        }
+
+
+
         document.addEventListener('DOMContentLoaded', function () {
-            const menuToggle = document.getElementById('menuToggle');
+            const menuToggle = document.getElementById('navToggle');
             const sidebar = document.querySelector('.sidebar');
             const overlay = document.getElementById('sidebarOverlay');
 
-            function toggleMenu() {
-                sidebar.classList.toggle('is-open');
-                overlay.classList.toggle('is-active');
-                // Change icon from bars to X
-                const icon = menuToggle.querySelector('i');
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-xmark');
-            }
+            if (menuToggle && sidebar) {
+                menuToggle.addEventListener('click', function (e) {
+                    e.stopPropagation(); // Stops the click from bubbling up
+                    sidebar.classList.toggle('is-open');
+                    if (overlay) overlay.classList.toggle('is-active');
 
-            menuToggle.addEventListener('click', toggleMenu);
-            overlay.addEventListener('click', toggleMenu);
-
-            // Close menu if a nav link is clicked
-            const navLinks = document.querySelectorAll('.nav-item');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (sidebar.classList.contains('is-open')) toggleMenu();
+                    // Toggle Icon
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.toggle('fa-bars');
+                        icon.classList.toggle('fa-xmark');
+                    }
                 });
-            });
+
+                // Close menu when clicking the overlay
+                if (overlay) {
+                    overlay.addEventListener('click', function () {
+                        sidebar.classList.remove('is-open');
+                        overlay.classList.remove('is-active');
+
+                        // Reset Icon
+                        const icon = menuToggle.querySelector('i');
+                        if (icon) {
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-xmark');
+                        }
+                    });
+                }
+            }
         });
+
+
     </script>
 </body>
 

@@ -1,0 +1,65 @@
+---
+layout: default
+title: List a Service
+---
+<div class="submission-container">
+    <h2>Post New Ad</h2>
+    <form id="marketplaceForm">
+        <input type="hidden" name="type" value="marketplace">
+        
+        <input type="hidden" name="condo" id="condo_hidden" value="General">
+
+        <div class="form-group">
+            <label>Service Photo</label>
+            <input type="file" name="image" accept="image/*" required>
+        </div>
+
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="title" placeholder="e.g., Parking Rental" required>
+        </div>
+
+        <div class="form-group">
+            <label>Price ($)</label>
+            <input type="number" name="price" placeholder="Amount">
+        </div>
+
+        <div class="form-group">
+            <label>Contact Details</label>
+            <input type="text" name="contact" placeholder="Phone or Email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="content" rows="4" placeholder="Details..."></textarea>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-sync">Post to Marketplace</button>
+    </form>
+</div>
+
+<script>
+document.getElementById('marketplaceForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = 'Broadcasting...';
+
+    try {
+        const response = await fetch('https://resihub-image-uploader.dekumar-ca.workers.dev/', {
+            method: 'POST',
+            body: new FormData(e.target)
+        });
+
+        if (response.ok) {
+            btn.innerHTML = 'Posted Successfully!';
+            setTimeout(() => window.location.href = "{{ site.baseurl }}/", 1500);
+        } else {
+            throw new Error('Post failed');
+        }
+    } catch (err) {
+        btn.disabled = false;
+        btn.innerHTML = 'Retry Post';
+    }
+};
+</script>

@@ -479,6 +479,14 @@
     color: #1f2328 !important;
   }
 
+  .wiki-render textarea{
+        width: 100%;
+    padding: 0.8rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: inherit;
+  }
+
   .wiki-render {
     font-size: 14px !important;
   }
