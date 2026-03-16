@@ -1,0 +1,25 @@
+<div class="ad-card">
+    <div class="ad-card-body">
+        <div class="ad-card-header">
+            <div>
+                <span class="tr-community">
+                    {{ ad.target_community | default: "General" }}
+                </span>
+                <h2>{{ ad.title }}</h2>
+            </div>
+            <span class="ad-price">${{ ad.price }}</span>
+        </div>
+        
+        <div class="ad-description">
+            {{ ad.content | strip_html | truncate: 120 }}
+        </div>
+        
+        <div style="font-size: 0.75rem; color: #6a737d;">
+            <i class="fa-regular fa-calendar"></i> {{ ad.date | date: "%b %d, %Y" }}
+        </div>
+    </div>
+
+    {% if ad.image_url %}
+        <img src="{{ ad.image_url }}" alt="{{ ad.title }}">
+    {% endif %}
+</div>

@@ -80,22 +80,37 @@
             <small>GLOBAL COLLECTIVE</small>
             {% assign global_pages = site.pages | where_exp: "item", "item.condo == nil" %}
             {% for p in global_pages %}
+            {% comment %}
+            Check if the title exists and ensure the path does not contain '_pros'
+            {% endcomment %}
+            {% unless p.path contains '_pros/' %}
             {% if p.title and p.url != "/" and p.url != "/submit.html" and p.url != "/broadcast.html" and p.url
-            != "/general/daily-updates.html" %}
+            != "/general/daily-updates.html" 
+            and p.url != "/list-service.html" and p.url != "/marketplace.html" %}
             <a href="{{ site.baseurl }}{{ p.url }}" class="nav-item {% if page.url == p.url %}active{% endif %}">
                 <i class="fa-solid fa-earth-americas"></i> {{ p.title }}
             </a>
+           
             {% endif %}
+            {% endunless %}
             {% endfor %}
 
-                    <div class="sidebar-footer-action">
-                        <a href="{{ site.baseurl }}/broadcast.html" class="nav-item secondary">
-                            <i class="fa-solid fa-bullhorn"></i> Send Community Broadcast
-                        </a>
-                        <a href="{{ site.baseurl }}/submit.html" class="nav-item secondary">
-                            <i class="fa-solid fa-circle-plus"></i> Contribute to ResiHub
-                        </a>
-                        <!-- <a href="{{ site.baseurl }}/submit.html?condo=General" class="btn-global-post" style="margin-top: 10px;">
+             <a href="{{ site.baseurl }}/marketplace.html" class="nav-item">
+                <i class="fa-solid fa-shop"></i> Classifieds 
+                <span class="badge-new-flash">NEW</span>
+            </a>
+            <a href="{{ site.baseurl }}/list-service.html" class="nav-item">
+                <i class="fa-solid fa-cart-plus"></i>
+                Post an Ad <span class="badge-new-flash">NEW</span>
+            </a>
+            <div class="sidebar-footer-action">
+                <a href="{{ site.baseurl }}/broadcast.html" class="nav-item secondary">
+                    <i class="fa-solid fa-bullhorn"></i> Send Community Broadcast
+                </a>
+                <a href="{{ site.baseurl }}/submit.html" class="nav-item secondary">
+                    <i class="fa-solid fa-circle-plus"></i> Contribute to ResiHub
+                </a>
+                <!-- <a href="{{ site.baseurl }}/submit.html?condo=General" class="btn-global-post" style="margin-top: 10px;">
                             <i class="fa-solid fa-earth-americas"></i> Post to Global
                         </a> -->
             </div>

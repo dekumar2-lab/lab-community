@@ -1,0 +1,10 @@
+---
+layout: default
+title: Marketplace
+---
+
+<div class="marketplace-container">
+  {% for ad in site.pros %}
+    {% include marketplace-item.html %}
+  {% endfor %}
+</div>

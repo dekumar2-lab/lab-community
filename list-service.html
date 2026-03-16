@@ -18,6 +18,21 @@ title: List a Service
             <label>Title</label>
             <input type="text" name="title" placeholder="e.g., Parking Rental" required>
         </div>
+       <div class="form-group">
+            <label>Target Community</label>
+            <select name="condo" required class="form-control">
+                <option value="General">General (All Hubs)</option>
+                {% assign community_indices = site.pages | where_exp: "p", "p.path contains 'content/'" | where_exp: "p", "p.name == 'index.md' or p.name == 'index.html'" %}
+                
+                {% for community in community_indices %}
+                    {% if community.condo %}
+                        <option value="{{ community.condo }}">{{ community.condo }}</option>
+                    {% else %}
+                        <option value="{{ community.title }}">{{ community.title }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
 
         <div class="form-group">
             <label>Price ($)</label>

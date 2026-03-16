@@ -35,31 +35,6 @@
     --glass-blur: 12px;
   }
 
-  .glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-  color: #fff; /* Assuming a dark/colorful background */
-}
-
-/* Glass Input styling for the form */
-.glass-input {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--glass-border);
-  border-radius: 8px;
-  padding: 10px;
-  color: white;
-  outline: none;
-}
-
-.glass-input:focus {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.5);
-}
-
   [data-theme="blue"] {
     /* ALTERNATE THEME: YESTERDAY BLUE */
     --primary: #3d70df;
@@ -1489,12 +1464,107 @@ IMAGE UPLOAD
    MARKETPLACE HTMLS
    ================================================================ */
 
-  .pro-profile { padding: 20px; /*border: 1px solid #ddd; border-radius: 8px;*/ }
-  .badge.verified { background: #e7f3ff; color: var(--primary);; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
-  .category-tag { color: #666; font-style: italic; margin-top: -10px; }
-  .action-zone { margin-top: 20px; padding: 10px; background: #f9f9f9; border-radius: 6px; }
-  .btn-primary { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+/* Container constraint */
+.marketplace-container {
+    max-width: 800px; /* Limits width so cards don't stretch too far */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px;
+}
 
+/* Compact Professional Card */
+.ad-card {
+    background: #ffffff;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    height: 140px; /* Fixed height for consistency */
+    transition: border-color 0.2s;
+}
+
+.ad-card:hover {
+    border-color: var(--primary-glow); /* Subtle GitHub-blue highlight on hover */
+}
+
+/* Left Details Pane */
+.ad-card-body {
+    padding: 12px 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ad-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.ad-card h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    color: #24292e;
+}
+
+.ad-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #28a745;
+}
+
+.ad-description {
+    font-size: 0.85rem;
+    color: #586069;
+    line-height: 1.4;
+    margin: 8px 0;
+}
+
+/* Right Image Pane */
+.ad-card img {
+    width: 180px; /* Reduced from 300px for better scale */
+    height: 140px;
+    object-fit: cover;
+    background-color: #f6f8fa;
+}
+
+/* New Badge Styling */
+.badge-new-flash {
+    background-color: #28a745; /* Green to match your price tags */
+    color: white;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+    animation: flash-pulse 2s infinite;
+    display: inline-block;
+}
+.tr-community {
+  font-size: 0.7rem; color: var(--primary); font-weight: bold; text-transform: uppercase;
+}
+
+/* Pulse Animation */
+@keyframes flash-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+        transform: scale(1);
+    }
+    70% {
+        box-shadow: 0 0 0 6px rgba(40, 167, 69, 0);
+        transform: scale(1.05);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+        transform: scale(1);
+    }
+}
   /* ================================================================
    1. DESKTOP & IPAD DEFAULT (Greater than 768px)
    ================================================================ */
@@ -1620,6 +1690,30 @@ IMAGE UPLOAD
         font-size: 1.1rem !important;
         white-space: nowrap;
     }
+
+    /* Stack the ad details and images vertically on tablets/phones */
+    .ad-card {
+        flex-direction: column-reverse; 
+        height: auto;
+    }
+
+    .ad-card img {
+        width: 100%;
+        height: 220px;
+        border-left: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .ad-card-body {
+        padding: 15px;
+    }
+
+    /* Make form container full width on mobile */
+    .submission-container {
+        margin: 10px;
+        padding: 15px;
+        width: calc(100% - 20px);
+    }
   }
 
   /* ================================================================
@@ -1652,4 +1746,36 @@ IMAGE UPLOAD
     .community-switcher {
       display: none;
     }
+
+    .ad-card img {
+        width: 100%;
+        height: 180px; /* Shorter image to show more text below */
+        border-left: none;
+    }
+
+    .ad-card-body {
+        padding: 12px;
+    }
+
+    .ad-card h2 {
+        font-size: 1rem;
+    }
+
+    .ad-price {
+        font-size: 0.95rem;
+    }
+
+    /* 3. Hide non-essential elements to save space */
+    .ad-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* Limits description to 2 lines */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .badge-new-flash {
+        font-size: 0.55rem;
+        padding: 1px 4px;
+    }
+    
   }
